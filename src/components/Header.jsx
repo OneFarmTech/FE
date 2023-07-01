@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/images/onefarm.svg";
+import Button from "./Button";
 
 const Header = () => (
   <header className="flex flex-row justify-between px-[4%] items-center">
@@ -10,10 +11,10 @@ const Header = () => (
     <nav>
       <ul className="flex flex-row justify-start items-center gap-x-6">
         <li>
-          <Link to='login' className="inline-block px-8 py-1 rounded-lg border border-slate-500">Login</Link>
+          <Button linkTo="login" name="Login" />
         </li>
         <li>
-          <Link className="inline-block px-8 py-1 rounded-lg bg-green-600 text-white">Sign Up</Link>
+          <Button name="Sign Up" clas="green" linkTo="signup" />
         </li>
       </ul>
     </nav>
