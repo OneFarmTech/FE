@@ -1,10 +1,11 @@
+import { Outlet } from "react-router-dom";
 import Header from "../components/Header";
 
 const Root = () => (
   <>
   
   <Header />
-  <h1> This is landing page</h1>
+  <Outlet />
   </>
 );
 
