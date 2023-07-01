@@ -10,7 +10,7 @@ const Header = () => (
     <nav>
       <ul className="flex flex-row justify-start items-center gap-x-6">
         <li>
-          <Link className="inline-block px-8 py-1 rounded-lg border border-slate-500">Login</Link>
+          <Link to='login' className="inline-block px-8 py-1 rounded-lg border border-slate-500">Login</Link>
         </li>
         <li>
           <Link className="inline-block px-8 py-1 rounded-lg bg-green-600 text-white">Sign Up</Link>
