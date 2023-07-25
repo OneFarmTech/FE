@@ -26,6 +26,9 @@ export default {
     extend: {
       fontFamily: {
         lato: ['Lato', 'sans-serif'],
+      },
+      backgroundImage: {
+        'headline': "url('../images/bg1.png')"
       }
     },
   },

@@ -1,5 +1,7 @@
+import HomeHeadline from "../components/HomeHeadline";
+
 const Home = () => (
-  <>This is the real landing page</>
+  <HomeHeadline />
 );
 
 export default Home;

@@ -16,3 +16,22 @@
     @apply block w-full h-auto m-[0_auto];
   }
 }
+
+@layer components {
+  .my-grid {
+    grid-template-areas: 
+    "h1 l"
+    "d l"
+    ;
+  }
+
+  .my-h1 {
+    grid-area: h1;
+  }
+  .my-d {
+    grid-area: d;
+  }
+  .my-l {
+    grid-area: l;
+  }
+}
