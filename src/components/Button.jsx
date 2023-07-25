@@ -7,11 +7,11 @@ const Button = (props) => {
 
   const checkClass = (check) => {
     if (check == 'green') {
-      return 'inline-block px-8 py-1 rounded-lg bg-green-600 text-white';
+      return 'inline-block px-10 py-3 rounded-xl bg-green-30 text-green-10';
     }
 
     if (check == 'white') {
-      return 'inline-block px-8 py-1 rounded-lg border border-slate-500';
+      return 'inline-block px-10 py-3 bg-transparent rounded-xl border-[3px] border-green-30 text-green-30';
     }
 
   };

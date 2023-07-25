@@ -5,10 +5,14 @@
 
 @layer base {
   * {
-    @apply font-lato;
+    @apply font-lato text-black-100;
   }
 
   body {
     @apply md:bg-green-10
+  }
+
+  img {
+    @apply block w-full h-auto m-[0_auto];
   }
 }
