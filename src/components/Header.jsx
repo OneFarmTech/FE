@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/images/onefarm.svg";
 import Button from "./Button";
 import { VscMenu } from "react-icons/vsc";
@@ -11,10 +11,46 @@ const Header = () => (
 
     <nav className="hidden lg:block">
       <ul className="flex flex-row justify-start items-center gap-x-10">
-        <li>Home</li>
-        <li>About Us</li>
-        <li>Solution</li>
-        <li>Contact Us</li>
+        <li>
+          <NavLink
+            to="/"
+            className={({isActive, isPending}) => (
+              isActive ? "text-green-30" : ""
+            )}
+          >
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/about"
+            className={({isActive, isPending}) => (
+              isActive ? "text-green-30" : ""
+            )}
+          >
+            About Us
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/solutions"
+            className={({isActive, isPending}) => (
+              isActive ? "text-green-30" : ""
+            )}
+          >
+            Solution
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/contact"
+            className={({isActive, isPending}) => (
+              isActive ? "text-green-30" : ""
+            )}
+          >
+            Contact Us
+          </NavLink>
+        </li>
       </ul>
     </nav>
 
