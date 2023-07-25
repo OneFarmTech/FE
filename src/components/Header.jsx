@@ -10,14 +10,16 @@ const Header = () => (
 
     <nav>
       <ul className="flex flex-row justify-start items-center gap-x-6">
-        <li>
-          <Button linkTo="login" name="Login" />
-        </li>
-        <li>
-          <Button name="Sign Up" clas="green" linkTo="signup" />
-        </li>
+        <li>Home</li>
+        <li>About Us</li>
+        <li>Solution</li>
+        <li>Contact Us</li>
       </ul>
     </nav>
+
+    <div>
+      <Button linkTo="/signup" />
+    </div>
   </header>
 );
 
