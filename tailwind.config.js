@@ -28,7 +28,8 @@ export default {
         lato: ['Lato', 'sans-serif'],
       },
       backgroundImage: {
-        'headline': "url('../images/bg1.png')"
+        'headline': "url('../images/bg1.png')",
+        'backone': "url('../images/bg2.png')",
       },
       keyframes: {
         slide: {
