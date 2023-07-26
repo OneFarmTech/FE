@@ -30,6 +30,7 @@ export default {
       backgroundImage: {
         'headline': "url('../images/bg1.png')",
         'backone': "url('../images/bg2.png')",
+        'backtwo': "url('../images/bg3.png')",
       },
       keyframes: {
         slide: {
