@@ -1,7 +1,11 @@
+import Ads from "../components/Ads";
 import HomeHeadline from "../components/HomeHeadline";
 
 const Home = () => (
-  <HomeHeadline />
+  <>
+    <HomeHeadline />
+    <Ads />
+  </>
 );
 
 export default Home;

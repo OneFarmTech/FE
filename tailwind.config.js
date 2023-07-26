@@ -12,10 +12,10 @@ export default {
         30: '#5baa60',
       },
       orange: {
-        10: '#e8871e',
-        20: '#E8871E'
+        10: '#e8871e'
       },
       black: {
+        10: '#ffffff',
         100: '#0d1821',
       },
       blue: {
@@ -29,6 +29,12 @@ export default {
       },
       backgroundImage: {
         'headline': "url('../images/bg1.png')"
+      },
+      keyframes: {
+        slide: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(-100%)' },
+        }
       }
     },
   },
