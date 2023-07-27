@@ -5,11 +5,11 @@
 
 @layer base {
   * {
-    @apply font-lato text-black-100;
+    @apply font-lato;
   }
 
   body {
-    @apply md:bg-green-10
+    @apply md:bg-green-10 text-black-100;
   }
 
   img {
