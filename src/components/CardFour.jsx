@@ -4,7 +4,7 @@ const CardFour = (props) => {
   const { order, img, heading, list } = props;
 
   return (
-    <article className="flex flex-col lg:flex-row gap-4 lg:gap-[8rem]">
+    <article className="flex flex-col lg:flex-row gap-4 justify-around lg:gap-[8rem]">
       <div className={order}>
         <img src={img} alt="" />
       </div>

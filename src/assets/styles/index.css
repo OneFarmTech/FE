@@ -36,7 +36,7 @@
   }
 
   .dot-card {
-    @apply border border-dashed p-3;
+    @apply border border-dashed p-5;
   }
 
   .green-dot-card {

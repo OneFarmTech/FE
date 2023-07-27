@@ -3,30 +3,33 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
+    'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
-    colors: {
-      green: {
-        10: '#f2fff3',
-        20: '#ECFCED',
-        30: '#5baa60',
-        40: 'rgba(212, 238, 214, 0.2)'
-      },
-      orange: {
-        10: '#e8871e',
-        20: 'rgba(232, 135, 30, 0.05)'
-      },
-      black: {
-        10: '#ffffff',
-        100: '#0d1821',
-      },
-      blue: {
-        10: '#A0BBD2',
-        20: '#668EAF',
-        30: 'rgba(13, 24, 33, 0.05)'
-      }
-    },
+    
     extend: {
+      colors: {
+        green: {
+          10: '#f2fff3',
+          20: '#ECFCED',
+          30: '#5baa60',
+          40: 'rgba(212, 238, 214, 0.2)'
+        },
+        orange: {
+          10: '#e8871e',
+          20: 'rgba(232, 135, 30, 0.05)'
+        },
+        black: {
+          10: '#ffffff',
+          100: '#0d1821',
+        },
+        blue: {
+          10: '#A0BBD2',
+          20: '#668EAF',
+          30: 'rgba(13, 24, 33, 0.05)'
+        }
+      },
+
       fontFamily: {
         lato: ['Lato', 'sans-serif'],
       },
@@ -43,5 +46,5 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [require('flowbite/plugin')],
 }
