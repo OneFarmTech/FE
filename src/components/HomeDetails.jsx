@@ -9,6 +9,11 @@ import CardFour from "./CardFour";
 import bg4 from "../assets/images/bg4.png";
 import bg5 from "../assets/images/bg5.png";
 import bg6 from "../assets/images/bg6.png";
+import CardFive from "./CardFive";
+import bg7 from "../assets/images/bg7.png";
+import bg8 from "../assets/images/bg8.png";
+import bg9 from "../assets/images/bg9.png";
+import bg10 from "../assets/images/bg10.png";
 
 const HomeDetails = () => (
   <main className="max-w-[1700px] m-auto">
@@ -64,7 +69,18 @@ const HomeDetails = () => (
           <CardFour order="order-first" heading="Retailers:" img={bg6} list={["Sign up and choose your middleman profile.", "Connect with farmers and retailers on the platform.", "Facilitate transactions and ensure smooth supply chain operations.", "Benefit from transparent pricing and fair revenue distribution."]} />
         </div>
       </div>
-      
+    </section>
+
+    <section className="py-7 px-[5%] w-full">
+      <h2 className="text-green-30 text-3xl mb-9">Our Track Record</h2>
+      <div className="w-full overflow-auto">
+        <div className="flex gap-8 min-w-[1024px] overflow-x-scroll">
+          <CardFive heading="Our Achievements" details="Over 50 farmers onboarded and counting, with a 100% satisfaction rating" img={bg7} />
+          <CardFive heading="Increased Crop Yields" details="Onboarded farmers have experienced a remarkable 20% increase in crop yields." img={bg8} />
+          <CardFive heading="Reduced Waste" details="Farmers using OneFarm have achieved a 10% reduction in waste." img={bg9} />
+          <CardFive heading="Positive Social and Environmental Impact" details="Our packaging is 100% recyclable or compostable." img={bg10} />
+        </div>
+      </div>
     </section>
   </main>
 );
