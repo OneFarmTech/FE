@@ -16,6 +16,7 @@ import bg9 from "../assets/images/bg9.png";
 import bg10 from "../assets/images/bg10.png";
 import TestimonialCard from "./TestimonialCard";
 import avatar1 from "../assets/images/avatar1.png";
+import Faq from "./Faq";
 
 const HomeDetails = () => {
   
@@ -98,7 +99,7 @@ const HomeDetails = () => {
       <section className="py-7 px-[5%] w-full">
         <h2 className="text-green-30 text-3xl mb-9">You Have Questions? We Have Answers.</h2>
         
-        
+        <Faq />
       </section>
     </main>
   );
