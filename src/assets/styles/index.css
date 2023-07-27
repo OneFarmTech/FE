@@ -34,4 +34,20 @@
   .my-l {
     grid-area: l;
   }
+
+  .dot-card {
+    @apply border border-dashed p-3;
+  }
+
+  .green-dot-card {
+    @apply border-green-30 bg-green-40;
+  }
+
+  .orange-dot-card {
+    @apply border-orange-10 bg-orange-20;
+  }
+
+  .blue-dot-card {
+    @apply border-blue-20 bg-blue-30;
+  }
 }

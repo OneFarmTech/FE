@@ -10,9 +10,11 @@ export default {
         10: '#f2fff3',
         20: '#ECFCED',
         30: '#5baa60',
+        40: 'rgba(212, 238, 214, 0.2)'
       },
       orange: {
-        10: '#e8871e'
+        10: '#e8871e',
+        20: 'rgba(232, 135, 30, 0.05)'
       },
       black: {
         10: '#ffffff',
@@ -20,7 +22,8 @@ export default {
       },
       blue: {
         10: '#A0BBD2',
-        20: '#668EAF'
+        20: '#668EAF',
+        30: 'rgba(13, 24, 33, 0.05)'
       }
     },
     extend: {

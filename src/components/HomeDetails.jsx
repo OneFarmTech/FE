@@ -5,6 +5,10 @@ import CardTwo from "./CardTwo";
 import farmer from "../assets/images/farmer.png";
 import middle from "../assets/images/middle.png";
 import retail from "../assets/images/retail.png";
+import CardFour from "./CardFour";
+import bg4 from "../assets/images/bg4.png";
+import bg5 from "../assets/images/bg5.png";
+import bg6 from "../assets/images/bg6.png";
 
 const HomeDetails = () => (
   <main className="max-w-[1700px] m-auto">
@@ -44,6 +48,23 @@ const HomeDetails = () => (
 
         <CardThree img={retail} name="Retailers" heading="Source Fresh, Local Produce:" details="OneFarm enables retailers to source high-quality, locally grown produce directly from farmers. Ensure freshness, traceability, fair pricing, and diverse product offerings to meet consumer demand." />
       </div>
+    </section>
+
+    <section className="py-7 px-[5%]">
+      <h2 className="text-green-30 text-3xl mb-9">How OneFarm Works</h2>
+      <div className="flex flex-col gap-8">
+        <div className="dot-card green-dot-card">
+          <CardFour order="order-first" heading="Farmers:" list={["Sign up and select your farmer profile.", "List your products and set prices.", "Receive direct orders from retailers.", "Manage logistics and delivery."]} img={bg4} />
+        </div>
+        <div className="dot-card orange-dot-card">
+          <CardFour order="lg:order-last" heading="Middlemen:" list={["Sign up and choose your middleman profile.","Connect with farmers and retailers on the platform.", "Facilitate transactions and ensure smooth supply chain operations.", "Benefit from transparent pricing and fair revenue distribution."]} img={bg5} />
+        </div>
+        <div className="dot-card blue-dot-card">
+
+          <CardFour order="order-first" heading="Retailers:" img={bg6} list={["Sign up and choose your middleman profile.", "Connect with farmers and retailers on the platform.", "Facilitate transactions and ensure smooth supply chain operations.", "Benefit from transparent pricing and fair revenue distribution."]} />
+        </div>
+      </div>
+      
     </section>
   </main>
 );
