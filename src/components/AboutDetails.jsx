@@ -5,6 +5,11 @@ import about1 from '../assets/images/about1.png'
 import about2 from '../assets/images/about2.png'
 import about3 from '../assets/images/about3.png'
 import about4 from '../assets/images/about4.png'
+import about5 from '../assets/images/about5.png'
+import about6 from '../assets/images/about6.png'
+import about7 from '../assets/images/about7.png'
+import about8 from '../assets/images/about8.png'
+import CardTwo from './CardTwo';
 
 
 const AboutDetails = () => (
@@ -41,7 +46,7 @@ const AboutDetails = () => (
         <CardSix img={about1} order="" heading="Empowering Farmers" details="Our platform empowers smallholder farmers by providing them with direct market access, enabling fair revenue distribution, and offering resources to improve their productivity and profitability. By empowering farmers, we help create sustainable livelihoods and uplift farming communities." />
       </div>
       <div className='dot-card orange-dot-card'>
-        <CardSix img={about2} order="order-last" heading="Economic Growth" details="We contribute to the economic growth of the agriculture sector by fostering market opportunities, promoting fair trade practices, and supporting the growth of small businesses. Our platform drives economic prosperity, job creation, and overall industry development." />
+        <CardSix img={about2} order="lg:order-last" heading="Economic Growth" details="We contribute to the economic growth of the agriculture sector by fostering market opportunities, promoting fair trade practices, and supporting the growth of small businesses. Our platform drives economic prosperity, job creation, and overall industry development." />
       </div>
 
       <div className='dot-card blue-dot-card'>
@@ -49,7 +54,45 @@ const AboutDetails = () => (
       </div>
 
       <div className='blor-dot-card dot-card'>
-        <CardSix img={about4} order="order-last" heading="Social Impact" details="Our platform has a positive social impact by promoting inclusivity, gender equality, and community development. We support smallholder farmers, prioritize fair compensation, and work towards reducing inequalities in the agricultural sector. Through our efforts, we aim to create a more equitable and socially just agricultural ecosystem" />
+        <CardSix img={about4} order="lg:order-last" heading="Social Impact" details="Our platform has a positive social impact by promoting inclusivity, gender equality, and community development. We support smallholder farmers, prioritize fair compensation, and work towards reducing inequalities in the agricultural sector. Through our efforts, we aim to create a more equitable and socially just agricultural ecosystem" />
+      </div>
+    </section>
+
+    <section className="flex flex-col gap-8 py-10 px-[5%]">
+      <h2 className="text-green-30 text-3xl lg:mb-0">What We Provide</h2>
+
+      <div className='flex flex-col justify-between gap-12 lg:flex-row lg:flex-wrap'>
+        <div className='flex-[45%] flex flex-col gap-6'>
+          <div className='w-full'>
+            <img src={about5} alt="" />
+          </div>
+
+          <CardTwo heading="Direct Farmer-Retailer Connection:" details="Connect directly with farmers to source high-quality produce, ensuring freshness and traceability." />
+        </div>
+
+        <div className='flex-[45%] flex flex-col gap-6'>
+          <div className='w-full'>
+            <img src={about6} alt="" />
+          </div>
+
+          <CardTwo heading="Data Analytics:" details="Leverage powerful data analytics to gain valuable insights into market trends, pricing, and consumer preferences." />
+        </div>
+
+        <div className='flex-[45%] flex flex-col gap-6'>
+          <div className='w-full'>
+            <img src={about7} alt="" />
+          </div>
+
+          <CardTwo heading="Technical Assistance:" details="Access expert guidance and technical support to enhance farming practices, increase productivity, and reduce risks." />
+        </div>
+
+        <div className='flex-[45%] flex flex-col gap-6'>
+          <div className='w-full'>
+            <img src={about8} alt="" />
+          </div>
+
+          <CardTwo heading="Market Insights:" details="Stay informed with market insights and research reports to make informed business decisions and seize opportunities." />
+        </div>
       </div>
     </section>
   </main>

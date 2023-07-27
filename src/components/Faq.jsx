@@ -28,7 +28,7 @@ const Faq = () => {
           className="rounded-none border-b-[3px] border-blue-10 bg-transparent p-0"
           indicatorProps={{
             className:
-              "bg-transparent border-b-[3px] border-green-30 shadow-none rounded-none",
+              "bg-transparent border-b-[3px] top-[3px] border-green-30 shadow-none rounded-none",
           }}
         >
           {data.map(({ label, value }) => (
