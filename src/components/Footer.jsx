@@ -12,7 +12,7 @@ const Footer = () => (
     </div>
 
     <div className="flex flex-col row-span-2 self-center lg:flex-row gap-10 justify-evenly">
-      <div className="flex w-full lg:max-w-[220px] justify-between">
+      <div className="flex w-full lg:max-w-[270px] justify-between">
         <div className="flex flex-col gap-3">
           <h3 className="font-bold">Website</h3>
           <ul className="flex flex-col gap-3">
@@ -62,7 +62,7 @@ const Footer = () => (
         </div>
       </div>
 
-      <div className="flex min-w-[300px] lg:max-w-[300px] justify-between">
+      <div className="flex min-w-[300px] lg:max-w-[320px] justify-between">
         <div className="flex flex-col gap-3">
           <h3 className="font-bold">Other Links</h3>
           <ul className="flex flex-col gap-3">
