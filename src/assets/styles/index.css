@@ -50,4 +50,8 @@
   .blue-dot-card {
     @apply border-blue-20 bg-blue-30;
   }
+
+  .blor-dot-card {
+    @apply border-orange-10 bg-green-40;
+  }
 }

@@ -8,7 +8,7 @@ const CardFive = (props) => {
       </div>
       <div className="flex flex-col gap-4">
         <h3 className="font-bold">{heading}</h3>
-        <p>{details}</p>
+        <p className="leading-10">{details}</p>
       </div>
     </article>
   );

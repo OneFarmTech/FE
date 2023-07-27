@@ -15,7 +15,7 @@ const TestimonialCard = (props) => {
 
       <Rating value={4} />
       
-      <p className="text-center">{details}</p>
+      <p className="text-center leading-10">{details}</p>
     </article>
   )
 };
