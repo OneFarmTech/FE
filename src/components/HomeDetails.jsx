@@ -1,6 +1,10 @@
 import Button from "./Button";
 import CardOne from "./CardOne";
+import CardThree from "./CardThree";
 import CardTwo from "./CardTwo";
+import farmer from "../assets/images/farmer.png";
+import middle from "../assets/images/middle.png";
+import retail from "../assets/images/retail.png";
 
 const HomeDetails = () => (
   <main className="max-w-[1700px] m-auto">
@@ -27,6 +31,18 @@ const HomeDetails = () => (
         </div>
 
         <div className="bg-backtwo flex-1 min-h-[20rem] bg-no-repeat bg-cover"></div>
+      </div>
+    </section>
+    
+    <section className="py-7 px-[5%]">
+      <h2 className="text-green-30 text-3xl mb-9">We Have Something For You</h2>
+
+      <div className="flex flex-col lg:flex-row xl:gap-7 gap-4">
+        <CardThree img={farmer} name="Farmer" heading="Empowerment for Farmers:" details="Join OneFarm and gain access to a network of retailers, streamlined logistics, fair pricing, and technical assistance to boost your income, productivity, and agricultural success." />
+
+        <CardThree img={middle} name="Middleman" heading="Simplify Your Role:" details="OneFarm eliminates complexities for middlemen by directly connecting you with farmers and retailers. Benefit from a transparent supply chain, efficient processes, and enhanced profitability." />
+
+        <CardThree img={retail} name="Retailers" heading="Source Fresh, Local Produce:" details="OneFarm enables retailers to source high-quality, locally grown produce directly from farmers. Ensure freshness, traceability, fair pricing, and diverse product offerings to meet consumer demand." />
       </div>
     </section>
   </main>
