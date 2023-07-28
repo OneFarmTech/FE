@@ -62,8 +62,8 @@ const Footer = () => (
         </div>
       </div>
 
-      <div className="flex min-w-[300px] lg:max-w-[320px] justify-between">
-        <div className="flex flex-col gap-3">
+      <div className="flex min-w-[300px] lg:max-w-[400px] justify-between">
+        <div className="flex flex-1 flex-col gap-3">
           <h3 className="font-bold">Other Links</h3>
           <ul className="flex flex-col gap-3">
             <li>
@@ -81,7 +81,7 @@ const Footer = () => (
           </ul>
         </div>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-1 flex-col gap-3">
           <ul className="flex flex-col gap-3">
             <li className="flex justify-between items-center">
                 <HiMail />
