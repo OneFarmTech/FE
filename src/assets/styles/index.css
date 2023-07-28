@@ -1,3 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700;900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  * {
+    @apply font-lato;
+  }
+
+  body {
+    @apply md:bg-green-10 text-black-100;
+  }
+
+  img {
+    @apply block w-full h-auto m-[0_auto];
+  }
+}
+
+@layer components {
+  .my-grid {
+    grid-template-areas: 
+    "h1 l"
+    "d l"
+    ;
+  }
+
+  .my-h1 {
+    grid-area: h1;
+  }
+  .my-d {
+    grid-area: d;
+  }
+  .my-l {
+    grid-area: l;
+  }
+
+  .dot-card {
+    @apply border border-dashed p-5;
+  }
+
+  .green-dot-card {
+    @apply border-green-30 bg-green-40;
+  }
+
+  .orange-dot-card {
+    @apply border-orange-10 bg-orange-20;
+  }
+
+  .blue-dot-card {
+    @apply border-blue-20 bg-blue-30;
+  }
+
+  .blor-dot-card {
+    @apply border-orange-10 bg-green-40;
+  }
+}
