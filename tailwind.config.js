@@ -38,6 +38,8 @@ export default withMT({
         'headline': "url('../images/bg1.png')",
         'backone': "url('../images/bg2.png')",
         'backtwo': "url('../images/bg3.png')",
+        'testimonialbg': "url('../images/testimonialbg.png')",
+        'testimonialmobile': "url('../images/testimonialmobile.png')",
       },
       keyframes: {
         slide: {

@@ -5,7 +5,7 @@ const TestimonialCard = (props) => {
   const { img, heading, desc, details } = props;
 
   return (
-    <article className="flex flex-col justify-center items-center py-14 gap-10">
+    <article className="flex flex-col justify-center items-center py-14 gap-10 bg-testimonialmobile md:bg-testimonialbg bg-no-repeat bg-contain bg-center">
       <div className="rounded-full overflow-hidden w-[224px] h-[224px]">
         <img src={img} alt="" />
       </div>
