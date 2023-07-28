@@ -54,13 +54,13 @@ const Header = () => {
               drop && (
                 <ul onClick={handleDrop} className="bg-black-10 flex-col p-3 text-green-30 flex gap-2 w-fit absolute">
                   <li>
-                    <NavLink to="solution/farmer">Farmer</NavLink>
+                    <NavLink to="solution/farmer" onClick={handleDrop}>Farmer</NavLink>
                   </li>
                   <li>
-                    <NavLink>Middleman</NavLink>
+                    <NavLink onClick={handleDrop}>Middleman</NavLink>
                   </li>
                   <li>
-                    <NavLink>Retailer</NavLink>
+                    <NavLink onClick={handleDrop}>Retailer</NavLink>
                   </li>
                 </ul>
               )
