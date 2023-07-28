@@ -8,7 +8,7 @@ const ABoutHeadline = () => (
       <img src={aboutbg} alt="" />
     </div>
 
-    <p className='text-center'>Welcome to OneFarm, where we are passionate about empowering smallholder farmers and revolutionizing the agricultural supply chain.</p>
+    <p className='text-center leading-10'>Welcome to OneFarm, where we are passionate about empowering smallholder farmers and revolutionizing the agricultural supply chain.</p>
   </section>
 );
 

@@ -8,7 +8,7 @@ const FarmersHeadline = () => (
       <img src={farmer} alt="" />
     </div>
 
-    <p className='text-center'>Welcome to the OneFarm Farmers page, where your success and growth in agriculture are our top priorities. Join our platform and unlock a world of opportunities to expand your market reach, increase profitability, and gain access to valuable resources and support.</p>
+    <p className='text-center leading-10'>Welcome to the OneFarm Farmers page, where your success and growth in agriculture are our top priorities. Join our platform and unlock a world of opportunities to expand your market reach, increase profitability, and gain access to valuable resources and support.</p>
   </section>
 );
 
