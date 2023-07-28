@@ -41,7 +41,7 @@ const Header = () => {
             </NavLink>
           </li>
           <li className="relative">
-            <NavLink onClick={handleDrop} className="flex justify-between items-center">
+            <a onClick={handleDrop} className="flex justify-between items-center cursor-pointer">
               <span>Solution</span>
               {
                 drop && <IoIosArrowUp />
@@ -49,12 +49,12 @@ const Header = () => {
                {
                 !drop && <IoIosArrowDown />
                }
-            </NavLink>
+            </a>
             {
               drop && (
-                <ul className="bg-black-10 flex-col p-3 text-green-30 flex gap-2 w-fit absolute">
+                <ul onClick={handleDrop} className="bg-black-10 flex-col p-3 text-green-30 flex gap-2 w-fit absolute">
                   <li>
-                    <NavLink>Farmer</NavLink>
+                    <NavLink to="solution/farmer">Farmer</NavLink>
                   </li>
                   <li>
                     <NavLink>Middleman</NavLink>
@@ -80,7 +80,7 @@ const Header = () => {
       </nav>
 
       <div className="hidden lg:block">
-        <Button linkTo="/signup" clas='white' name="Get started" />
+        <Button linkTo="/signup" clas='green' name="Get started" />
       </div>
 
       <nav className="lg:hidden">
