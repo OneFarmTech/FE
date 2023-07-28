@@ -58,7 +58,7 @@ const RetailDetails = () => (
     </section>
 
     <section className="flex flex-col gap-8 py-10 px-[5%]">
-      <h2 className="text-green-30 text-3xl lg:mb-0">More Benefits For Farmers</h2>
+      <h2 className="text-green-30 text-3xl lg:mb-0">More Benefits For Retailers</h2>
 
       <CardTwo heading="Simplify Product Sourcing and Management:" details="On OneFarm, you can easily source and manage your product inventory. Explore a diverse range of fresh produce directly from farmers, place orders effortlessly, and manage your stock efficiently. Simplify your sourcing process and deliver the best quality to your customers" />
 

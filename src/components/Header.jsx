@@ -59,12 +59,12 @@ const Header = () => {
                       )}>Farmer</NavLink>
                   </li>
                   <li>
-                    <NavLink className={({isActive, isPending}) => (
+                    <NavLink to="solution/middlemen" className={({isActive, isPending}) => (
                         isActive ? "text-green-30" : ""
                       )}>Middleman</NavLink>
                   </li>
                   <li>
-                    <NavLink className={({isActive, isPending}) => (
+                    <NavLink to="solution/retail" className={({isActive, isPending}) => (
                         isActive ? "text-green-30" : ""
                       )}>Retailer</NavLink>
                   </li>

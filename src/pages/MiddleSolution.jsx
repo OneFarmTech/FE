@@ -1,10 +1,10 @@
-import FarmersDetails from "../components/solutionsComponents/FarmersDetails";
-import FarmersHeadline from "../components/solutionsComponents/FarmersHeadline";
+import MiddleDetails from "../components/solutionsComponents/MiddleDetails";
+import MiddleHeadline from "../components/solutionsComponents/MiddleHeadline";
 
 const MiddleSolution = () => (
   <>
-    <FarmersHeadline />
-    <FarmersDetails />
+    <MiddleHeadline />
+    <MiddleDetails />
   </>
 );
 
