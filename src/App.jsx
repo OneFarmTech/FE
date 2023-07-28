@@ -6,6 +6,8 @@ import Signup from "./pages/Signup";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import FarmerSolution from "./pages/FarmerSolution";
+import RetailSolution from "./pages/RetailSolution";
+import MiddleSolution from "./pages/MiddleSolution";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,14 @@ const router = createBrowserRouter([
       {
         path: 'solution/farmer',
         element: <FarmerSolution />
+      },
+      {
+        path: 'solution/retail',
+        element: <RetailSolution />
+      },
+      {
+        path: 'solution/middlemen',
+        element: <MiddleSolution />
       }
     ]
   },

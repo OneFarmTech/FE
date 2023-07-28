@@ -52,15 +52,21 @@ const Header = () => {
             </a>
             {
               drop && (
-                <ul onClick={handleDrop} className="bg-black-10 flex-col p-3 text-green-30 flex gap-2 w-fit absolute">
+                <ul onClick={handleDrop} className="bg-black-10 flex-col p-3 flex gap-2 w-fit absolute">
                   <li>
-                    <NavLink to="solution/farmer" onClick={handleDrop}>Farmer</NavLink>
+                    <NavLink to="solution/farmer" className={({isActive, isPending}) => (
+                        isActive ? "text-green-30" : ""
+                      )}>Farmer</NavLink>
                   </li>
                   <li>
-                    <NavLink onClick={handleDrop}>Middleman</NavLink>
+                    <NavLink className={({isActive, isPending}) => (
+                        isActive ? "text-green-30" : ""
+                      )}>Middleman</NavLink>
                   </li>
                   <li>
-                    <NavLink onClick={handleDrop}>Retailer</NavLink>
+                    <NavLink className={({isActive, isPending}) => (
+                        isActive ? "text-green-30" : ""
+                      )}>Retailer</NavLink>
                   </li>
                 </ul>
               )
