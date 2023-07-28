@@ -85,15 +85,15 @@ const Footer = () => (
           <ul className="flex flex-col gap-3">
             <li className="flex justify-between items-center">
                 <HiMail />
-                <span className="w-[80%]">onefarm@gmail.com</span>
+                <span className="w-[80%]">sales@onefarmtech.com  info@onefarmtech.com</span>
             </li>
             <li className="flex justify-between items-center">
                 <ImPhone />
-                <span className="w-[80%]">+23412345678</span>
+                <span className="w-[80%]">+2348037135296</span>
             </li>
             <li className="flex justify-between items-center">
                 <FaLocationDot />
-                <span className="w-[80%]">Location</span>
+                <span className="w-[80%]">Suite No. 7, cherry hill plaza, Eke Yusuf close, behind Eterna Filling station Utako, Abuja.</span>
             </li>
           </ul>
         </div>
