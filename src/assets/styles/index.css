@@ -8,7 +8,7 @@
     @apply font-lato;
   }
 
-  body {
+  .body {
     @apply md:bg-green-10 text-black-100;
   }
 

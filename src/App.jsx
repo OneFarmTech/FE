@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import FarmerSolution from "./pages/FarmerSolution";
 import RetailSolution from "./pages/RetailSolution";
 import MiddleSolution from "./pages/MiddleSolution";
+import AuthRoot from "./pages/AuthRoot";
 
 const router = createBrowserRouter([
   {
@@ -17,14 +18,6 @@ const router = createBrowserRouter([
       {
         path: '',
         element: <Home />
-      },
-      {
-        path: 'login',
-        element: <Login />
-      },
-      {
-        path: 'signup',
-        element: <Signup />
       },
       {
         path: 'about',
@@ -48,6 +41,20 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: '/auth',
+    element: <AuthRoot />,
+    children: [
+      {
+        path: 'login',
+        element: <Login />
+      },
+      {
+        path: 'signup',
+        element: <Signup />
+      },
+    ]
+  }
 ])
 
 const App = () => (
