@@ -3,7 +3,7 @@ import SocialIcons from "../components/SocialIcons";
 
 const Login = () => (
   <section className="flex flex-col w-[90%] max-w-5xl gap-10 mx-auto">
-  <h1 className="text-5xl text-center lg:text-left">Log In To Your Account</h1>
+  <h1 className="text-5xl text-center lg:text-left leading-[3.2rem]">Log In To Your Account</h1>
   
     <form className="flex flex-col gap-5">
       <div className="flex flex-col gap-6 lg:flex-row lg:gap-0 lg:justify-between items-center">
@@ -40,7 +40,7 @@ const Login = () => (
       </div>
     </form>
 
-    <div className="font-bold text-lg">
+    <div className="font-bold text-lg text-center">
       Don't have an account? <Link className="text-green-30 pl-2" reloadDocument to='/auth/signup'>Sign Up</Link>
     </div>
   </section>
