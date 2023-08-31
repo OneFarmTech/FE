@@ -26,7 +26,7 @@ const Footer = () => (
               <Link to="/">Farmers</Link>
             </li>
             <li>
-              <Link to="/">Middlemen</Link>
+              <Link to="/">Wholesalers</Link>
             </li>
             <li>
               <Link to="/"> Retailers</Link>
@@ -50,7 +50,7 @@ const Footer = () => (
               <Link to="/">Farmers</Link>
             </li>
             <li>
-              <Link to="/">Middlemen</Link>
+              <Link to="/">Wholesalers</Link>
             </li>
             <li>
               <Link to="/"> Retailers</Link>

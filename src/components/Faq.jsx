@@ -42,18 +42,18 @@ const Faq = () => {
       ]
     },
     {
-      label: "Middlemen Questions",
+      label: "Wholesalers Questions",
       value: "middle",
       desc: [
         {
           id: 1,
           question: "How can I connect with farmers on the platform?",
-          answer: "As a middleman, you can explore our extensive farmer network, send connection requests, and initiate collaborations for sourcing products.",
+          answer: "As a wholesaler, you can explore our extensive farmer network, send connection requests, and initiate collaborations for sourcing products.",
         },
         {
           id: 2,
           question: "How do I manage my farmer network and connections?",
-          answer: "As a middleman, you can efficiently manage your farmer network through our intuitive dashboard, track connections, and foster collaborations.",
+          answer: "As a wholesaler, you can efficiently manage your farmer network through our intuitive dashboard, track connections, and foster collaborations.",
         },
         {
           id: 3,
@@ -62,7 +62,7 @@ const Faq = () => {
         },
         {
           id: 4,
-          question: "What market insights are available for middlemen?",
+          question: "What market insights are available for wholesalers?",
           answer: "OneFarm Tech offers comprehensive market insights, demand forecasts, and competitor analysis to help you make strategic decisions and optimize your operations.",
         },
         {

@@ -120,7 +120,7 @@ const Header = () => {
                 <NavLink to="solution/farmer" onClick={handleAnchorTags}>Farmers</NavLink>
               </li>
               <li>
-                <NavLink to="solution/middlemen" onClick={handleAnchorTags}>Middlemen</NavLink>
+                <NavLink to="solution/middlemen" onClick={handleAnchorTags}>Wholesalers</NavLink>
               </li>
               <li>
                 <NavLink to="solution/retail" onClick={handleAnchorTags}>Retailers</NavLink>

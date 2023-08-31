@@ -9,7 +9,7 @@ import Carousel from "./Carousel";
 const MiddleDetails = () => (
   <main className="max-w-[1700px] m-auto">
     <section className="flex flex-col gap-8 py-10 px-[5%]">
-      <h2 className="text-green-30 text-3xl lg:mb-0">Benefits For Middlemen</h2>
+      <h2 className="text-green-30 text-3xl lg:mb-0">Benefits For Wholesalers</h2>
 
       <div className='flex flex-col justify-between gap-12 lg:flex-row lg:flex-wrap'>
         <div className='flex-[45%] items-start flex flex-col gap-6'>
@@ -51,14 +51,14 @@ const MiddleDetails = () => (
     </section>
 
     <section className="flex flex-col gap-8 py-10 px-[5%]">
-      <h2 className="text-green-30 text-3xl lg:mb-0">Middleman Success Stories</h2>
-      <p>Hear from middlemen who have already experienced the advantages of partnering with OneFarm</p>
+      <h2 className="text-green-30 text-3xl lg:mb-0">Wholesalers Success Stories</h2>
+      <p>Hear from Wholesalers who have already experienced the advantages of partnering with OneFarm</p>
 
       <Carousel />
     </section>
 
     <section className="flex flex-col gap-8 py-10 px-[5%]">
-      <h2 className="text-green-30 text-3xl lg:mb-0">More Benefits For Middlemen</h2>
+      <h2 className="text-green-30 text-3xl lg:mb-0">More Benefits For Wholesalers</h2>
 
       <CardTwo heading="Streamline Product Sourcing and Management:" details="On OneFarm, you can efficiently source and manage your products from a diverse pool of farmers. Our user-friendly interface enables you to explore a wide range of products, negotiate prices, and easily manage your inventory. Enhance your procurement process and maintain a competitive edge in the market" />
 

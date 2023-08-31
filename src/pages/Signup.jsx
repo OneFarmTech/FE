@@ -55,7 +55,7 @@ const Signup = () => {
         </div>
 
         <div className="flex justify-center w-full lg:justify-between pr-3 lg:max-w-lg">
-          <div></div>
+          <Link to='/' className="flex items-center text-white py-2 px-5 lg:px-9 bg-black-100 lg:block">Go Back</Link>
           <button className="text-white px-9 bg-green-30 py-3" onClick={pageTwo}>Get Verification Code</button>
         </div>
       </form>)
@@ -84,7 +84,7 @@ const Signup = () => {
 
       <div className="flex w-full justify-between lg:pr-3 lg:max-w-lg">
         <button className="text-white py-2 px-5 lg:px-9 bg-black-100 lg:block" onClick={pageOne}>Go Back</button>
-        <button className="text-white px-5 lg:px-9 bg-green-30 py-3">Get Verification Code</button>
+        <button className="text-white px-5 lg:px-9 bg-green-30 py-3">Sign Up</button>
       </div>
     </form>)}
 
