@@ -9,6 +9,8 @@ import FarmerSolution from "./pages/FarmerSolution";
 import RetailSolution from "./pages/RetailSolution";
 import MiddleSolution from "./pages/MiddleSolution";
 import AuthRoot from "./pages/AuthRoot";
+import Dashboard from "./pages/Dashboard";
+import DashboardHome from "./pages/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +55,16 @@ const router = createBrowserRouter([
         path: 'signup',
         element: <Signup />
       },
+    ]
+  },
+  {
+    path: '/dashboard',
+    element: <Dashboard />,
+    children: [
+      {
+        path: 'home',
+        element: <DashboardHome />
+      }
     ]
   }
 ])

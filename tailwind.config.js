@@ -22,7 +22,9 @@ export default withMT({
         },
         black: {
           10: '#ffffff',
+          15: '#F2F1EF',
           20: '#C7CDD2',
+          30: 'rgba(171, 171, 171, 0.67)',
           100: '#0d1821',
         },
         blue: {
