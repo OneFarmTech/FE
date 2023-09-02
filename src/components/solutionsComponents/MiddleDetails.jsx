@@ -18,7 +18,7 @@ const MiddleDetails = () => (
           </div>
 
           <CardTwo heading="Expanded Supplier Network:" details="Gain access to a diverse and reliable network of farmers offering high-quality produce" />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button clas="white" name="Get Started" linkTo="/auth/signup" />
         </div>
 
         <div className='flex-[45%] items-start flex flex-col gap-6'>
@@ -27,7 +27,7 @@ const MiddleDetails = () => (
           </div>
 
           <CardTwo heading="Direct Farmer Connection:" details="Connect directly with farmers, eliminating intermediaries and ensuring competitive pricing." />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button clas="white" name="Get Started" linkTo="/auth/signup" />
         </div>
 
         <div className='flex-[45%] items-start flex flex-col gap-6'>
@@ -36,7 +36,7 @@ const MiddleDetails = () => (
           </div>
 
           <CardTwo heading="Transparent Supply Chain:" details="Benefit from real-time information and visibility into the origin and quality of the products you source." />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button clas="white" name="Get Started" linkTo="/auth/signup" />
         </div>
 
         <div className='flex-[45%] items-start flex flex-col gap-6'>
@@ -45,7 +45,7 @@ const MiddleDetails = () => (
           </div>
 
           <CardTwo heading="Market Insights:" details="Receive market insights and data analytics to make informed decisions and seize opportunities." />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button clas="white" name="Get Started" linkTo="/auth/signup" />
         </div>
       </div>
     </section>

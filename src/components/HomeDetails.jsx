@@ -29,7 +29,7 @@ const HomeDetails = () => {
 
           <CardOne heading="Market Opportunity:" details="The West African agriculture industry is valued at $10 billion. Join us in transforming Nigeria's agricultural supply chain." />
 
-          <Button clas="white" name="Get Started" />
+          <Button linkTo="/auth/signup" clas="white" name="Get Started" />
         </div>
       </section>
 
@@ -41,7 +41,7 @@ const HomeDetails = () => {
 
             <CardTwo heading="Our Solution:" details="OneFarm Tech is a technology-driven platform that connects farmers, wholesalers, and retailers, streamlining logistics, ensuring fair pricing, and promoting transparency" />
 
-            <Button clas="white" name="Get Started" />
+            <Button linkTo="/auth/signup" clas="white" name="Get Started" />
           </div>
 
           <div className="bg-backtwo flex-1 min-h-[20rem] bg-no-repeat bg-cover"></div>

@@ -18,7 +18,7 @@ const CardFour = (props) => {
             ))
           }
         </ul>
-        <Button name="Get Started" clas="white" />
+        <Button linkTo="/auth/signup" name="Get Started" clas="white" />
       </div>
     </article>
   );

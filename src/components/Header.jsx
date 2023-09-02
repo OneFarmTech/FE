@@ -98,7 +98,7 @@ const Header = () => {
       </nav>
 
       <div className="hidden lg:block">
-        <Button linkTo="contact" clas='green' name="Get started" />
+        <Button linkTo="/auth/signup" clas='green' name="Get started" />
       </div>
 
       <div className="cursor-pointer lg:hidden" onClick={handleActive}>

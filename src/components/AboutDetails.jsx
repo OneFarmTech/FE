@@ -29,7 +29,7 @@ const AboutDetails = () => (
           <h3 className="text-green-30 text-2xl">Our Mission</h3>
           
           <p className='leading-10'>Our mission is to empower smallholder farmers in Nigeria by connecting them directly with retailers, ensuring fair revenue distribution. Through our technology-driven solution, we aim to revolutionize the agricultural ecosystem, create a fair and transparent marketplace, and drive sustainable growth in the industry.</p>
-          <Button name="Get Started" clas="white" />
+          <Button linkTo="/auth/signup" name="Get Started" clas="white" />
         </div>
       </article>
     </section>
