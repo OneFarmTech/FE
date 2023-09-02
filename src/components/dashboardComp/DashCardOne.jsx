@@ -9,7 +9,7 @@ const DashCardOne = () => {
           <h3>N72,627.07</h3>
         </div>
 
-        <p className="text-black-20">07-Sept-2023</p>
+        <p className="text-black-50">07-Sept-2023</p>
       </div>
 
       <div className="border-t border-b border-black-30 px-6 py-2 flex flex-col gap-3">
@@ -22,7 +22,7 @@ const DashCardOne = () => {
         <p className="text-green-30 text-sm">+4 more orders</p>
       </div>
 
-      <div>
+      <div className="px-7">
         <AvatarMessage name="Toma John" text="I am waiting woo" />
       </div>
     </article>

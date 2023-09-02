@@ -45,7 +45,7 @@ const DashNav = () => {
               <div className='w-6'>
                 <img src={home} alt="Home Icon" />
               </div>  
-              <h4 className='text-xl text-black-30'>Home</h4>
+              <h4 className='text-xl text-black-50'>Home</h4>
             </NavLink>
           </li>
           <li>
@@ -53,7 +53,7 @@ const DashNav = () => {
               <div className='w-6'>
                 <img src={market} alt="Market place icon" />
               </div>  
-              <h4 className='text-xl text-black-30'>MarketPlace</h4>
+              <h4 className='text-xl text-black-50'>MarketPlace</h4>
             </NavLink>
           </li>
           <li>
@@ -61,7 +61,7 @@ const DashNav = () => {
               <div className='w-6'>
                 <img src={message} alt="Messages" />
               </div>  
-              <h4 className='text-xl text-black-30'>Messages</h4>
+              <h4 className='text-xl text-black-50'>Messages</h4>
             </NavLink>
           </li>
           <li>
@@ -69,7 +69,7 @@ const DashNav = () => {
               <div className='w-6'>
                 <img src={pay} alt="" />
               </div>  
-              <h4 className='text-xl text-black-30'>Payment</h4>
+              <h4 className='text-xl text-black-50'>Payment</h4>
             </NavLink>
           </li>
           <li>
@@ -77,7 +77,7 @@ const DashNav = () => {
               <div className='w-6'>
                 <img src={support} alt="" />
               </div>  
-              <h4 className='text-xl text-black-30'>Support</h4>
+              <h4 className='text-xl text-black-50'>Support</h4>
             </NavLink>
           </li>
         </ul>
