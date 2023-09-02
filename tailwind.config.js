@@ -24,6 +24,7 @@ export default withMT({
           10: '#ffffff',
           15: '#F2F1EF',
           20: '#C7CDD2',
+          25: '#c7c7c7',
           30: 'rgba(171, 171, 171, 0.67)',
           100: '#0d1821',
         },
@@ -31,6 +32,9 @@ export default withMT({
           10: '#A0BBD2',
           20: '#668EAF',
           30: 'rgba(13, 24, 33, 0.05)'
+        },
+        red: {
+          50: '#FF1818'
         }
       },
 
