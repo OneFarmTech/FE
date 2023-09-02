@@ -2,7 +2,7 @@ import search from '../../assets/images/dashboard/search.svg';
 import bell from '../../assets/images/dashboard/bell.svg';
 
 const DashHeader = () => (
-  <header className="px-[4%] py-10 flex flex-col lg:flex-row gap-8 items-center justify-between bg-white">
+  <header className="px-[4%] py-10 flex flex-col lg:flex-row gap-8 items-center justify-between bg-white fixed top-[110px] lg:top-0 w-full 2xl:w-[85%]">
     <div className='flex justify-between items-center w-full lg:w-fit'>
       <h2 className="text-black-100 text-2xl underline">Hello Prince</h2>
 

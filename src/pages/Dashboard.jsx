@@ -6,10 +6,11 @@ const Dashboard = () => {
   return (
     <>
     <DashNav />
-      <div className="2xl:pl-[16%] pt-[100px] lg:pt-0 bg-[#f9f9f9] min-h-full w-full">
+      <div className="2xl:pl-[16%] pt-[310px] lg:pt-[136px] relative bg-[#f9f9f9] h-screen w-full">
         <DashHeader />
-
+        <div className="overflow-y-auto bg-[#f9f9f9]">
         <Outlet />
+        </div>
       </div>
     </>
   );

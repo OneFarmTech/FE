@@ -23,7 +23,7 @@ const DashNav = () => {
   };
 
   return (
-    <section className={`fixed top-0 lg:hidden 2xl:flex lg:w-[16%] w-full flex-col gap-20 2xl:left-0 ${activeNav ? 'h-full' : 'h-fit'} lg:h-full bg-white 2xl:border 2xl:border-r-2 border-black-15 p-5`}>
+    <section className={`fixed top-0 lg:hidden 2xl:flex lg:w-[16%] w-full flex-col gap-20 2xl:left-0 ${activeNav ? 'h-full' : 'h-fit'} lg:h-full bg-white 2xl:border 2xl:border-r-2 border-black-15 p-5 z-50`}>
       <div className='flex justify-between items-center'>
         <Link to='/dashboard/home' className='block w-32 h-[15%]'>
           <img src={logo} alt="Onefarm Logo" />
@@ -45,7 +45,7 @@ const DashNav = () => {
               <div className='w-6'>
                 <img src={home} alt="Home Icon" />
               </div>  
-              <h4 className='text-xl text-black-20'>Home</h4>
+              <h4 className='text-xl text-black-30'>Home</h4>
             </NavLink>
           </li>
           <li>
@@ -53,7 +53,7 @@ const DashNav = () => {
               <div className='w-6'>
                 <img src={market} alt="Market place icon" />
               </div>  
-              <h4 className='text-xl'>MarketPlace</h4>
+              <h4 className='text-xl text-black-30'>MarketPlace</h4>
             </NavLink>
           </li>
           <li>
@@ -61,7 +61,7 @@ const DashNav = () => {
               <div className='w-6'>
                 <img src={message} alt="Messages" />
               </div>  
-              <h4 className='text-xl'>Messages</h4>
+              <h4 className='text-xl text-black-30'>Messages</h4>
             </NavLink>
           </li>
           <li>
@@ -69,7 +69,7 @@ const DashNav = () => {
               <div className='w-6'>
                 <img src={pay} alt="" />
               </div>  
-              <h4 className='text-xl'>Payment</h4>
+              <h4 className='text-xl text-black-30'>Payment</h4>
             </NavLink>
           </li>
           <li>
@@ -77,7 +77,7 @@ const DashNav = () => {
               <div className='w-6'>
                 <img src={support} alt="" />
               </div>  
-              <h4 className='text-xl'>Support</h4>
+              <h4 className='text-xl text-black-30'>Support</h4>
             </NavLink>
           </li>
         </ul>
@@ -88,7 +88,7 @@ const DashNav = () => {
               <div className='w-6'>
                 <img src={profile} alt="" />
               </div>  
-              <h4 className='text-xl'>Profile</h4>
+              <h4 className='text-xl text-black-20'>Profile</h4>
             </Link>
           </li>
           <li>
