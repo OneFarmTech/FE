@@ -73,7 +73,7 @@ const Header = () => {
                   <li>
                     <NavLink to="solution/middlemen" className={({isActive}) => (
                         isActive ? "text-green-30" : ""
-                      )}>Middleman</NavLink>
+                      )}>Wholesaler</NavLink>
                   </li>
                   <li>
                     <NavLink to="solution/retail" className={({isActive}) => (

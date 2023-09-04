@@ -11,6 +11,7 @@ import MiddleSolution from "./pages/MiddleSolution";
 import AuthRoot from "./pages/AuthRoot";
 import Dashboard from "./pages/Dashboard";
 import DashboardHome from "./pages/DashboardHome";
+import Kyc from "./pages/Kyc";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const router = createBrowserRouter([
         path: 'signup',
         element: <Signup />
       },
+      {
+        path: 'kyc',
+        element: <Kyc />
+      }
     ]
   },
   {

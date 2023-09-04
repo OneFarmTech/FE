@@ -5,7 +5,7 @@ const DashboardHome = () => {
   return (
     <section className="px-[4%] py-4 flex flex-col w-full h-full">
       <div className="overflow-auto">
-        <div className="flex gap-6 h-52 w-fit py-4 items-stretch">
+        <div className="flex gap-10 h-52 wx-fit py-4 items-stretch">
           <div className="flex gap-6">
             <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-80 bg-white text-black-100">
               <h4 className="text-lg">Pending Orders</h4>
@@ -26,7 +26,7 @@ const DashboardHome = () => {
         </div>
       </div>
 
-      <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:gap-5">
+      <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:gap-10">
         <div className="flex flex-col gap-8 w-full max-w-[42rem]">
           <div className="flex justify-between items-center">
             <h2 className="text-2xl font-bold">Pending Orders</h2>

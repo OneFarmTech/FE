@@ -41,11 +41,11 @@ const DashNav = () => {
       <nav className={`${activeNav ? 'flex' : 'hidden'} flex-col justify-between h-[87%] 2xl:flex`}>
         <ul className='flex flex-col gap-5'>
           <li>
-            <NavLink className='flex gap-4 items-center'>
+            <NavLink to='home' className='flex gap-4 items-center text-green-30'>
               <div className='w-6'>
                 <img src={home} alt="Home Icon" />
               </div>  
-              <h4 className='text-xl text-black-50'>Home</h4>
+              <h4 className='text-xl'>Home</h4>
             </NavLink>
           </li>
           <li>
