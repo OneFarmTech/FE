@@ -1,4 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+
+const loginThunk = createAsyncThunk('user/login', async (email) => {
+  const response = await axios.post('', {
+    email: email
+  });
+  return response.data;
+});
+
+const registerThunk = createAsyncThunk()
 
 const registerSlice = createSlice({
   name: 'login',
@@ -18,3 +28,4 @@ const registerSlice = createSlice({
 
 export const { login, setRole } = registerSlice.actions;
 export default registerSlice.reducer;
+export { loginThunk };

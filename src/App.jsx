@@ -12,6 +12,7 @@ import AuthRoot from "./pages/AuthRoot";
 import Dashboard from "./pages/Dashboard";
 import DashboardHome from "./pages/DashboardHome";
 import Kyc from "./pages/Kyc";
+import Profile from "./pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: 'home',
         element: <DashboardHome />
+      },
+      {
+        path: 'profile',
+        element: <Profile />
       }
     ]
   }

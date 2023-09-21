@@ -2,8 +2,14 @@ import { Link } from "react-router-dom";
 import SocialIcons from "../components/SocialIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../redux/register/registerSlice";
+import { useState } from "react";
 
 const Login = () => {
+  const [ loginDetails, setDetails ] = useState({
+    email: '',
+    verification: ''
+  });
+
   const state = useSelector((state) => (state.register));
   const dispatch = useDispatch();
 
