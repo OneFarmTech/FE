@@ -15,6 +15,10 @@
   img {
     @apply block w-full h-auto m-[0_auto];
   }
+
+  input, select {
+    @apply focus:outline-1 focus:outline focus:outline-green-30;
+  }
 }
 
 @layer components {

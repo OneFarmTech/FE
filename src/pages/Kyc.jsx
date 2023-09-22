@@ -82,6 +82,7 @@ const Kyc = () => {
               <div className="flex flex-col gap-4 flex-1">
                 <label htmlFor="gender" className="font-bold">Gender:</label>
                 <select name="gender" id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
+                  <option disabled selected hidden>Select Gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>

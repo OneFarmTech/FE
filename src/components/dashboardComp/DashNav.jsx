@@ -41,7 +41,7 @@ const DashNav = () => {
       <nav className={`${activeNav ? 'flex' : 'hidden'} flex-col justify-between h-[87%] 2xl:flex`}>
         <ul className='flex flex-col gap-5'>
           <li>
-            <NavLink to='home' className='flex gap-4 items-center text-green-30'>
+            <NavLink to='home' className='flex gap-4 items-center text-green-30' onClick={closeNav}>
               <div className='w-6'>
                 <img src={home} alt="Home Icon" />
               </div>  
@@ -49,7 +49,7 @@ const DashNav = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className='flex gap-4 items-center'>
+            <NavLink className='flex gap-4 items-center' onClick={closeNav}>
               <div className='w-6'>
                 <img src={market} alt="Market place icon" />
               </div>  
@@ -57,7 +57,7 @@ const DashNav = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className='flex gap-4 items-center'>
+            <NavLink className='flex gap-4 items-center' onClick={closeNav}>
               <div className='w-6'>
                 <img src={message} alt="Messages" />
               </div>  
@@ -65,7 +65,7 @@ const DashNav = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className='flex gap-4 items-center'>
+            <NavLink className='flex gap-4 items-center' onClick={closeNav}>
               <div className='w-6'>
                 <img src={pay} alt="" />
               </div>  
@@ -73,7 +73,7 @@ const DashNav = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className='flex gap-4 items-center'>
+            <NavLink className='flex gap-4 items-center' onClick={closeNav}>
               <div className='w-6'>
                 <img src={support} alt="" />
               </div>  
@@ -84,7 +84,7 @@ const DashNav = () => {
 
         <ul className='flex flex-col gap-5'>
           <li>
-            <Link className='flex gap-4 items-center'>
+            <Link to='profile' className='flex gap-4 items-center' onClick={closeNav}>
               <div className='w-6'>
                 <img src={profile} alt="" />
               </div>  
@@ -92,7 +92,7 @@ const DashNav = () => {
             </Link>
           </li>
           <li>
-            <Link className='flex gap-4 items-center'>
+            <Link className='flex gap-4 items-center' onClick={closeNav}>
               <div className='w-6'>
                 <img src={logout} alt="" />
               </div>  
