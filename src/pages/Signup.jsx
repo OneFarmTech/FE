@@ -4,6 +4,8 @@ import { useState } from "react";
 import { clearUser, codeVerification, signupThunk } from "../redux/register/registerSlice";
 import { useDispatch, useSelector } from "react-redux";
 import ChangePage from "../components/pageChange/SwitchPage";
+import InputValidation from "../components/pageChange/InputValidation";
+import ErrorMessage from "../components/pageChange/ErrorMessage";
 
 const Signup = () => {
   const register = useSelector((state) => (state.register));
@@ -22,13 +24,14 @@ const Signup = () => {
 
   const handleChange = (e) => {
     let newKey = e.currentTarget.name;
+    let val = e.currentTarget.value;
 
     if (newKey == 'otp') {
-      setOtp(e.currentTarget.value);
+      setOtp(val);
       return;
     }
 
-    setDetails((state) => ({...state, [newKey]: e.currentTarget.value}));
+    setDetails((state) => ({...state, [newKey]: val}));
   }
 
   const pageTwo = (e) => {
@@ -79,8 +82,6 @@ const Signup = () => {
       otp: otp,
       phone: signupDetails.phone
     }));
-
-    console.log(register);
   }
 
   return (
@@ -89,17 +90,9 @@ const Signup = () => {
 
     <ChangePage page1={register.response == null} firstTitle='Personal Details' secTitle='Verification' />
 
-    {
-      invalid.error && (
-        <div className="rounded-md border border-1 border-red-50 p-6 text-red-50">{invalid.message} field cannot be blank</div>
-      )
-    }
+    { invalid.error && (<InputValidation message={invalid.message} />) }
 
-    {
-      register.error && (
-        <div className="rounded-md border border-1 border-red-50 p-6 text-red-50">An Error occured, Please try again</div>
-      )
-    }
+    { register.error && (<ErrorMessage />) }
     
      { register.response == null && (<form className="flex flex-col gap-5">
 

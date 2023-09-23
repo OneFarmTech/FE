@@ -3,8 +3,8 @@ import axios from "axios";
 
 const loginThunk = createAsyncThunk('user/login', async (email) => {
   try {
-    const response = await axios.post('https://api.onefarmtech.com/api/register', {
-      email: email
+    const response = await axios.post('https://api.onefarmtech.com/api/login', {
+      email
     });
     return await response.data;
   } catch (error) {
@@ -25,7 +25,16 @@ const signupThunk = createAsyncThunk('user/signup', async (details) => {
 const codeVerification = createAsyncThunk('user/verifyCode', async (details) => {
   try {
     const response = await axios.post('https://api.onefarmtech.com/api/register', details);
-    // console.log(response)
+    return await response.data;
+  } catch (error) {
+    throw error;
+  }
+  
+});
+
+const verifyLogin = createAsyncThunk('user/verifyLogin', async (details) => {
+  try {
+    const response = await axios.post('https://api.onefarmtech.com/api/login', details);
     return await response.data;
   } catch (error) {
     throw error;
@@ -44,13 +53,6 @@ const registerSlice = createSlice({
   name: 'login',
   initialState: initial,
   reducers: {
-    // login: (state, action) => {
-   
-    //   state.userToken = action.payload
-    // },
-    // setRole: (state, action) => {
-    //   state.role = action.payload
-    // }
     clearUser: (state) => {
       sessionStorage.removeItem("token");
       state = initial;
@@ -83,10 +85,35 @@ const registerSlice = createSlice({
         state.userToken = action.payload.token;
         sessionStorage.setItem("token", state.userToken);
       })
+      .addCase(loginThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(loginThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(loginThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.response = action.payload;
+      })
+      .addCase(verifyLogin.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(verifyLogin.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(verifyLogin.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userToken = action.payload.token;
+        sessionStorage.setItem("token", state.userToken);
+      })
   }
 });
 
 // export const { login, setRole } = registerSlice.actions;
 export const { clearUser } = registerSlice.actions;
 export default registerSlice.reducer;
-export { loginThunk, signupThunk, codeVerification };
+export { loginThunk, signupThunk, codeVerification, verifyLogin };

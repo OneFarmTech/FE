@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import image from '../assets/images/dashboard/img.svg'
+import ChangePage from "../components/pageChange/SwitchPage";
 
 const Kyc = () => {
   const [ page, setPage ] = useState('page1');
@@ -30,31 +31,7 @@ const Kyc = () => {
     <section className="flex flex-col w-[90%] max-w-6xl gap-10 mx-auto">
       <h1 className="text-5xl text-center lg:text-left leading-[3.2rem]">Uplaod KYC</h1>
 
-      {page == 'page1' && (   
-      <div className="flex gap-10 items-center">
-        <div className="flex-1 flex flex-col gap-1">
-          <p className="text-green-30">Personal Details</p>
-          <div className="h-4 w-full rounded-2xl bg-green-30"></div>
-        </div>
-
-        <div className="flex-1 flex flex-col gap-1">
-          <p className="text-black-25">ID proof</p>
-          <div className="h-4 w-full rounded-2xl bg-black-25"></div>
-        </div>
-      </div>)}
-
-      {page != 'page1' && (   
-      <div className="flex justify-between items-center gap-10">
-        <div className="flex-1 flex flex-col gap-1">
-          <p className="text-green-30">Personal Details</p>
-          <div className="h-4 w-full rounded-2xl bg-green-30"></div>
-        </div>
-
-        <div className="flex-1 flex flex-col gap-1">
-          <p className="text-green-30">ID proof</p>
-          <div className="h-4 w-full rounded-2xl bg-green-30"></div>
-        </div>
-      </div>)}
+      <ChangePage page1={page == 'page1'} firstTitle='Personal Details' secTitle='ID Proof' />
 
       {page == 'page1' && (<form action="#" className="flex flex-col gap-5">
         <h2 className="text-3xl text-center lg:text-left leading-[3.2rem] mb-3">Enter your details</h2>
