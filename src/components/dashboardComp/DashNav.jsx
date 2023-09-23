@@ -10,9 +10,12 @@ import home from '../../assets/images/dashboard/home.svg';
 import { VscMenu } from 'react-icons/vsc';
 import { useState } from 'react';
 import { GrClose } from 'react-icons/gr';
+import { useDispatch } from 'react-redux';
+import { clearUser } from '../../redux/register/registerSlice';
 
 const DashNav = () => {
   const [ activeNav, setActive ] = useState(false);
+  const dispatch = useDispatch();
 
   const openNav = () => {
     setActive(true);
@@ -92,7 +95,10 @@ const DashNav = () => {
             </Link>
           </li>
           <li>
-            <Link className='flex gap-4 items-center' onClick={closeNav}>
+            <Link className='flex gap-4 items-center' onClick={() => {
+              closeNav();
+              dispatch(clearUser());
+            }}>
               <div className='w-6'>
                 <img src={logout} alt="" />
               </div>  
