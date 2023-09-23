@@ -3,12 +3,12 @@ import SocialIcons from "../components/SocialIcons";
 import { useState } from "react";
 import { clearUser, codeVerification, signupThunk } from "../redux/register/registerSlice";
 import { useDispatch, useSelector } from "react-redux";
+import ChangePage from "../components/pageChange/SwitchPage";
 
 const Signup = () => {
   const register = useSelector((state) => (state.register));
   const dispatch = useDispatch();
   const [otp, setOtp] = useState('');
-  // const [ page, setPage ] = useState('page1');
   const [signupDetails, setDetails] = useState({
     name: '',
     email: '',
@@ -22,19 +22,14 @@ const Signup = () => {
 
   const handleChange = (e) => {
     let newKey = e.currentTarget.name;
-    let val = e.currentTarget.value;
 
     if (newKey == 'otp') {
-      setOtp(val);
+      setOtp(e.currentTarget.value);
       return;
     }
 
-    setDetails((state) => ({...state, [newKey]: val}));
+    setDetails((state) => ({...state, [newKey]: e.currentTarget.value}));
   }
-
-  // const pageOne = () => {
-  //   setPage('page1');
-  // };
 
   const pageTwo = (e) => {
     e.preventDefault();
@@ -58,10 +53,6 @@ const Signup = () => {
     }
     
     dispatch(signupThunk(signupDetails));
-
-    // if (user.loading == false) {
-    //   setPage('page2')
-    // }
   };
 
   const submitOtp = (e) => {
@@ -96,15 +87,7 @@ const Signup = () => {
     <section className="flex flex-col w-[90%] max-w-5xl gap-10 mx-auto">
     <h1 className="text-5xl text-center lg:text-left leading-[3.2rem]">Sign Up To Create An Account</h1>
 
-    { register.response == null && (<div className="w-full max-w-lg flex justify-between items-center before:content-[''] before:h-[1px] before:w-full before:absolute relative before:top-[50%] before:bg-black-20 before:-z-10 z-10">
-      <div className="rounded-full bg-green-30 text-white h-9 w-9 text-center leading-9">1</div>
-      <div className="rounded-full bg-black-20 text-white h-9 w-9 text-center leading-9">2</div>
-    </div>)}
-
-    { register.response != null && (<div className="w-full max-w-lg flex justify-between items-center before:content-[''] before:h-[1px] before:w-full before:absolute relative before:top-[50%] before:bg-green-30 before:-z-10 z-10">
-      <div className="rounded-full bg-green-30 text-white h-9 w-9 text-center leading-9">1</div>
-      <div className="rounded-full bg-green-30 text-white h-9 w-9 text-center leading-9">2</div>
-    </div>)}
+    <ChangePage page1={register.response == null} firstTitle='Personal Details' secTitle='Verification' />
 
     {
       invalid.error && (

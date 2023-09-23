@@ -2,10 +2,14 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const loginThunk = createAsyncThunk('user/login', async (email) => {
-  const response = await axios.post('', {
-    email: email
-  });
-  return response.data;
+  try {
+    const response = await axios.post('https://api.onefarmtech.com/api/register', {
+      email: email
+    });
+    return await response.data;
+  } catch (error) {
+    throw error;
+  }
 });
 
 const signupThunk = createAsyncThunk('user/signup', async (details) => {
@@ -41,6 +45,7 @@ const registerSlice = createSlice({
   initialState: initial,
   reducers: {
     // login: (state, action) => {
+   
     //   state.userToken = action.payload
     // },
     // setRole: (state, action) => {
