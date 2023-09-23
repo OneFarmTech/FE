@@ -42,7 +42,7 @@ const DashNav = () => {
         </div>)}        
       </div>
       <nav className={`${activeNav ? 'flex' : 'hidden'} flex-col justify-between h-[87%] 2xl:flex`}>
-        <ul className='flex flex-col gap-5'>
+        <ul className='flex flex-col gap-5 pt-7'>
           <li>
             <NavLink to='home' className='flex gap-4 items-center text-green-30' onClick={closeNav}>
               <div className='w-6'>

@@ -108,7 +108,7 @@ const Signup = () => {
 
     {
       invalid.error && (
-        <div className="rounded-md border border-1 border-red-50 p-6 text-red-50">{invalid.message} cannot be blank</div>
+        <div className="rounded-md border border-1 border-red-50 p-6 text-red-50">{invalid.message} field cannot be blank</div>
       )
     }
 

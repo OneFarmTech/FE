@@ -15,7 +15,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // dispatch(login('1234'));
     console.log(state);
   }
 
@@ -27,8 +26,8 @@ const Login = () => {
         <div className="flex flex-col gap-6 lg:flex-row lg:gap-0 lg:justify-between items-center">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-4">
-              <label htmlFor="name" className="font-bold">Email/Phone Number</label>
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="name" name="name" placeholder="Enter Your Email or Phone Number" />
+              <label htmlFor="name" className="font-bold">Email</label>
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="email" id="name" name="name" placeholder="Enter Your Email or Phone Number" />
             </div>
 
             <div className="flex flex-col gap-4">
