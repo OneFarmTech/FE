@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import SocialIcons from "../components/SocialIcons";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/register/registerSlice";
+// import { login } from "../redux/register/registerSlice";
 import { useState } from "react";
 
 const Login = () => {
@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login('1234'));
+    // dispatch(login('1234'));
     console.log(state);
   }
 
