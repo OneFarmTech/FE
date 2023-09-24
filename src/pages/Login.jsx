@@ -114,7 +114,7 @@ const Login = () => {
 
             <div className="italic flex flex-col gap-3">
               <p>We just sent a code to you. It may take a minute to receive your code</p>
-              <p>Haven’t recieved it? <Link className="not-italic text-green-30">Resend Code</Link></p>
+              <p>Haven’t recieved it? <Link onClick={login} className="not-italic text-green-30">Resend Code</Link></p>
             </div>
           </div>
 
@@ -122,7 +122,7 @@ const Login = () => {
         </div>
 
         <div className="flex justify-between pr-3 max-w-md self-center w-full lg:self-start">
-          <button className="text-white py-2 px-9 bg-black-100" onClick={() => {dispatch(clearUser())}}>Go Back</button>
+          <button type="button" className="text-white py-2 px-9 bg-black-100" onClick={() => {dispatch(clearUser())}}>Go Back</button>
           <button className="text-white py-2 px-9 bg-green-30" type="submit">Login</button>
         </div>
       </form>)}

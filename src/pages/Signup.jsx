@@ -34,7 +34,7 @@ const Signup = () => {
     setDetails((state) => ({...state, [newKey]: val}));
   }
 
-  const pageTwo = (e) => {
+  const handleSignUp = (e) => {
     e.preventDefault();
     for (const detail in signupDetails) {
       if (signupDetails[detail] == '') {
@@ -124,7 +124,7 @@ const Signup = () => {
 
         <div className="flex justify-center w-full lg:justify-between pr-3 lg:max-w-lg">
           <Link to='/' className="flex items-center text-white py-2 px-5 lg:px-9 bg-black-100 lg:block">Go Back</Link>
-          <button className="text-white px-9 bg-green-30 py-3" onClick={pageTwo} type="submit">Get Verification Code</button>
+          <button className="text-white px-9 bg-green-30 py-3" onClick={handleSignUp} type="submit">Get Verification Code</button>
         </div>
       </form>)
 }
@@ -140,7 +140,7 @@ const Signup = () => {
 
           <div className="italic flex flex-col gap-3">
             <p>We just sent a code to you. It may take a minute to receive your code</p>
-            <p>Haven’t recieved it? <button className="not-italic text-green-30">Resend Code</button></p>
+            <p>Haven’t recieved it? <button onClick={handleSignUp} className="not-italic text-green-30">Resend Code</button></p>
           </div>
         </div>
 
