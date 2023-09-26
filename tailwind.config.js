@@ -9,6 +9,9 @@ export default withMT({
   theme: {
     
     extend: {
+      screens: {
+        'md': '768px',
+      },
       colors: {
         green: {
           10: '#f2fff3',

@@ -2,15 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import profilePic from '../assets/images/dashboard/profile.svg';
 import edit from '../assets/images/dashboard/edit.svg';
+import image from '../assets/images/dashboard/img.svg'
 import confirmPass, { checkPass } from "../js/confirmPass";
 
 const Profile = () => {
   const imageRef = useRef(null);
   const [changeHeading, resetHeading] = useOutletContext();
   const [profileData, setProfileData] = useState({
-    fname: '',
-    lname: '',
-    dob: '',
+    fullname: '',
     photo: profilePic,
     email: '',
     phone: '',
@@ -76,16 +75,20 @@ const Profile = () => {
           <h2 className="font-bold text-xl">Basic Information</h2>
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="fname" name="fname" placeholder="First Name" onChange={handleProfileChange} value={profileData.fname} />
-            </div>
-
-            <div className="flex flex-col gap-4 flex-1">
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="lname" name="lname" placeholder="Last Name" onChange={handleProfileChange} value={profileData.lname} />
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="fullname" name="fullname" placeholder="Full Name" onChange={handleProfileChange} value={profileData.fullname} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
               <input type="text" name="dob" id="dob" placeholder="Date of Birth" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.dob} />
             </div>
+
+            <div className="flex flex-col gap-4 flex-1">
+                <select name="gender" id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
+                  <option disabled selected hidden>Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </div>
           </div>          
         </div>
 
@@ -115,16 +118,50 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-              <select name="role" id="role" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange}>
+              <select name="role" id="role" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange}>
                 <option selected disabled hidden>Are you a Farmer or Retailer?</option>
-                <option value="male">Farmer</option>
-                <option value="female">Retailer</option>
+                <option value="farmer">Farmer</option>
+                <option value="wholesaler">Wholesaler</option>
+                <option value="retailer">Retailer</option>
               </select>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col gap-5">
+          <h2 className="font-bold text-xl">Contact Information</h2>
+
+          <div className="flex-1 flex flex-col gap-5">
+            <label className="font-bold">Choose document type</label>
+
+            <ul className="flex gap-4 text-white">
+              <li className={`bg-green-30 rounded-3xl p-3 cursor-pointer`}>National ID Card</li>
+              <li className={`bg-green-30 rounded-3xl p-3 cursor-pointer`}>Driver’s License</li>
+              <li className={`bg-green-30 rounded-3xl p-3 cursor-pointer`}>International Passport</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="font-bold">Upload ID proof</h3>
+            <p>Please provide a clear and legible picture of your valid identification document. Ensure that all details are visible and well-lit for successful verification.</p>
+          </div>
+
+          <div className="flex flex-col md:flex-row gap-6 my-5 md:items-center">
+            <div className="flex gap-6">
+              <div className="bg-white rounded-2xl p-4 px-7 w-32 shadow-md">
+                <img src={image} alt="" />
+                <p className="text-center">Click to add image</p>
+              </div>
+            </div>
+            
+            <div className="flex flex-col gap-4 flex-1">
+              <label htmlFor="identity" className="font-bold">ID Number:</label>
+              <input type="text" name="identity" id="identity" placeholder="Enter Your ID Number" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" />
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="flex flex-col gap-5">
           <h2 className="font-bold text-xl">Change Password</h2>
 
           <div className="flex flex-col md:flex-row gap-6">
@@ -142,9 +179,9 @@ const Profile = () => {
               }} />
             </div>
           </div>
-        </div>
+        </div> */}
 
-        <div className="flex flex-col gap-5">
+        {/* <div className="flex flex-col gap-5">
           <h2 className="font-bold text-xl">Preferences</h2>
 
           <div className="flex flex-col md:flex-row gap-6">
@@ -165,7 +202,7 @@ const Profile = () => {
               <label htmlFor="phoneNotice">Phone Notifications</label>
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="flex flex-col md:flex-row gap-6 justify-between w-full pt-6">
           <Link to='/dashboard/home' className="flex justify-center items-center py-2 px-16 bg-white border border-1 border-red-50 text-red-50 lg:block">Go Back</Link>
