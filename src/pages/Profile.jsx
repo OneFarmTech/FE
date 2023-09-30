@@ -5,12 +5,13 @@ import edit from '../assets/images/dashboard/edit.svg';
 import image from '../assets/images/dashboard/img.svg'
 import confirmPass, { checkPass } from "../js/confirmPass";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser } from "../redux/user/userSlice";
+import { fetchUser, updateUser } from "../redux/user/userSlice";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
 import { fetchStates } from "../redux/states/statesSlice";
+import states from "../js/states";
 
 const Profile = () => {
-  const { states, user } = useSelector((state) => (state));
+  const { user } = useSelector((state) => (state));
   const { userDetails, error, role } = user;
   const imageRef = useRef(null);
   const idRef = useRef(null);
@@ -33,7 +34,6 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(fetchUser());
-    dispatch(fetchStates());
   }, [dispatch]);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Profile = () => {
       phone: userDetails.phone,
       dob: userDetails.date_of_birth ? (new Date(userDetails.date_of_birth)).toISOString().split('T')[0] : '',
       busAddress: userDetails.address || '',
-      state: userDetails.state_id,
+      state: userDetails.state_id || '',
       city: userDetails.city,
       gender: userDetails.gender,
       role: role[0] || ''
@@ -96,10 +96,27 @@ const Profile = () => {
     }
   });
 
+  const updateProfile = (e) => {
+    e.preventDefault();
+
+    dispatch(updateUser({
+      name: profileData.name,
+      email: profileData.email,
+      phone: profileData.phone,
+      date_of_birth: profileData.dob,
+      address: profileData.busAddress,
+      state_id: profileData.state,
+      city: profileData.city,
+      image: null,
+      gender: profileData.gender,
+      roles: [profileData.role]
+}));
+  }
+
   return (
     <main className="px-[4%] py-4 w-full h-full">
       { error && <ErrorMessage /> }
-      <form action="#" className="flex flex-col gap-7 p-5">
+      <form action="#" className="flex flex-col gap-7 p-5" onSubmit={updateProfile}>
         <div className="flex flex-col gap-5">
           <h2 className="font-bold text-xl">Profile Picture</h2>
           <div className="p-4 rounded-xl shadow-lg bg-white relative w-fit">
@@ -156,7 +173,7 @@ const Profile = () => {
               <select name="state" required id="state" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.state}>
                 <option selected disabled hidden>State</option>
                 {
-                  states.states.map((state) => (
+                  states.map((state) => (
                     <option value={state.id} key={state.id}>{state.name}</option>
                   ))
                 }
