@@ -128,7 +128,9 @@ const Login = () => {
       </form>)}
 
       <div className="font-bold text-lg text-center">
-        Don't have an account? <Link className="text-green-30 pl-2" reloadDocument to='/auth/signup'>Sign Up</Link>
+        Don't have an account? <Link className="text-green-30 pl-2" to='/auth/signup' onClick={() => {
+          dispatch(clearUser());
+        }}>Sign Up</Link>
       </div>
     </section>
   );
