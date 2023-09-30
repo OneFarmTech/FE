@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ChangePage from "../components/pageChange/SwitchPage";
 import InputValidation from "../components/pageChange/InputValidation";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
+import Counter from "../components/pageChange/Counter";
 
 const Signup = () => {
   const register = useSelector((state) => (state.register));
@@ -140,7 +141,7 @@ const Signup = () => {
 
           <div className="italic flex flex-col gap-3">
             <p>We just sent a code to you. It may take a minute to receive your code</p>
-            <p>Haven’t recieved it? <button onClick={handleSignUp} className="not-italic text-green-30">Resend Code</button></p>
+            <p>Haven’t recieved it? <Counter login={handleSignUp} /></p>
           </div>
         </div>
 

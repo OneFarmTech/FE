@@ -36,7 +36,8 @@ const updateUser = createAsyncThunk('user/update', async (details) => {
 const initial = {
   error: null,
   loading: false,
-  userDetails: {}
+  userDetails: {},
+  role: []
 }
 
 const userSlice = createSlice({
@@ -47,6 +48,7 @@ const userSlice = createSlice({
     builder
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.userDetails = action.payload.data.user;
+        state.role = action.payload.data.roles
         state.loading = false;
       })
       .addCase(fetchUser.pending, (state) => {

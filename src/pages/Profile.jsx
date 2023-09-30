@@ -9,7 +9,7 @@ import { fetchUser } from "../redux/user/userSlice";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
 
 const Profile = () => {
-  const { userDetails, error } = useSelector((state) => (state.user));
+  const { userDetails, error, role } = useSelector((state) => (state.user));
   const imageRef = useRef(null);
   const idRef = useRef(null);
   const [changeHeading, resetHeading] = useOutletContext();
@@ -20,7 +20,10 @@ const Profile = () => {
     phone: '',
     city: '',
     state: '',
-    busAddress: ''
+    busAddress: '',
+    dob: '',
+    gender: '',
+    role: ''
   });
 
   const [identification, setId] = useState(null);
@@ -31,9 +34,18 @@ const Profile = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    setProfileData((state) => ({
-      ...state, ...userDetails
-    }))
+    setProfileData({
+      name: userDetails.name,
+      photo: profilePic,
+      email: userDetails.email,
+      phone: userDetails.phone,
+      dob: userDetails.date_of_birth ? (new Date(userDetails.date_of_birth)).toISOString().split('T')[0] : '',
+      busAddress: userDetails.address || '',
+      state: userDetails.state_id,
+      city: userDetails.city,
+      gender: userDetails.gender,
+      role: role[0] || ''
+    })
   }, [userDetails])
 
   const [passChange, setPass] = useState({
@@ -107,11 +119,11 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-              <input type="text" name="dob" id="dob" placeholder="Date of Birth" required className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.dob} />
+              <input type="date" name="dob" id="dob" placeholder="Date of Birth" required className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.dob} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-                <select name="gender" required id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
+                <select value={profileData.gender} name="gender" required id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
                   <option disabled selected hidden>Select Gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
@@ -146,7 +158,7 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-              <select name="role" required id="role" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange}>
+              <select name="role" required id="role" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.role}>
                 <option selected disabled hidden>Are you a Farmer or Retailer?</option>
                 <option value="farmer">Farmer</option>
                 <option value="wholesaler">Wholesaler</option>

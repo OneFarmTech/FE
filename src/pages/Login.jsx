@@ -6,6 +6,7 @@ import ChangePage from "../components/pageChange/SwitchPage";
 import { clearUser, loginThunk, verifyLogin } from "../redux/register/registerSlice";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
 import InputValidation from "../components/pageChange/InputValidation";
+import Counter from "../components/pageChange/Counter";
 
 const Login = () => {
   const [ loginDetails, setDetails ] = useState({
@@ -114,7 +115,7 @@ const Login = () => {
 
             <div className="italic flex flex-col gap-3">
               <p>We just sent a code to you. It may take a minute to receive your code</p>
-              <p>Haven’t recieved it? <Link onClick={login} className="not-italic text-green-30">Resend Code</Link></p>
+              <p>Haven’t recieved it? <Counter login={login} /></p>
             </div>
           </div>
 

@@ -14,7 +14,7 @@ const CardFour = (props) => {
         <ul className="flex flex-col gap-3 list-disc list-inside">
           {
             list.map((li) => (
-              <li className="pl-2 leading-10">{li}</li>
+              <li className="pl-2 leading-10" key={li}>{li}</li>
             ))
           }
         </ul>

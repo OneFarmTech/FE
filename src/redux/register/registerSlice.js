@@ -57,6 +57,8 @@ const registerSlice = createSlice({
       sessionStorage.removeItem("token");
       state.userToken = null;
       state.response = null;
+      state.error = null;
+      state.loading = false;
     },
   },
   extraReducers: (builder) => {
