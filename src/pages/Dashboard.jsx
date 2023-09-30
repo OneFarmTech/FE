@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../redux/user/userSlice";
 
 const Dashboard = () => {
-  const {user} = useSelector((state) => (state.user));
+  const { userDetails } = useSelector((state) => (state.user));
   const [ name, setHeader ] = useState(null);
   const dispatch = useDispatch();
 
@@ -19,11 +19,11 @@ const Dashboard = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    user?.name && setHeader(`Hello ${user.name}`);
-  }, [user])
+    userDetails?.name && setHeader(`Hello ${userDetails.name}`);
+  }, [userDetails])
   
   const resetHeading = () => {
-    setHeader(user.name == undefined ? null : `Hello ${user.name}`);
+    setHeader(userDetails.name == undefined ? null : `Hello ${userDetails.name}`);
   }
 
   return (

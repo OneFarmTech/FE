@@ -4,12 +4,17 @@ import profilePic from '../assets/images/dashboard/profile.svg';
 import edit from '../assets/images/dashboard/edit.svg';
 import image from '../assets/images/dashboard/img.svg'
 import confirmPass, { checkPass } from "../js/confirmPass";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../redux/user/userSlice";
+import ErrorMessage from "../components/pageChange/ErrorMessage";
 
 const Profile = () => {
+  const { userDetails, error } = useSelector((state) => (state.user));
   const imageRef = useRef(null);
+  const idRef = useRef(null);
   const [changeHeading, resetHeading] = useOutletContext();
   const [profileData, setProfileData] = useState({
-    fullname: '',
+    name: '',
     photo: profilePic,
     email: '',
     phone: '',
@@ -17,6 +22,19 @@ const Profile = () => {
     state: '',
     busAddress: ''
   });
+
+  const [identification, setId] = useState(null);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setProfileData((state) => ({
+      ...state, ...userDetails
+    }))
+  }, [userDetails])
 
   const [passChange, setPass] = useState({
     opass: '',
@@ -47,6 +65,15 @@ const Profile = () => {
     imageRef.current?.click();
   }
 
+  const clickIdRedirect = (e) => {
+    e.preventDefault();
+    idRef.current?.click();
+  }
+  const handleIdChange = (e) => {
+    let newfile = URL.createObjectURL(e.currentTarget.files[0]);
+    setId(newfile)
+  }
+
   useEffect(() => {
     changeHeading('Profile');
     return () => {
@@ -56,6 +83,7 @@ const Profile = () => {
 
   return (
     <main className="px-[4%] py-4 w-full h-full">
+      { error && <ErrorMessage /> }
       <form action="#" className="flex flex-col gap-7 p-5">
         <div className="flex flex-col gap-5">
           <h2 className="font-bold text-xl">Profile Picture</h2>
@@ -75,15 +103,15 @@ const Profile = () => {
           <h2 className="font-bold text-xl">Basic Information</h2>
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="fullname" name="fullname" placeholder="Full Name" onChange={handleProfileChange} value={profileData.fullname} />
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" required id="name" name="name" placeholder="Full Name" onChange={handleProfileChange} value={profileData.name} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-              <input type="text" name="dob" id="dob" placeholder="Date of Birth" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.dob} />
+              <input type="text" name="dob" id="dob" placeholder="Date of Birth" required className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.dob} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-                <select name="gender" id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
+                <select name="gender" required id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
                   <option disabled selected hidden>Select Gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
@@ -96,29 +124,29 @@ const Profile = () => {
           <h2 className="font-bold text-xl">Contact Information</h2>
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="email" id="email" name="email" placeholder="Email Address" onChange={handleProfileChange} value={profileData.email} />
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="email" id="email" name="email" placeholder="Email Address" onChange={handleProfileChange} value={profileData.email} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="phone" name="phone" placeholder="Phone Number" onChange={handleProfileChange} value={profileData.phone} />
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="text" id="phone" name="phone" placeholder="Phone Number" onChange={handleProfileChange} value={profileData.phone} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="city" name="city" placeholder="City" onChange={handleProfileChange} value={profileData.city} />
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="text" id="city" name="city" placeholder="City" onChange={handleProfileChange} value={profileData.city} />
             </div>
           </div>
 
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="state" name="state" placeholder="State" onChange={handleProfileChange} value={profileData.state} />
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="text" id="state" name="state" placeholder="State" onChange={handleProfileChange} value={profileData.state} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="busAddress" name="busAddress" placeholder="Business Address" onChange={handleProfileChange} value={profileData.busAddress} />
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="text" id="busAddress" name="busAddress" placeholder="Business Address" onChange={handleProfileChange} value={profileData.busAddress} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-              <select name="role" id="role" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange}>
+              <select name="role" required id="role" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange}>
                 <option selected disabled hidden>Are you a Farmer or Retailer?</option>
                 <option value="farmer">Farmer</option>
                 <option value="wholesaler">Wholesaler</option>
@@ -148,11 +176,12 @@ const Profile = () => {
 
           <div className="flex flex-col md:flex-row gap-6 my-5 md:items-center">
             <div className="flex gap-6">
-              <div className="bg-white rounded-2xl p-4 px-7 w-32 shadow-md">
+              <div className="bg-white cursor-pointer rounded-2xl p-4 px-7 w-32 shadow-md" onClick={clickIdRedirect}>
                 <img src={image} alt="" />
-                <p className="text-center">Click to add image</p>
+                <p className="text-center">{identification ? identification.name : "Click to add image"}</p>
               </div>
             </div>
+            <input type="file" name="id" hidden ref={idRef} onChange={handleIdChange} accept="image/*" />
             
             <div className="flex flex-col gap-4 flex-1">
               <label htmlFor="identity" className="font-bold">ID Number:</label>
