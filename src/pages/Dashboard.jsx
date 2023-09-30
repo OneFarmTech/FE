@@ -30,7 +30,7 @@ const Dashboard = () => {
     <>
     <DashNav />
       <div className="2xl:pl-[16%] pt-[310px] lg:pt-[136px] relative bg-[#f9f9f9] h-screen w-full">
-        <DashHeader title={name} />
+        <DashHeader title={name} username={userDetails.name} />
         <div className="overflow-y-auto bg-[#f9f9f9]">
         <Outlet context={[changeHeading, resetHeading]} />
         </div>

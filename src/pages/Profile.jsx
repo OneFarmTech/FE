@@ -11,7 +11,7 @@ import { fetchStates } from "../redux/states/statesSlice";
 import states from "../js/states";
 
 const Profile = () => {
-  const { user } = useSelector((state) => (state));
+  const user = useSelector((state) => (state.user));
   const { userDetails, error, role } = user;
   const imageRef = useRef(null);
   const idRef = useRef(null);
@@ -66,6 +66,7 @@ const Profile = () => {
     let val = e.currentTarget.value;
 
     setProfileData((state) => ({...state, [newKey]: val}));
+    console.log(profileData)
   };
 
   const handlePassChange = (e) => {
@@ -105,7 +106,7 @@ const Profile = () => {
       phone: profileData.phone,
       date_of_birth: profileData.dob,
       address: profileData.busAddress,
-      state_id: profileData.state,
+      state_id: parseInt(profileData.state),
       city: profileData.city,
       image: null,
       gender: profileData.gender,
@@ -143,7 +144,7 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-                <select value={profileData.gender} name="gender" required id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
+                <select onChange={handleProfileChange} value={profileData.gender} name="gender" required id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
                   <option disabled selected hidden>Select Gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
