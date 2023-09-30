@@ -7,9 +7,11 @@ import confirmPass, { checkPass } from "../js/confirmPass";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../redux/user/userSlice";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
+import { fetchStates } from "../redux/states/statesSlice";
 
 const Profile = () => {
-  const { userDetails, error, role } = useSelector((state) => (state.user));
+  const { states, user } = useSelector((state) => (state));
+  const { userDetails, error, role } = user;
   const imageRef = useRef(null);
   const idRef = useRef(null);
   const [changeHeading, resetHeading] = useOutletContext();
@@ -31,6 +33,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(fetchUser());
+    dispatch(fetchStates());
   }, [dispatch]);
 
   useEffect(() => {
@@ -45,7 +48,7 @@ const Profile = () => {
       city: userDetails.city,
       gender: userDetails.gender,
       role: role[0] || ''
-    })
+    });
   }, [userDetails])
 
   const [passChange, setPass] = useState({
@@ -150,7 +153,14 @@ const Profile = () => {
 
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="text" id="state" name="state" placeholder="State" onChange={handleProfileChange} value={profileData.state} />
+              <select name="state" required id="state" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.state}>
+                <option selected disabled hidden>State</option>
+                {
+                  states.states.map((state) => (
+                    <option value={state.id} key={state.id}>{state.name}</option>
+                  ))
+                }
+              </select>
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
