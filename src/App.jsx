@@ -8,6 +8,7 @@ import Contact from "./pages/Contact";
 import FarmerSolution from "./pages/FarmerSolution";
 import RetailSolution from "./pages/RetailSolution";
 import MiddleSolution from "./pages/MiddleSolution";
+import WaitingList from "./pages/WaitingList";
 
 const router = createBrowserRouter([
   {
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path: '/waitinglist',
+    element: <WaitingList />
+  }
 ])
 
 const App = () => (

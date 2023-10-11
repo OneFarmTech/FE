@@ -22,6 +22,7 @@ export default withMT({
         },
         black: {
           10: '#ffffff',
+          50: '#ABABAB',
           100: '#0d1821',
         },
         blue: {
