@@ -18,7 +18,7 @@ const FarmersDetails = () => (
           </div>
 
           <CardTwo heading="Increased Market Access:" details="Expand your reach and connect directly with retailers, eliminating intermediaries." />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button linkTo="/auth/signup" clas="white" name="Get Started" />
         </div>
 
         <div className='flex-[45%] items-start flex flex-col gap-6'>
@@ -27,7 +27,7 @@ const FarmersDetails = () => (
           </div>
 
           <CardTwo heading="Reduced Transportation Costs:" details="Save on transportation expenses with optimized supply chain logistics." />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button linkTo="/auth/signup" clas="white" name="Get Started" />
         </div>
 
         <div className='flex-[45%] items-start flex flex-col gap-6'>
@@ -36,7 +36,7 @@ const FarmersDetails = () => (
           </div>
 
           <CardTwo heading="Improved Storage Facilities:" details="Access better storage facilities to preserve the quality of your produce." />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button linkTo="/auth/signup" clas="white" name="Get Started" />
         </div>
 
         <div className='flex-[45%] items-start flex flex-col gap-6'>
@@ -45,7 +45,7 @@ const FarmersDetails = () => (
           </div>
 
           <CardTwo heading="Technical Assistance:" details="Get expert guidance and support to enhance your farming practices." />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button linkTo="/auth/signup" clas="white" name="Get Started" />
         </div>
       </div>
     </section>

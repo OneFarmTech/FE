@@ -18,7 +18,7 @@ const RetailDetails = () => (
           </div>
 
           <CardTwo heading="Traceability and Quality Assurance:" details="Gain access to detailed information about the origin and quality of the products you source, enabling you to provide transparency and build trust." />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button clas="white" name="Get Started" linkTo="/auth/signup" />
         </div>
 
         <div className='flex-[45%] items-start flex flex-col gap-6'>
@@ -27,7 +27,7 @@ const RetailDetails = () => (
           </div>
 
           <CardTwo heading="Diverse Product Range:" details="Explore a wide variety of products from different farmers, allowing you to meet the diverse needs and preferences of your customers." />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button clas="white" name="Get Started" linkTo="/auth/signup" />
         </div>
 
         <div className='flex-[45%] items-start flex flex-col gap-6'>
@@ -36,7 +36,7 @@ const RetailDetails = () => (
           </div>
 
           <CardTwo heading="Streamlined Ordering Process:" details="Simplify your procurement process by accessing a centralized platform for sourcing, placing orders, and managing transactions." />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button clas="white" name="Get Started" linkTo="/auth/signup" />
         </div>
 
         <div className='flex-[45%] items-start flex flex-col gap-6'>
@@ -45,7 +45,7 @@ const RetailDetails = () => (
           </div>
 
           <CardTwo heading="Market Insights:" details="Receive market insights and trends to stay ahead of the competition and make informed decisions" />
-          <Button clas="white" name="Get Started" linkTo="/contact" />
+          <Button clas="white" name="Get Started" linkTo="/auth/signup" />
         </div>
       </div>
     </section>

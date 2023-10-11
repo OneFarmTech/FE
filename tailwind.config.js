@@ -9,6 +9,9 @@ export default withMT({
   theme: {
     
     extend: {
+      screens: {
+        'md': '768px',
+      },
       colors: {
         green: {
           10: '#f2fff3',
@@ -18,16 +21,25 @@ export default withMT({
         },
         orange: {
           10: '#e8871e',
-          20: 'rgba(232, 135, 30, 0.05)'
+          20: 'rgba(232, 135, 30, 0.05)',
+          30: '#FFC107',
         },
         black: {
           10: '#ffffff',
+          15: '#F2F1EF',
+          20: '#C7CDD2',
+          25: '#c7c7c7',
+          30: 'rgba(171, 171, 171, 0.67)',
+          50: '#ABABAB',
           100: '#0d1821',
         },
         blue: {
           10: '#A0BBD2',
           20: '#668EAF',
           30: 'rgba(13, 24, 33, 0.05)'
+        },
+        red: {
+          50: '#FF1818'
         }
       },
 

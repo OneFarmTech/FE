@@ -7,7 +7,7 @@ const HomeHeadline = () => (
       <p className="leading-10 mt-7 text-center lg:text-left">Welcome to <span className="font-bold">OneFarm</span>, where we empower smallholder farmers in Nigeria by connecting them directly with retailers, ensuring fair revenue distribution.</p>
     </div>
     <div className="flex justify-center my-7 lg:my-d order-last lg:justify-start px-[7%] items-start">
-      <Button clas="green" name="Get Started" />
+      <Button linkTo="/auth/signup" clas="green" name="Get Started" />
     </div>
 
     <div className="h-full min-h-[24rem] w-full max-w-lg lg:max-w-full m-auto lg:my-l bg-headline bg-contain bg-no-repeat bg-center bg-green-30"></div>

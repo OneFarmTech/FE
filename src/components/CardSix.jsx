@@ -12,7 +12,7 @@ const CardSix = (props) => {
       <div className="flex flex-1 flex-col justify-center items-start gap-3">
         <h3 className="font-bold">{heading}</h3>
         <p className="leading-10">{details}</p>
-        <Button name="Get Started" clas="white" />
+        <Button linkTo="/auth/signup" name="Get Started" clas="white" />
       </div>
     </article>
   );
