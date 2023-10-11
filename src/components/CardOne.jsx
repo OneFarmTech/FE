@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const CardOne = (props) => {
 
   const { heading, details } = props;
@@ -10,3 +12,8 @@ const CardOne = (props) => {
 };
 
 export default CardOne;
+
+CardOne.propTypes = {
+  heading: PropTypes.string,
+  details: PropTypes.string,
+}
