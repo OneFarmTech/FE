@@ -52,6 +52,7 @@ export default withMT({
         'backtwo': "url('../images/bg3.png')",
         'testimonialbg': "url('../images/testimonialbg.png')",
         'testimonialmobile': "url('../images/testimonialmobile.png')",
+        'waitingbg': "url('../images/waitinglist/waitingbg.png')",
       },
       keyframes: {
         slide: {

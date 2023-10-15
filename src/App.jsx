@@ -14,9 +14,17 @@ import DashboardHome from "./pages/DashboardHome";
 import Kyc from "./pages/Kyc";
 import Profile from "./pages/Profile";
 import { useSelector } from "react-redux";
+import WaitingList from "./pages/WaitingList";
 
 const App = () => {
-  const {userToken} = useSelector((state) => (state.register))
+  const {userToken} = useSelector((state) => (state.register));
+
+  const router1 = createBrowserRouter([
+    {
+      path: '/',
+      element: <WaitingList />
+    }
+  ])
 
   const router = createBrowserRouter([
     {
@@ -85,7 +93,7 @@ const App = () => {
 
   return (
     <>
-      <RouterProvider router={router} />
+      <RouterProvider router={router1} />
     </>
   );
 }

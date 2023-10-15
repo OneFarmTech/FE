@@ -6,13 +6,13 @@ import logo from '../assets/images/onefarm.svg';
 import { AiFillInstagram } from "react-icons/ai";
 
 const Footer = () => (
-  <footer className="w-full p-10 lg:p-16 bg-green-20 grid grid-cols-[1fr] lg:grid-cols-[1fr_3fr] gap-10">
+  <footer className="w-full p-10 lg:p-16 bg-green-20 grid grid-cols-[1fr] md:grid-cols-[2fr_3fr] gap-10">
     <div className="max-w-[180px]">
       <img src={logo} alt="One farm logo" />
     </div>
 
     <div className="flex flex-col row-span-2 self-center lg:flex-row gap-10 justify-evenly">
-      <div className="flex w-full lg:max-w-[270px] justify-between">
+      {/* <div className="flex w-full lg:max-w-[270px] justify-between">
         <div className="flex flex-col gap-3">
           <h3 className="font-bold">Website</h3>
           <ul className="flex flex-col gap-3">
@@ -60,10 +60,10 @@ const Footer = () => (
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
 
       <div className="flex min-w-[300px] lg:max-w-[400px] justify-between">
-        <div className="flex flex-1 flex-col gap-3">
+        {/* <div className="flex flex-1 flex-col gap-3">
           <h3 className="font-bold">Other Links</h3>
           <ul className="flex flex-col gap-3">
             <li>
@@ -79,19 +79,19 @@ const Footer = () => (
               <Link to="/">Partner With Us</Link>
             </li>
           </ul>
-        </div>
+        </div> */}
 
         <div className="flex flex-1 flex-col gap-3">
           <ul className="flex flex-col gap-3">
-            <li className="flex justify-between items-center">
+            <li className="flex gap-4 items-center">
                 <HiMail />
                 <span className="w-[80%]">sales@onefarmtech.com  info@onefarmtech.com</span>
             </li>
-            <li className="flex justify-between items-center">
+            <li className="flex gap-4 items-center">
                 <ImPhone />
                 <span className="w-[80%]">+2348037135296</span>
             </li>
-            <li className="flex justify-between items-center">
+            <li className="flex gap-4 items-center">
                 <FaLocationDot />
                 <span className="w-[80%]">Suite No. 7, cherry hill plaza, Eke Yusuf close, behind Eterna Filling station Utako, Abuja.</span>
             </li>
