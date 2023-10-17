@@ -15,6 +15,7 @@ import Kyc from "./pages/Kyc";
 import Profile from "./pages/Profile";
 import { useSelector } from "react-redux";
 import WaitingList from "./pages/WaitingList";
+import Products from "./pages/Products";
 
 const App = () => {
   const {userToken} = useSelector((state) => (state.register));
@@ -23,6 +24,10 @@ const App = () => {
     {
       path: '/',
       element: <WaitingList />
+    },
+    {
+      path: '/products',
+      element: <Products />
     }
   ])
 
