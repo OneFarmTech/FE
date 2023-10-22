@@ -18,7 +18,7 @@ const Profile = () => {
   const [changeHeading, resetHeading] = useOutletContext();
   const [profileData, setProfileData] = useState({
     name: '',
-    photo: profilePic,
+    photo: '',
     email: '',
     phone: '',
     city: '',
@@ -26,7 +26,10 @@ const Profile = () => {
     busAddress: '',
     dob: '',
     gender: '',
-    role: ''
+    role: '',
+    identity: '',
+    identity_type: '',
+    id_image: ''
   });
 
   const [identification, setId] = useState(null);
@@ -39,7 +42,7 @@ const Profile = () => {
   useEffect(() => {
     setProfileData({
       name: userDetails.name,
-      photo: profilePic,
+      photo: userDetails.image,
       email: userDetails.email,
       phone: userDetails.phone,
       dob: userDetails.date_of_birth ? (new Date(userDetails.date_of_birth)).toISOString().split('T')[0] : '',
@@ -47,7 +50,10 @@ const Profile = () => {
       state: userDetails.state_id || '',
       city: userDetails.city,
       gender: userDetails.gender,
-      role: role[0] || ''
+      role: role[0] || '',
+      identity: userDetails.id_number,
+      identity_type: userDetails.id_type,
+      id_image: userDetails.id_image
     });
   }, [userDetails])
 
@@ -56,17 +62,61 @@ const Profile = () => {
     npass: '',
   });
 
+  // const changeImage = (e) => {
+  //   let newfile = URL.createObjectURL(e.currentTarget.files[0]);
+  //   setProfileData((state) => ({...state, photo: newfile}))
+  // }
+
+
   const changeImage = (e) => {
-    let newfile = URL.createObjectURL(e.currentTarget.files[0]);
-    setProfileData((state) => ({...state, photo: newfile}))
-  }
+    const file = e.currentTarget.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = (event) => {
+        
+        const image = new Image();
+        image.src = reader.result;
+
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxImageSize = 300; // Set your desired maximum size in pixels
+
+          let width = image.width;
+          let height = image.height;
+
+          if (width > maxImageSize || height > maxImageSize) {
+            if (width > height) {
+              height = (maxImageSize * height) / width;
+              width = maxImageSize;
+            } else {
+              width = (maxImageSize * width) / height;
+              height = maxImageSize;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(image, 0, 0, width, height);
+
+          const resizedBase64 = canvas.toDataURL('image/jpeg'); // You can change the format as needed
+
+          setProfileData((state) => ({...state, photo: resizedBase64}));
+          console.log(resizedBase64);
+        };
+
+      };
+  
+      reader.readAsDataURL(file);
+    }
+  };
+  
 
   const handleProfileChange = (e) => {
-    let newKey = e.currentTarget.name;
-    let val = e.currentTarget.value;
-
-    setProfileData((state) => ({...state, [newKey]: val}));
-    console.log(profileData)
+    const { name, value } = e.target;
+    setProfileData({ ...profileData, [name]: value });
   };
 
   const handlePassChange = (e) => {
@@ -86,9 +136,51 @@ const Profile = () => {
     idRef.current?.click();
   }
   const handleIdChange = (e) => {
-    let newfile = URL.createObjectURL(e.currentTarget.files[0]);
-    setId(newfile)
-  }
+    let newfile = e.currentTarget.files[0];
+    // setId(newfile)
+    // const file = e.currentTarget.files[0];
+  
+    if (newfile) {
+      const reader = new FileReader();
+  
+      reader.onload = (event) => {
+        
+        const image = new Image();
+        image.src = reader.result;
+
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxImageSize = 300; // Set your desired maximum size in pixels
+
+          let width = image.width;
+          let height = image.height;
+
+          if (width > maxImageSize || height > maxImageSize) {
+            if (width > height) {
+              height = (maxImageSize * height) / width;
+              width = maxImageSize;
+            } else {
+              width = (maxImageSize * width) / height;
+              height = maxImageSize;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(image, 0, 0, width, height);
+
+          const resizedBase64 = canvas.toDataURL('image/jpeg'); // You can change the format as needed
+
+          setId(resizedBase64);
+          console.log(identification);
+        };
+
+      };
+  
+      reader.readAsDataURL(newfile);
+    }
+  };
 
   useEffect(() => {
     changeHeading('Profile');
@@ -108,9 +200,12 @@ const Profile = () => {
       address: profileData.busAddress,
       state_id: parseInt(profileData.state),
       city: profileData.city,
-      image: null,
       gender: profileData.gender,
-      roles: [profileData.role]
+      roles: [profileData.role],
+      id_number: profileData.identity,
+      id_image: identification ? identification : 'No Image',
+      image: profileData.photo
+
 }));
   }
 
@@ -217,7 +312,7 @@ const Profile = () => {
           <div className="flex flex-col md:flex-row gap-6 my-5 md:items-center">
             <div className="flex gap-6">
               <div className="bg-white cursor-pointer rounded-2xl p-4 px-7 w-32 shadow-md" onClick={clickIdRedirect}>
-                <img src={image} alt="" />
+                <img src={profileData.id_image} alt="" />
                 <p className="text-center">{identification ? identification.name : "Click to add image"}</p>
               </div>
             </div>
@@ -225,7 +320,7 @@ const Profile = () => {
             
             <div className="flex flex-col gap-4 flex-1">
               <label htmlFor="identity" className="font-bold">ID Number:</label>
-              <input type="text" name="identity" id="identity" placeholder="Enter Your ID Number" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" />
+              <input type="text" name="identity" id="identity" onChange={handleProfileChange} value={profileData.identity}  placeholder="Enter Your ID Number" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" />
             </div>
           </div>
         </div>
