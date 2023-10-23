@@ -20,8 +20,6 @@ const Login = () => {
   const store = useSelector((state) => (state.register));
   const dispatch = useDispatch();
 
-  const [page, setPage] = useState('page1');
-
   const handleChange = (e) => {
     let newKey = e.currentTarget.name;
     let val = e.currentTarget.value;
@@ -129,7 +127,7 @@ const Login = () => {
       </form>)}
 
       <div className="font-bold text-lg text-center">
-        Don't have an account? <Link className="text-green-30 pl-2" to='/auth/signup' onClick={() => {
+        Don&apos;t have an account? <Link className="text-green-30 pl-2" to='/auth/signup' onClick={() => {
           dispatch(clearUser());
         }}>Sign Up</Link>
       </div>

@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 const CardThree = (props) => {
   const { img, name, heading, details } = props;
 
@@ -11,5 +13,12 @@ const CardThree = (props) => {
     </article>
   );
 };
+
+CardThree.propTypes = {
+  img: PropTypes.string,
+  name: PropTypes.string,
+  heading: PropTypes.string,
+  details: PropTypes.string,
+}
 
 export default CardThree
