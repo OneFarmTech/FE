@@ -8,12 +8,16 @@
     @apply font-lato;
   }
 
-  body {
+  .body {
     @apply md:bg-green-10 text-black-100;
   }
 
   img {
     @apply block w-full h-auto m-[0_auto];
+  }
+
+  input, select {
+    @apply focus:outline-1 focus:outline focus:outline-green-30;
   }
 }
 

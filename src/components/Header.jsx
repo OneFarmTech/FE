@@ -73,7 +73,7 @@ const Header = () => {
                   <li>
                     <NavLink to="solution/middlemen" className={({isActive}) => (
                         isActive ? "text-green-30" : ""
-                      )}>Middleman</NavLink>
+                      )}>Wholesaler</NavLink>
                   </li>
                   <li>
                     <NavLink to="solution/retail" className={({isActive}) => (
@@ -98,7 +98,7 @@ const Header = () => {
       </nav>
 
       <div className="hidden lg:block">
-        <Button linkTo="contact" clas='green' name="Get started" />
+        <Button linkTo="/auth/signup" clas='green' name="Get started" />
       </div>
 
       <div className="cursor-pointer lg:hidden" onClick={handleActive}>
@@ -120,7 +120,7 @@ const Header = () => {
                 <NavLink to="solution/farmer" onClick={handleAnchorTags}>Farmers</NavLink>
               </li>
               <li>
-                <NavLink to="solution/middlemen" onClick={handleAnchorTags}>Middlemen</NavLink>
+                <NavLink to="solution/middlemen" onClick={handleAnchorTags}>Wholesalers</NavLink>
               </li>
               <li>
                 <NavLink to="solution/retail" onClick={handleAnchorTags}>Retailers</NavLink>

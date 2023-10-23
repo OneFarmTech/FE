@@ -25,11 +25,11 @@ const HomeDetails = () => {
       <section className="flex flex-col lg:flex-row gap-4 py-10 px-[5%] xl:min-h-[30rem]">
         <div className="bg-backone flex-1 min-h-[20rem] bg-no-repeat bg-cover"></div>
         <div className="flex-1 flex flex-col gap-9 items-start py-4">
-          <CardOne heading="Our Mission:" details="Empower smallholder farmers in Nigeria by revolutionizing the agricultural supply chain, creating a fair and transparent ecosystem that benefits farmers, middlemen, and retailers"/>
+          <CardOne heading="Our Mission:" details="Empower smallholder farmers in Nigeria by revolutionizing the agricultural supply chain, creating a fair and transparent ecosystem that benefits farmers, wholesalers, and retailers"/>
 
           <CardOne heading="Market Opportunity:" details="The West African agriculture industry is valued at $10 billion. Join us in transforming Nigeria's agricultural supply chain." />
 
-          <Button clas="white" name="Get Started" />
+          <Button linkTo="/auth/signup" clas="white" name="Get Started" />
         </div>
       </section>
 
@@ -39,9 +39,9 @@ const HomeDetails = () => {
           <div className="flex-1 flex flex-col gap-9 items-start py-4 order-last lg:order-first lg:translate-y-10">
             <CardTwo heading="The Challenge:" details="Nigeria's agricultural supply chain faces inefficiency and unfairness, resulting in financial losses for farmers and abandoned farms." />
 
-            <CardTwo heading="Our Solution:" details="OneFarm Tech is a technology-driven platform that connects farmers, middlemen, and retailers, streamlining logistics, ensuring fair pricing, and promoting transparency" />
+            <CardTwo heading="Our Solution:" details="OneFarm Tech is a technology-driven platform that connects farmers, wholesalers, and retailers, streamlining logistics, ensuring fair pricing, and promoting transparency" />
 
-            <Button clas="white" name="Get Started" />
+            <Button linkTo="/auth/signup" clas="white" name="Get Started" />
           </div>
 
           <div className="bg-backtwo flex-1 min-h-[20rem] bg-no-repeat bg-cover"></div>
@@ -54,7 +54,7 @@ const HomeDetails = () => {
         <div className="flex flex-col lg:flex-row xl:gap-7 gap-4">
           <CardThree img={farmer} name="Farmer" heading="Empowerment for Farmers:" details="Join OneFarm and gain access to a network of retailers, streamlined logistics, fair pricing, and technical assistance to boost your income, productivity, and agricultural success." />
 
-          <CardThree img={middle} name="Middleman" heading="Simplify Your Role:" details="OneFarm eliminates complexities for middlemen by directly connecting you with farmers and retailers. Benefit from a transparent supply chain, efficient processes, and enhanced profitability." />
+          <CardThree img={middle} name="Wholesaler" heading="Simplify Your Role:" details="OneFarm eliminates complexities for wholesalers by directly connecting you with farmers and retailers. Benefit from a transparent supply chain, efficient processes, and enhanced profitability." />
 
           <CardThree img={retail} name="Retailers" heading="Source Fresh, Local Produce:" details="OneFarm enables retailers to source high-quality, locally grown produce directly from farmers. Ensure freshness, traceability, fair pricing, and diverse product offerings to meet consumer demand." />
         </div>
@@ -67,11 +67,11 @@ const HomeDetails = () => {
             <CardFour order="order-first" heading="Farmers:" list={["Sign up and select your farmer profile.", "List your products and set prices.", "Receive direct orders from retailers.", "Manage logistics and delivery."]} img={bg4} />
           </div>
           <div className="dot-card orange-dot-card">
-            <CardFour order="lg:order-last" heading="Middlemen:" list={["Sign up and choose your middleman profile.","Connect with farmers and retailers on the platform.", "Facilitate transactions and ensure smooth supply chain operations.", "Benefit from transparent pricing and fair revenue distribution."]} img={bg5} />
+            <CardFour order="lg:order-last" heading="Wholesalers:" list={["Sign up and choose your wholesaler profile.","Connect with farmers and retailers on the platform.", "Facilitate transactions and ensure smooth supply chain operations.", "Benefit from transparent pricing and fair revenue distribution."]} img={bg5} />
           </div>
           <div className="dot-card blue-dot-card">
 
-            <CardFour order="order-first" heading="Retailers:" img={bg6} list={["Sign up and choose your middleman profile.", "Connect with farmers and retailers on the platform.", "Facilitate transactions and ensure smooth supply chain operations.", "Benefit from transparent pricing and fair revenue distribution."]} />
+            <CardFour order="order-first" heading="Retailers:" img={bg6} list={["Sign up and choose your wholesaler profile.", "Connect with farmers and retailers on the platform.", "Facilitate transactions and ensure smooth supply chain operations.", "Benefit from transparent pricing and fair revenue distribution."]} />
           </div>
         </div>
       </section>
@@ -92,7 +92,7 @@ const HomeDetails = () => {
         <h2 className="text-green-30 text-3xl mb-9">Testimonial From Our Partners</h2>
 
         <div>
-          <TestimonialCard img={avatar1} heading="Samuel" desc="Smallholder Farmer" details="Ever since I joined OneFarm, my farming business has transformed. The platform connects me directly with retailers, ensuring fair prices and eliminating middlemen. With their support, my income has soared, and I've gained valuable resources to enhance productivity and reduce risks. OneFarm is the transparent and empowering solution every farmer needs." />
+          <TestimonialCard img={avatar1} heading="Samuel" desc="Smallholder Farmer" details="Ever since I joined OneFarm, my farming business has transformed. The platform connects me directly with retailers, ensuring fair prices and eliminating wholesalers. With their support, my income has soared, and I've gained valuable resources to enhance productivity and reduce risks. OneFarm is the transparent and empowering solution every farmer needs." />
         </div>
       </section>
 
