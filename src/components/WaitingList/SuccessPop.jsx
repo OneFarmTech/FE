@@ -9,8 +9,8 @@ const SuccessPop = (props) => {
   const modal = useRef(null);
 
   return (
-    <section className="h-screen absolute top-0 w-full bg-black-30 flex items-center justify-center">
-      <div ref={modal} className="p-14 flex flex-col gap-6 items-center rounded-xl text-center bg-white relative">
+    <section className="h-screen absolute top-0 w-full p-1 bg-black-30 flex items-center justify-center">
+      <div ref={modal} className="p-14 flex flex-col w-fit max-w-xl gap-6 items-center rounded-xl text-center bg-white relative">
         <div className="w-fit absolute top-6 right-6 cursor-pointer" onClick={closeSuccess}>
           <GrClose size={24} />
         </div>

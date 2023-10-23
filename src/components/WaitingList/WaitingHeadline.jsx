@@ -2,9 +2,15 @@ import PropTypes from 'prop-types';
 import rocket from "../../assets/images/waitinglist/rocket.svg"
 import leaf from "../../assets/images/waitinglist/leaf.svg"
 import phones from "../../assets/images/waitinglist/phones.svg"
+import { useState } from 'react';
 
 const WaitingHeadline = (props) => {
+  const [email, setEmail] = useState('');
   const {openSuccess} = props;
+
+  const handleChange = (e) => {
+    setEmail(e.currentTarget.value);
+  }
 
   return (
     <section className="flex flex-col lg:flex-row gap-24 lg:gap-7 pt-40 lg:pt-6 items-center px-[4%] py-6 bg-waitingbg bg-no-repeat bg-cover bg-center min-h-screen absolute top-0 w-full">
@@ -23,8 +29,8 @@ const WaitingHeadline = (props) => {
         </div>
 
         <form className="flex gap-4 w-full max-w-2xl">
-          <input className="flex-1 pl-3 bg-transparent border border-[#374E61] rounded-sm p-3" type="text" name="email" placeholder="Enter your email/phone number" />
-          <button className="text-white py-2 px-12 bg-green-30 rounded-sm" onClick={(e) => {e.preventDefault(); openSuccess();}}>Submit</button>
+          <input className="flex-1 pl-3 bg-transparent border border-[#374E61] rounded-sm p-3" type="text" name="email" placeholder="Enter your email/phone number" onChange={handleChange} value={email} />
+          <button className="text-white py-2 px-12 bg-green-30 rounded-sm" onClick={(e) => {e.preventDefault(); openSuccess(email); setEmail('')}}>Submit</button>
         </form>
       </div>
 
