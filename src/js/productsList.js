@@ -21,6 +21,8 @@ import redbell from '../assets/images/waitinglist/products/redbell.png';
 import straw from '../assets/images/waitinglist/products/straw.png';
 import sweetpotato from '../assets/images/waitinglist/products/sweetpotato.png';
 import yellowbell from '../assets/images/waitinglist/products/yellowbell.png';
+import beet from '../assets/images/waitinglist/products/beet.png';
+import onion from '../assets/images/waitinglist/products/onion.png';
 
 const products = [
   {
@@ -50,7 +52,7 @@ const products = [
   },
   {
     name: 'ONIONS',
-    img: '',
+    img: onion,
     measure: 'per bag'
   },
   {
@@ -95,7 +97,7 @@ const products = [
   },
   {
     name: 'BEETROOTS',
-    img: '',
+    img: beet,
     measure: 'per bag',
   },
   {
