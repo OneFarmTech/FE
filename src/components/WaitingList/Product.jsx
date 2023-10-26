@@ -21,7 +21,8 @@ const Product = (props) => {
 Product.propTypes = {
   name: PropTypes.string,
   measure: PropTypes.string,
-  openBuy: PropTypes.func
+  openBuy: PropTypes.func,
+  image: PropTypes.any,
 }
 
 export default Product;
