@@ -89,7 +89,7 @@ const Footer = () => (
             </li>
             <li className="flex gap-4 items-center">
                 <ImPhone />
-                <span className="w-[80%]">+2348037135296</span>
+                <span className="w-[80%]">+2348051161999</span>
             </li>
             <li className="flex gap-4 items-center">
                 <FaLocationDot />
@@ -119,14 +119,14 @@ const Footer = () => (
         </li>
       </ul>
 
-      <ul className="flex justify-around lg:flex-col">
+      {/* <ul className="flex justify-around lg:flex-col">
         <li>
           <Link className="text-green-30 underline">Privacy Policy</Link>
         </li>
         <li>
           <Link className="text-green-30 underline">Terms and Conditions</Link>
         </li>
-      </ul>
+      </ul> */}
 
       <p className="text-center">&copy; {new Date().getFullYear()}, OneFarm Tech. All rights reserved</p>
     </div>
