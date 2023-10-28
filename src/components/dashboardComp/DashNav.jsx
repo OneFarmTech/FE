@@ -44,7 +44,7 @@ const DashNav = () => {
       <nav className={`${activeNav ? 'flex' : 'hidden'} flex-col justify-between h-[87%] 2xl:flex`}>
         <ul className='flex flex-col gap-5 pt-7'>
           <li>
-            <NavLink to='home' className='flex gap-4 items-center text-green-30' onClick={closeNav}>
+            <NavLink to='home' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={home} alt="Home Icon" />
               </div>  
@@ -52,35 +52,35 @@ const DashNav = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink className='flex gap-4 items-center' onClick={closeNav}>
+            <NavLink to='marketplace' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={market} alt="Market place icon" />
               </div>  
-              <h4 className='text-xl text-black-50'>MarketPlace</h4>
+              <h4 className='text-xl'>MarketPlace</h4>
             </NavLink>
           </li>
           <li>
-            <NavLink className='flex gap-4 items-center' onClick={closeNav}>
+            <NavLink to='messages' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={message} alt="Messages" />
               </div>  
-              <h4 className='text-xl text-black-50'>Messages</h4>
+              <h4 className='text-xl'>Messages</h4>
             </NavLink>
           </li>
           <li>
-            <NavLink className='flex gap-4 items-center' onClick={closeNav}>
+            <NavLink to='payment' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={pay} alt="" />
               </div>  
-              <h4 className='text-xl text-black-50'>Payment</h4>
+              <h4 className='text-xl'>Payment</h4>
             </NavLink>
           </li>
           <li>
-            <NavLink className='flex gap-4 items-center' onClick={closeNav}>
+            <NavLink to='support' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={support} alt="" />
               </div>  
-              <h4 className='text-xl text-black-50'>Support</h4>
+              <h4 className='text-xl'>Support</h4>
             </NavLink>
           </li>
         </ul>
@@ -111,4 +111,5 @@ const DashNav = () => {
     </section>
   );
 };
+
 export default DashNav;

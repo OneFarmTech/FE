@@ -17,6 +17,7 @@ import { useSelector } from "react-redux";
 import WaitingList from "./pages/WaitingList";
 import Products from "./pages/Products";
 import ProductRoot from "./pages/ProductRoot";
+import MarketPlace from "./pages/MarketPlace";
 
 const App = () => {
   const {userToken} = useSelector((state) => (state.register));
@@ -106,6 +107,10 @@ const App = () => {
         {
           path: 'profile',
           element: <Profile />
+        },
+        {
+          path: 'marketplace',
+          element: <MarketPlace />
         }
       ]
     }
@@ -113,7 +118,7 @@ const App = () => {
 
   return (
     <>
-      <RouterProvider router={router1} />
+      <RouterProvider router={router} />
     </>
   );
 }
