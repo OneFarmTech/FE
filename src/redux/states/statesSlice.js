@@ -5,7 +5,7 @@ const fetchStates = createAsyncThunk('fetch/states', async () => {
   let token = sessionStorage.getItem("token");
 
   try {
-    const response = await axios.get('https://api.onefarmtech.com/api/states', {
+    const response = await axios.get(import.meta.env.VITE_API_URL + 'states', {
       headers: {
         Authorization: `Bearer ${token}`
       }

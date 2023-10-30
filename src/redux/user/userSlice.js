@@ -4,7 +4,7 @@ import axios from "axios";
 const fetchUser = createAsyncThunk('user/fetch', async () => {
   const token = sessionStorage.getItem("token");
   try {
-    const response = await axios.get('https://api.onefarmtech.com/api/profile', {
+    const response = await axios.get(import.meta.env.VITE_API_URL + 'profile', {
       headers: {
         Authorization: `Bearer ${token}`
       }
@@ -20,7 +20,7 @@ const fetchUser = createAsyncThunk('user/fetch', async () => {
 const updateUser = createAsyncThunk('user/update', async (details) => {
   const token = sessionStorage.getItem("token");
   try {
-    const response = await axios.post('https://api.onefarmtech.com/api/profile/update', details, {
+    const response = await axios.post(import.meta.env.VITE_API_URL + 'profile/update', details, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`

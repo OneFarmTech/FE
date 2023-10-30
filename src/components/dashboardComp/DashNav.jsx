@@ -13,9 +13,17 @@ import { GrClose } from 'react-icons/gr';
 import { useDispatch } from 'react-redux';
 import { clearUser } from '../../redux/register/registerSlice';
 
-const DashNav = () => {
+const DashNav = (props) => {
+  const { permissions } = props;
   const [ activeNav, setActive ] = useState(false);
   const dispatch = useDispatch();
+  const can = (permission) => {
+        if(permissions.includes(permission)){
+          return true;
+        }
+  }
+
+  console.log(permissions);
 
   const openNav = () => {
     setActive(true);
@@ -51,6 +59,8 @@ const DashNav = () => {
               <h4 className='text-xl'>Home</h4>
             </NavLink>
           </li>
+          {
+          can('read-market') ?
           <li>
             <NavLink to='marketplace' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
@@ -59,6 +69,8 @@ const DashNav = () => {
               <h4 className='text-xl'>MarketPlace</h4>
             </NavLink>
           </li>
+          : ""
+          }
           <li>
             <NavLink to='messages' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>

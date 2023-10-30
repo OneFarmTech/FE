@@ -3,7 +3,7 @@ import axios from "axios";
 
 const loginThunk = createAsyncThunk('user/login', async (email) => {
   try {
-    const response = await axios.post('https://api.onefarmtech.com/api/login', {
+    const response = await axios.post(import.meta.env.VITE_API_URL + 'login', {
       email
     });
     return await response.data;
@@ -14,7 +14,7 @@ const loginThunk = createAsyncThunk('user/login', async (email) => {
 
 const signupThunk = createAsyncThunk('user/signup', async (details) => {
   try {
-    const response = await axios.post('https://api.onefarmtech.com/api/register', details);
+    const response = await axios.post(import.meta.env.VITE_API_URL + 'register', details);
     return await response.data;
   } catch (error) {
     throw error;
@@ -24,7 +24,7 @@ const signupThunk = createAsyncThunk('user/signup', async (details) => {
 
 const codeVerification = createAsyncThunk('user/verifyCode', async (details) => {
   try {
-    const response = await axios.post('https://api.onefarmtech.com/api/register', details);
+    const response = await axios.post(import.meta.env.VITE_API_URL + 'register', details);
     return await response.data;
   } catch (error) {
     throw error;
@@ -34,7 +34,7 @@ const codeVerification = createAsyncThunk('user/verifyCode', async (details) => 
 
 const verifyLogin = createAsyncThunk('user/verifyLogin', async (details) => {
   try {
-    const response = await axios.post('https://api.onefarmtech.com/api/login', details);
+    const response = await axios.post(import.meta.env.VITE_API_URL + 'login', details);
     return await response.data;
   } catch (error) {
     throw error;

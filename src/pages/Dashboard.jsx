@@ -10,6 +10,7 @@ import tick from "../assets/images/dashboard/tick.svg";
 const Dashboard = () => {
   const { userDetails } = useSelector((state) => (state.user));
   const [ name, setHeader ] = useState(null);
+  const [ permissions, setPermissions ] = useState(null);
   const dispatch = useDispatch();
   const [success, setSuccess] = useState(false);
 
@@ -30,17 +31,20 @@ const Dashboard = () => {
 
   useEffect(() => {
     userDetails?.name && setHeader(`Hello ${userDetails.name}`);
+    console.log(userDetails.permissions)
+    setPermissions(userDetails.permissions);
   }, [userDetails])
   
   const resetHeading = () => {
     setHeader(userDetails.name == undefined ? null : `Hello ${userDetails.name}`);
+
   }
 
   return (
     <>
-    <DashNav />
+    <DashNav permissions={permissions ?  permissions : ""} />
       <div className="2xl:pl-[16%] pt-[310px] lg:pt-[136px] relative bg-[#f9f9f9] h-screen w-full">
-        <DashHeader title={name} username={userDetails.name} />
+        <DashHeader title={name} username={userDetails.name} avatar={userDetails.image} />
         <div className="overflow-y-auto bg-[#f9f9f9]">
         <Outlet context={[changeHeading, resetHeading]} />
         </div>

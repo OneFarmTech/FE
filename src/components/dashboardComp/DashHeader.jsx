@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Spinner } from '@material-tailwind/react';
 
 const DashHeader = (props) => {
-  const { title, username } = props;
+  const { title, username, avatar } = props;
 
   return (
     <header className="px-[4%] py-10 flex flex-col lg:flex-row gap-8 items-center justify-between bg-white fixed top-[110px] lg:top-0 w-full 2xl:w-[85%] z-30">
@@ -33,7 +33,9 @@ const DashHeader = (props) => {
         </div>
 
         <Link to='profile' className='items-center gap-2 hidden lg:flex'>
-          <div className='h-14 w-14 rounded-full bg-black-30'></div>
+          <div className='h-14 w-14 rounded-full bg-black-30'>
+            <img src={avatar} alt="Profile" className='rounded-full' />
+          </div>
           <h3 className='text-black-100 text-lg'>{username}</h3>
         </Link>
       </div>
