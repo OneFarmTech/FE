@@ -37,6 +37,7 @@ const NewProduct = () => {
   }
 
   return (
+    <>
     <form action="" className="flex flex-col gap-16 bg-transparent px-[4%] py-4 w-full h-full">
       <div className="flex flex-col gap-5 lg:gap-9 lg:flex-row w-full">
         <div className="flex flex-col gap-3 w-full">
@@ -76,6 +77,7 @@ const NewProduct = () => {
 
       <button className="bg-green-30 px-20 md:px-32 py-5 self-center font-bold text-xl text-white disabled:bg-black-50" disabled={productDetails.name == '' || productDetails.cost == '' || productDetails.desc == '' || productDetails.image == null}>Upload your product</button>
     </form>
+    </>
   );
 }
 

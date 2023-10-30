@@ -4,11 +4,21 @@ import DashNav from "../components/dashboardComp/DashNav";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../redux/user/userSlice";
+import Success from "../components/popUps/Success";
+import tick from "../assets/images/dashboard/tick.svg";
 
 const Dashboard = () => {
   const { userDetails } = useSelector((state) => (state.user));
   const [ name, setHeader ] = useState(null);
   const dispatch = useDispatch();
+  const [success, setSuccess] = useState(false);
+
+  const closeSuccess = () => {
+    setSuccess(false)
+  }
+  const openSuccess = () => {
+    setSuccess(true)
+  }
 
   const changeHeading = (title) => {
     setHeader(title);
@@ -35,6 +45,8 @@ const Dashboard = () => {
         <Outlet context={[changeHeading, resetHeading]} />
         </div>
       </div>
+
+    {success && <Success closeSuccess={closeSuccess} message="You have successfully uploaded your product “yam” and you can view it in your product section" image={tick} />}
     </>
   );
 };
