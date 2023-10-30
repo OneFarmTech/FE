@@ -18,6 +18,7 @@ import WaitingList from "./pages/WaitingList";
 import Products from "./pages/Products";
 import ProductRoot from "./pages/ProductRoot";
 import MarketPlace from "./pages/MarketPlace";
+import NewProduct from "./pages/NewProduct";
 
 const App = () => {
   const {userToken} = useSelector((state) => (state.register));
@@ -111,6 +112,10 @@ const App = () => {
         {
           path: 'marketplace',
           element: <MarketPlace />
+        },
+        {
+          path: 'new',
+          element: <NewProduct />
         }
       ]
     }

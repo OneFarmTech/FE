@@ -1,15 +1,16 @@
 import { FiUpload } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 const TopSection = () => {
   return (
     <section className="overflow-auto">
       <div className="flex gap-10 h-52 w-fit py-4 items-stretch">
         <div className="flex gap-6">
-          <div className="flex flex-col justify-between rounded-md p-5 w-80 bg-white text-black-100 shadow-md">
+          <Link to='/dashboard/new' className="flex flex-col justify-between rounded-md p-5 w-80 bg-green-30 text-white shadow-md">
             <div className="text-lg"><FiUpload size={28} /></div>
             <h2 className="text-3xl">Upload your product</h2>
             <p className="text-md">291 products uploaded so far</p>
-          </div>
+          </Link>
 
           <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-80 bg-white text-black-100">
             <h4 className="text-lg">Pending Orders</h4>

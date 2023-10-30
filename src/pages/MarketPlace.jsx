@@ -1,7 +1,18 @@
+import { useEffect } from "react";
 import ProductItem from "../components/marketplace/Product";
 import TopSection from "../components/marketplace/TopSection";
+import { useOutletContext } from "react-router-dom";
 
 const MarketPlace = () => {
+  const [changeHeading, resetHeading] = useOutletContext();
+
+  useEffect(() => {
+    changeHeading('MarketPlace');
+    return () => {
+      resetHeading();
+    }
+  });
+
   return (
     <section className="px-[4%] py-4 flex flex-col w-full h-full">
       <TopSection />
