@@ -17,6 +17,8 @@ import Contact from "./pages/Contact";
 import WaitingList from "./pages/WaitingList";
 import Products from "./pages/Products";
 import ProductRoot from "./pages/ProductRoot";
+import MarketPlace from "./pages/MarketPlace";
+import NewProduct from "./pages/NewProduct";
 
 const App = () => {
   // const {userToken} = useSelector((state) => (state.register));
@@ -46,74 +48,82 @@ const App = () => {
     }
   ])
 
-  // const router = createBrowserRouter([
-  //   {
-  //     path: '/',
-  //     element: <Root />,
-  //     children: [
-  //       {
-  //         path: '',
-  //         element: <Home />
-  //       },
-  //       {
-  //         path: 'about',
-  //         element: <About />
-  //       },
-  //       {
-  //         path: 'contact',
-  //         element: <Contact />
-  //       },
-  //       {
-  //         path: 'solution/farmer',
-  //         element: <FarmerSolution />
-  //       },
-  //       {
-  //         path: 'solution/retail',
-  //         element: <RetailSolution />
-  //       },
-  //       {
-  //         path: 'solution/middlemen',
-  //         element: <MiddleSolution />
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     path: '/auth',
-  //     element: userToken ? <Navigate to='/dashboard/home' /> : <AuthRoot />,
-  //     children: [
-  //       {
-  //         path: 'login',
-  //         element: <Login />
-  //       },
-  //       {
-  //         path: 'signup',
-  //         element: <Signup />
-  //       },
-  //       {
-  //         path: 'kyc',
-  //         element: <Kyc />
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     path: '/dashboard',
-  //     element: !userToken ? <Navigate to='/auth/login' /> : <Dashboard />,
-  //     children: [
-  //       {
-  //         path: 'home',
-  //         element: <DashboardHome />
-  //       },
-  //       {
-  //         path: 'profile',
-  //         element: <Profile />
-  //       }
-  //     ]
-  //   }
-  // ])
+  const router = createBrowserRouter([
+    {
+      path: '/',
+      element: <Root />,
+      children: [
+        {
+          path: '',
+          element: <Home />
+        },
+        {
+          path: 'about',
+          element: <About />
+        },
+        {
+          path: 'contact',
+          element: <Contact />
+        },
+        {
+          path: 'solution/farmer',
+          element: <FarmerSolution />
+        },
+        {
+          path: 'solution/retail',
+          element: <RetailSolution />
+        },
+        {
+          path: 'solution/middlemen',
+          element: <MiddleSolution />
+        }
+      ]
+    },
+    {
+      path: '/auth',
+      element: userToken ? <Navigate to='/dashboard/home' /> : <AuthRoot />,
+      children: [
+        {
+          path: 'login',
+          element: <Login />
+        },
+        {
+          path: 'signup',
+          element: <Signup />
+        },
+        {
+          path: 'kyc',
+          element: <Kyc />
+        }
+      ]
+    },
+    {
+      path: '/dashboard',
+      element: !userToken ? <Navigate to='/auth/login' /> : <Dashboard />,
+      children: [
+        {
+          path: 'home',
+          element: <DashboardHome />
+        },
+        {
+          path: 'profile',
+          element: <Profile />
+        },
+        {
+          path: 'marketplace',
+          element: <MarketPlace />
+        },
+        {
+          path: 'new',
+          element: <NewProduct />
+        }
+      ]
+    }
+  ])
 
   return (
     <>
-      <RouterProvider router={router1} />
+      <RouterProvider router={router} />
     </>
   );
 }
