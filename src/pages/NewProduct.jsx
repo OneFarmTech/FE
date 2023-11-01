@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import dummy from "../assets/images/dashboard/dummyimg.svg";
 import { useOutletContext } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUser } from "../redux/user/userSlice";
 
 const NewProduct = () => {
+  const user = useSelector((state) => (state.user));
+  const { userDetails  } = user;
   const productImage = useRef(null);
   const [ productDetails, setDetails ] = useState({
     name: '',
@@ -19,6 +23,14 @@ const NewProduct = () => {
     }
   });
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+
+  
+
   const handleChange = (e) => {
     let newKey = e.currentTarget.name;
     let val = e.currentTarget.value;
@@ -32,13 +44,59 @@ const NewProduct = () => {
   }
 
   const changeImage = (e) => {
-    let newfile = URL.createObjectURL(e.currentTarget.files[0]);
-    setDetails((state) => ({...state, image: newfile}))
+    const file = e.currentTarget.files[0];
+  
+    if (file) {
+      const reader = new FileReader();
+  
+      reader.onload = (event) => {
+        
+        const image = new Image();
+        image.src = reader.result;
+
+        image.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxImageSize = 300; // Set your desired maximum size in pixels
+
+          let width = image.width;
+          let height = image.height;
+
+          if (width > maxImageSize || height > maxImageSize) {
+            if (width > height) {
+              height = (maxImageSize * height) / width;
+              width = maxImageSize;
+            } else {
+              width = (maxImageSize * width) / height;
+              height = maxImageSize;
+            }
+          }
+          canvas.width = width;
+          canvas.height = height;
+
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(image, 0, 0, width, height);
+
+          const resizedBase64 = canvas.toDataURL('image/jpeg'); // You can change the format as needed
+
+          setDetails((state) => ({...state, image: resizedBase64}));
+          console.log(resizedBase64);
+        };
+
+      };
+  
+      reader.readAsDataURL(file);
+    }
+  }
+
+  const saveProduct = (e) => {
+    e.preventDefault();
+    
+    console.log(productDetails, userDetails);
   }
 
   return (
     <>
-    <form action="" className="flex flex-col gap-16 bg-transparent px-[4%] py-4 w-full h-full">
+    <form action="" onSubmit={saveProduct} className="flex flex-col gap-16 bg-transparent px-[4%] py-4 w-full h-full">
       <div className="flex flex-col gap-5 lg:gap-9 lg:flex-row w-full">
         <div className="flex flex-col gap-3 w-full">
           <label htmlFor="name" className="font-bold text-lg">Name of Product</label>
@@ -60,7 +118,8 @@ const NewProduct = () => {
           <label htmlFor="name" className="font-bold text-lg">Product Image</label>
           <div className="bg-white p-10 rounded-md shadow-md flex flex-col items-center gap-5 w-full">
             <figure>
-              <img src={dummy} alt="" />
+              
+              <img src={productDetails.image ? productDetails.image : dummy} alt="" />
             </figure>
             <input ref={productImage} type="file" hidden accept="image/*" onChange={changeImage} />
             <button onClick={clickRedirect} className="bg-white text-green-30 border border-green-30 px-20 py-2 font-bold text-sm">Upload product image</button>
