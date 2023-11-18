@@ -60,7 +60,7 @@ const DashNav = (props) => {
             </NavLink>
           </li>
           {
-          can('read-market') ?
+          // can('read-market') ?
           <li>
             <NavLink to='marketplace' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
@@ -69,8 +69,16 @@ const DashNav = (props) => {
               <h4 className='text-xl'>MarketPlace</h4>
             </NavLink>
           </li>
-          : ""
+          // : ""
           }
+          <li>
+            <NavLink to='cart' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+              <div className='w-6'>
+                <img src={message} alt="Messages" />
+              </div>  
+              <h4 className='text-xl'>Cart</h4>
+            </NavLink>
+          </li>
           <li>
             <NavLink to='messages' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>

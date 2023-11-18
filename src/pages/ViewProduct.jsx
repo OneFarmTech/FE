@@ -27,7 +27,7 @@ const ViewProduct = () => {
 
   return (
     <section className="px-[4%] py-4 flex flex-col w-full h-full gap-8">
-      <div className="flex flex-col lg:flex-row gap-7">
+      <div className="flex flex-col lg:flex-row lg:items-center gap-7">
         <div className="flex flex-col gap-6 lg:w-2/5">
           <figure className="w-4/5 m-auto rounded-3xl overflow-hidden">
             <img src={pics[pic]} alt="Product picture" />
@@ -56,10 +56,10 @@ const ViewProduct = () => {
           <div className="flex gap-4 items-center">
             <h3 className="font-semibold text-4xl">#7,500</h3>
             <h4 className="font-semibold text-2xl line-through italic text-black-50">#8,500</h4>
-            <h5 className="text-white bg-green-300 rounded p-1">-12%</h5>
+            <h5 className="text-white bg-green-200 rounded p-1">-12%</h5>
           </div>
           <p className="text-2xl">Shipping from Pankshin, Jos</p>
-          <button className="text-white bg-green-30 py-3">Add To Cart</button>
+          <button className="text-white bg-green-30 py-3 text-xl">Add To Cart</button>
 
         </div>
       </div>
