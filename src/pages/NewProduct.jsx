@@ -78,15 +78,15 @@ const NewProduct = () => {
   const saveProduct = (e) => {
     e.preventDefault();
     let authToken = sessionStorage.getItem("token");
-    const client = new QueryClient(import.meta.VITE_API_URL, authToken);
-    client
-      .post("/products/create", productDetails)
-      .then((data) => {
-        console.log("POST Response:", data);
-      })
-      .catch((error) => {
-        console.error("POST Error:", error);
-      });
+    const client = new QueryClient(authToken);
+    const productData = {
+        name: productDetails.name,
+        cost: productDetails.cost,
+        image: productDetails.image,
+        description: productDetails.desc
+    }
+    let response = client.post("/products/create", productData);
+    console.log(response);
   };
 
   return (

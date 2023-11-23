@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProductItem from "../components/marketplace/Product";
 import TopSection from "../components/marketplace/TopSection";
 import { useOutletContext } from "react-router-dom";
+import QueryClient from "../js/QueryClient";
 
 const MarketPlace = () => {
   const [changeHeading, resetHeading] = useOutletContext();
+  const myProducts = useState([])
 
   useEffect(() => {
     changeHeading('MarketPlace');
@@ -12,6 +14,16 @@ const MarketPlace = () => {
       resetHeading();
     }
   });
+
+  useEffect(()=>{
+    let authToken = sessionStorage.getItem('token');
+    const client = new QueryClient(authToken);
+
+    let data = client.get("products/");
+
+    console.log();
+
+  })
 
   return (
     <section className="px-[4%] py-4 flex flex-col w-full h-full">
