@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import dummy from "../assets/images/dashboard/dummyimg.svg";
 import { useOutletContext } from "react-router-dom";
 import QueryClient from "../js/QueryClient";
+import Swal from 'sweetalert2';
 
 const NewProduct = () => {
   const productImage = useRef(null);
@@ -12,6 +13,15 @@ const NewProduct = () => {
     desc: "",
   });
   const [changeHeading, resetHeading] = useOutletContext();
+
+  const showAlert = () => {
+    Swal.fire({
+      title: 'Hello!',
+      text: 'This is a sweet alert!',
+      icon: 'success',
+      confirmButtonText: 'Okay',
+    });
+  };
 
   useEffect(() => {
     changeHeading("Upload Product");
@@ -87,6 +97,14 @@ const NewProduct = () => {
     }
     let response = client.post("/products/create", productData);
     console.log(response);
+    Swal.fire({
+      title: 'Hello!',
+      text: 'This is a sweet alert!',
+      icon: 'success',
+      confirmButtonText: 'Okay',
+    });
+      window.location.href = "marketplace";
+    
   };
 
   return (
