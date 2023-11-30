@@ -12,7 +12,7 @@ import states from "../js/states";
 
 const Profile = () => {
   const user = useSelector((state) => (state.user));
-  const { userDetails, error, role } = user;
+  const { userDetails, error } = user;
   const imageRef = useRef(null);
   const idRef = useRef(null);
   const [changeHeading, resetHeading] = useOutletContext();
