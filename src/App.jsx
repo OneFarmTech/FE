@@ -19,6 +19,9 @@ import Products from "./pages/Products";
 import ProductRoot from "./pages/ProductRoot";
 import MarketPlace from "./pages/MarketPlace";
 import NewProduct from "./pages/NewProduct";
+import RetailMarketplace from "./pages/RetailMarketplace";
+import ViewProduct from "./pages/ViewProduct";
+import Cart from "./pages/Cart";
 
 const App = () => {
   const {userToken} = useSelector((state) => (state.register));
@@ -99,7 +102,7 @@ const App = () => {
     },
     {
       path: '/dashboard',
-      element: !userToken ? <Navigate to='/auth/login' /> : <Dashboard />,
+      element: <Dashboard />,
       children: [
         {
           path: 'home',
@@ -114,8 +117,20 @@ const App = () => {
           element: <MarketPlace />
         },
         {
+          path: 'retailmarketplace',
+          element: <RetailMarketplace />
+        },
+        {
           path: 'new',
           element: <NewProduct />
+        },
+        {
+          path: 'viewproduct',
+          element: <ViewProduct />
+        },
+        {
+          path: 'cart',
+          element: <Cart />
         }
       ]
     }

@@ -1,6 +1,6 @@
 const ProductItem = ({ data }) => {
   return (
-    <article className="rounded-md shadow-md p-3 bg-white flex flex-col gap-4 w-80">
+    <a href="viewproduct/" className="rounded-md shadow-md p-3 bg-white flex flex-col gap-4 w-80">
       <figure className="w-[60%] h-32 bg-black-15 self-center">
         <img src={data.image} alt="" />
       </figure>
@@ -14,7 +14,7 @@ const ProductItem = ({ data }) => {
 
       <button className="bg-green-30 text-white py-3">Edit Product</button>
       <button className="border border-red-50 text-red-50 py-3">Delete Product</button>
-    </article>
+    </a>
   )
 };
 
