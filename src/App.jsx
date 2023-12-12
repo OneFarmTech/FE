@@ -25,7 +25,9 @@ import Cart from "./pages/Cart";
 
 const App = () => {
   const {userToken} = useSelector((state) => (state.register));
-
+  const isFromSignup = window.location.pathname.includes('/auth/signup');
+  const isLoginRoute = window.location.pathname.includes('/auth/login');
+  
   const router1 = createBrowserRouter([
     {
       path: '/',
@@ -84,7 +86,21 @@ const App = () => {
     },
     {
       path: '/auth',
-      element: userToken ? <Navigate to='/dashboard/home' /> : <AuthRoot />,
+      element:(
+        <>
+          {isFromSignup && userToken ? (
+            <Navigate to='/dashboard/profile' />
+          ) : (
+            <>
+              {isLoginRoute && userToken ? (
+                <Navigate to='/dashboard/home' />
+              ) : (
+                <AuthRoot />
+              )}
+            </>
+          )}
+        </>
+      ),
       children: [
         {
           path: 'login',
@@ -125,7 +141,7 @@ const App = () => {
           element: <NewProduct />
         },
         {
-          path: 'viewproduct',
+          path: 'viewproduct/:productId',
           element: <ViewProduct />
         },
         {

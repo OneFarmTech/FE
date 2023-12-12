@@ -1,6 +1,6 @@
 const ProductItem = ({ data }) => {
   return (
-    <a href="viewproduct/" className="rounded-md shadow-md p-3 bg-white flex flex-col gap-4 w-80">
+    <a href={`viewproduct/${data.id}`} className="rounded-md shadow-md p-3 bg-white flex flex-col gap-4 w-80">
       <figure className="w-[60%] h-32 bg-black-15 self-center">
         <img src={data.image} alt="" />
       </figure>
