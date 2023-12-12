@@ -1,13 +1,36 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import mango from '../assets/images/dashboard/mango.png';
 import mango3 from '../assets/images/dashboard/mango3.png';
 import mango2 from '../assets/images/dashboard/mango2.png';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import QueryClient from "../js/QueryClient";
+import ShoppingCart from "../js/Cart";
+
+
 
 const ViewProduct = () => {
   const [switchProd, setSwitch] = useState(false);
   const pics = [mango, mango3, mango2];
   const [pic, setPic] = useState(0);
+  const [product, setProduct] = useState({});
+  const  { productId }  = useParams();
+  console.log(productId);
+  useEffect(() => {
+   
+    let authToken = sessionStorage.getItem("token");
+    const client = new QueryClient(authToken);
+    client
+      .get(`products/${productId}/find`)
+      .then((data) => {
+        console.log(data.name);
+        setProduct(data); // Set the state using setMyProducts
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  });
 
   const nextPic = () => {
     setPic((state) => (state >= (pics.length - 1) ? 0 : (state + 1)))
@@ -25,12 +48,20 @@ const ViewProduct = () => {
     setSwitch(false);
   }
 
+  const Shop = new ShoppingCart(); // Initialize the ShoppingCart
+
+  const handleAddToCart = (item) => {
+    Shop.addToCart(item)
+    window.location.href="/dashboard/cart";
+    // You can add additional logic or UI updates here
+  };
+
   return (
     <section className="px-[4%] py-4 flex flex-col w-full h-full gap-8">
       <div className="flex flex-col lg:flex-row lg:items-center gap-7">
         <div className="flex flex-col gap-6 lg:w-2/5">
           <figure className="w-4/5 m-auto rounded-3xl overflow-hidden">
-            <img src={pics[pic]} alt="Product picture" />
+            <img src={product.image} alt="Product picture" />
           </figure>
 
           <div className="flex gap-5 items-center w-3/5 m-auto">
@@ -51,15 +82,15 @@ const ViewProduct = () => {
         </div>
 
         <div className="lg:w-3/5 flex flex-col gap-7">
-          <h1 className="font-semibold text-5xl">Peter Mango</h1>
+          <h1 className="font-semibold text-5xl">{product.name}</h1>
           <p className="text-2xl">2kg per basket</p>
           <div className="flex gap-4 items-center">
-            <h3 className="font-semibold text-4xl">#7,500</h3>
+            <h3 className="font-semibold text-4xl">#{product.cost}</h3>
             <h4 className="font-semibold text-2xl line-through italic text-black-50">#8,500</h4>
             <h5 className="text-white bg-green-200 rounded p-1">-12%</h5>
           </div>
           <p className="text-2xl">Shipping from Pankshin, Jos</p>
-          <button className="text-white bg-green-30 py-3 text-xl">Add To Cart</button>
+          <button onClick={() => handleAddToCart(product)} className="text-white bg-green-30 py-3 text-xl">Add To Cart</button>
 
         </div>
       </div>
@@ -73,8 +104,8 @@ const ViewProduct = () => {
          {/*Fruits  */}
          { !switchProd &&
           (<div className="flex flex-col gap-8">
-            <p> Peter Mango, we bring you the finest selection of mangoes that not only tantalize your taste buds but also offer a plethora of health benefits. Our mangoes are renowned for their sweet, juicy flavor and exceptional quality. The Peter Mango experience is a journey into the heart of tropical paradise, where the golden sun kisses the lush orchards, nurturing our mangoes to perfection.</p>
-            <p>These succulent fruits are not just a treat for your taste buds; they&apos;re also a treasure trove of nutrients. Loaded with vitamins, minerals, and antioxidants, Peter Mangoes are your ticket to a healthier lifestyle. They boost your immune system, aid digestion, and promote radiant skin.</p>
+            <p>{product.description}</p>
+            {/* <p>These succulent fruits are not just a treat for your taste buds; they&apos;re also a treasure trove of nutrients. Loaded with vitamins, minerals, and antioxidants, Peter Mangoes are your ticket to a healthier lifestyle. They boost your immune system, aid digestion, and promote radiant skin.</p> */}
           </div>)
         }
 

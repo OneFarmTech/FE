@@ -31,7 +31,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     userDetails?.name && setHeader(`Hello ${userDetails.name}`);
-    console.log(userDetails.permissions)
+    // console.log(userDetails.roles)
+    sessionStorage.setItem('role', userDetails.roles);
     setPermissions(userDetails.permissions);
   }, [userDetails])
   

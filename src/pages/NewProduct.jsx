@@ -14,14 +14,14 @@ const NewProduct = () => {
   });
   const [changeHeading, resetHeading] = useOutletContext();
 
-  const showAlert = () => {
-    Swal.fire({
-      title: 'Hello!',
-      text: 'This is a sweet alert!',
-      icon: 'success',
-      confirmButtonText: 'Okay',
-    });
-  };
+  // const showAlert = () => {
+  //   Swal.fire({
+  //     title: 'Hello!',
+  //     text: 'This is a sweet alert!',
+  //     icon: 'success',
+  //     confirmButtonText: 'Okay',
+  //   });
+  // };
 
   useEffect(() => {
     changeHeading("Upload Product");
@@ -97,13 +97,13 @@ const NewProduct = () => {
     }
     let response = client.post("/products/create", productData);
     console.log(response);
-    Swal.fire({
-      title: 'Hello!',
-      text: 'This is a sweet alert!',
-      icon: 'success',
-      confirmButtonText: 'Okay',
-    });
-      window.location.href = "marketplace";
+    // Swal.fire({
+    //   title: 'Hello!',
+    //   text: 'This is a sweet alert!',
+    //   icon: 'success',
+    //   confirmButtonText: 'Okay',
+    // });
+    //   window.location.href = "marketplace";
     
   };
 
