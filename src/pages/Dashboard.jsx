@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../redux/user/userSlice";
 import Success from "../components/popUps/Success";
 import tick from "../assets/images/dashboard/tick.svg";
+import profilepic from "../assets/images/dashboard/profile.svg"
 
 const Dashboard = () => {
   const { userDetails } = useSelector((state) => (state.user));
@@ -44,7 +45,7 @@ const Dashboard = () => {
     <>
     <DashNav permissions={permissions ?  permissions : ""} />
       <div className="2xl:pl-[16%] pt-[310px] lg:pt-[136px] relative bg-[#f9f9f9] h-screen w-full">
-        <DashHeader title={name} username={userDetails.name} avatar={userDetails.image} />
+        <DashHeader title={name} username={userDetails.name} avatar={userDetails.image || profilepic} />
         <div className="overflow-y-auto bg-[#f9f9f9]">
         <Outlet context={[changeHeading, resetHeading]} />
         </div>

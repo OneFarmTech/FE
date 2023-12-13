@@ -1,6 +1,19 @@
-const ErrorMessage = () => {
+import error from "../../assets/images/dashboard/error.svg"
+import { VscClose } from "react-icons/vsc";
+
+const ErrorMessage = ({message}) => {
+  
   return (
-    <div className="rounded-md border border-1 border-red-50 px-6 py-2 text-red-50 capitalize">An Error Occured, Kindly try again</div>
+    <div className="rounded-md bg-red-50 px-3 py-2 flex items-center justify-between text-white capitalize">
+      <div className="flex gap-3 items-center">
+        <figure>
+          <img src={error} alt="Error icon" />
+        </figure>
+        <p>{message}</p>
+      </div>
+
+      <VscClose />
+    </div>
   );
 };
 

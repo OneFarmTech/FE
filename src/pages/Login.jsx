@@ -81,8 +81,8 @@ const Login = () => {
     <h1 className="text-5xl text-center lg:text-left leading-[3.2rem]">Log In To Your Account</h1>
 
     <ChangePage page1={store.response == null} firstTitle="Email/Phone Number" secTitle="Verification" />
-    { store.error && <ErrorMessage /> }
-    { invalid.error && <InputValidation message={invalid.message} /> }
+    { store.error && <ErrorMessage message="An Error occurred kindly try again" /> }
+    { invalid.error && <ErrorMessage message={`${invalid.message} field cannot be blank`} /> }
 
      {store.response == null && ( <form className="flex flex-col gap-5" action="#" onSubmit={login}>
         <div className="flex flex-col gap-6 lg:flex-row lg:gap-0 lg:justify-between items-center">

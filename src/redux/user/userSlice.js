@@ -9,10 +9,11 @@ const fetchUser = createAsyncThunk('user/fetch', async () => {
         Authorization: `Bearer ${token}`
       }
     });
-
+    console.log(response)
     return response.data
   }
   catch (error) {
+    console.log(error)
     throw error;
   }
 });
@@ -39,7 +40,7 @@ const initial = {
   error: null,
   loading: false,
   userDetails: {},
-  role: []
+  role: null
 }
 
 const userSlice = createSlice({
@@ -50,7 +51,7 @@ const userSlice = createSlice({
     builder
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.userDetails = action.payload.data.user;
-        state.role = action.payload.data.roles
+        state.role = action.payload.data.roles[0]
         state.loading = false;
       })
       .addCase(fetchUser.pending, (state) => {

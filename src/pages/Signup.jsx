@@ -92,9 +92,9 @@ const Signup = () => {
 
     <ChangePage page1={register.response == null} firstTitle='Personal Details' secTitle='Verification' />
 
-    { invalid.error && (<InputValidation message={invalid.message} />) }
+    { invalid.error && (<ErrorMessage message={`${invalid.message} field cannot be blank`} />) }
 
-    { register.error && (<ErrorMessage />) }
+    { register.error && (<ErrorMessage message="An error occured, kindly try again" />) }
     
      { register.response == null && (<form className="flex flex-col gap-5">
 

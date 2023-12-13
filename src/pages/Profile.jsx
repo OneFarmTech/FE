@@ -2,17 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import profilePic from '../assets/images/dashboard/profile.svg';
 import edit from '../assets/images/dashboard/edit.svg';
-import image from '../assets/images/dashboard/img.svg'
-import confirmPass, { checkPass } from "../js/confirmPass";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, updateUser } from "../redux/user/userSlice";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
-import { fetchStates } from "../redux/states/statesSlice";
 import states from "../js/states";
 
 const Profile = () => {
   const user = useSelector((state) => (state.user));
-  const { userDetails, error } = user;
+  const { userDetails, error, role } = user;
   const imageRef = useRef(null);
   const idRef = useRef(null);
   const [changeHeading, resetHeading] = useOutletContext();
@@ -42,25 +39,33 @@ const Profile = () => {
   useEffect(() => {
     setProfileData({
       name: userDetails.name,
-      photo: userDetails.image,
+      photo: userDetails.image || profilePic,
       email: userDetails.email,
       phone: userDetails.phone,
-      dob: userDetails.date_of_birth ? (new Date(userDetails.date_of_birth)).toISOString().split('T')[0] : '',
-      busAddress: userDetails.address || '',
-      state: userDetails.state_id || '',
+      dob: userDetails.date_of_birth != "00-00-00" ? (new Date(userDetails.date_of_birth)).toISOString().split('T')[0] : '',
+      busAddress: userDetails.address != "address" ? userDetails.address : '',
+      state: userDetails.state_id != 1 ? userDetails.state : '',
       city: userDetails.city,
       gender: userDetails.gender,
-      role: role[0] || '',
+      role: role || '',
       identity: userDetails.id_number,
       identity_type: userDetails.id_type,
       id_image: userDetails.id_image
     });
-  }, [userDetails])
 
-  const [passChange, setPass] = useState({
-    opass: '',
-    npass: '',
-  });
+  }, [userDetails, profileData, role])
+
+  // const [passChange, setPass] = useState({
+  //   opass: '',
+  //   npass: '',
+  // });
+
+  // const handlePassChange = (e) => {
+  //   let newKey = e.currentTarget.name;
+  //   let val = e.currentTarget.value;
+
+  //   setPass((state) => ({...state, [newKey]: val}));
+  // };
 
   // const changeImage = (e) => {
   //   let newfile = URL.createObjectURL(e.currentTarget.files[0]);
@@ -119,13 +124,6 @@ const Profile = () => {
     setProfileData({ ...profileData, [name]: value });
   };
 
-  const handlePassChange = (e) => {
-    let newKey = e.currentTarget.name;
-    let val = e.currentTarget.value;
-
-    setPass((state) => ({...state, [newKey]: val}));
-  };
-
   const clickRedirect = (e) => {
     e.preventDefault();
     imageRef.current?.click();
@@ -137,8 +135,6 @@ const Profile = () => {
   }
   const handleIdChange = (e) => {
     let newfile = e.currentTarget.files[0];
-    // setId(newfile)
-    // const file = e.currentTarget.files[0];
   
     if (newfile) {
       const reader = new FileReader();
@@ -211,7 +207,7 @@ const Profile = () => {
 
   return (
     <main className="px-[4%] py-4 w-full h-full">
-      { error && <ErrorMessage /> }
+      { error && <ErrorMessage message="An error occured, kindly try again" /> }
       <form action="#" className="flex flex-col gap-7 p-5" onSubmit={updateProfile}>
         <div className="flex flex-col gap-5">
           <h2 className="font-bold text-xl">Profile Picture</h2>
@@ -239,10 +235,10 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-                <select onChange={handleProfileChange} value={profileData.gender} name="gender" required id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
-                  <option disabled selected hidden>Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+                <select onChange={handleProfileChange} name="gender" required id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
+                  <option disabled selected={profileData.gender == "gender"}>Select Gender</option>
+                  <option selected={profileData.gender == "male"} value="male">Male</option>
+                  <option selected={profileData.gender == "female"} value="female">Female</option>
                 </select>
               </div>
           </div>          
@@ -266,11 +262,11 @@ const Profile = () => {
 
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
-              <select name="state" required id="state" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.state}>
-                <option selected disabled hidden>State</option>
+              <select name="state" required id="state" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange}>
+                <option selected={isNaN(profileData.state) || profileData.state < 0 || profileData.state > 36} disabled>State</option>
                 {
                   states.map((state) => (
-                    <option value={state.id} key={state.id}>{state.name}</option>
+                    <option value={state.id} selected={profileData.state == state.id} key={state.id}>{state.name}</option>
                   ))
                 }
               </select>
@@ -281,11 +277,11 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-              <select name="role" required id="role" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.role}>
-                <option selected disabled hidden>Are you a Farmer or Retailer?</option>
-                <option value="farmer">Farmer</option>
-                <option value="wholesaler">Wholesaler</option>
-                <option value="retailer">Retailer</option>
+              <select name="role" required id="role" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange}>
+                <option selected={profileData.role == ""} disabled>Are you a Farmer or Retailer?</option>
+                <option value="farmer" selected={profileData.role == "farmer"}>Farmer</option>
+                <option value="wholesaler" selected={profileData.role == "retailer"}>Wholesaler</option>
+                <option value="retailer" selected={profileData.role == "retailer"}>Retailer</option>
               </select>
             </div>
           </div>
