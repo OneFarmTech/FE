@@ -7,6 +7,7 @@ import ChangePage from "../components/pageChange/SwitchPage";
 import InputValidation from "../components/pageChange/InputValidation";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
 import Counter from "../components/pageChange/Counter";
+import { Spinner } from "@material-tailwind/react";
 
 const Signup = () => {
   const register = useSelector((state) => (state.register));
@@ -123,9 +124,9 @@ const Signup = () => {
           </div>
         </div>
 
-        <div className="flex justify-center w-full lg:justify-between pr-3 lg:max-w-lg">
+        <div className="flex justify-center w-full gap-2 lg:justify-between pr-3 lg:max-w-lg">
           <Link to='/' className="flex items-center text-white py-2 px-5 lg:px-9 bg-black-100 lg:block">Go Back</Link>
-          <button className="text-white px-9 bg-green-30 py-3" onClick={handleSignUp} type="submit">Get Verification Code</button>
+          { register.loading ? (<Spinner />) : (<button className="text-white px-9 bg-green-30 py-3" onClick={handleSignUp} type="submit">Get Verification Code</button>)}
         </div>
       </form>)
 }

@@ -7,6 +7,7 @@ import { clearUser, loginThunk, verifyLogin } from "../redux/register/registerSl
 import ErrorMessage from "../components/pageChange/ErrorMessage";
 import InputValidation from "../components/pageChange/InputValidation";
 import Counter from "../components/pageChange/Counter";
+import { Spinner } from "@material-tailwind/react";
 
 const Login = () => {
   const [ loginDetails, setDetails ] = useState({
@@ -97,9 +98,9 @@ const Login = () => {
           </div>
         </div>
 
-        <div className="flex self-center lg:self-start w-full justify-between pr-3 max-w-md">
+        <div className="flex self-center gap-2 lg:self-start w-full justify-between pr-3 max-w-md">
           <Link to='/' className="text-white py-2 px-9 bg-black-100">Go Back</Link>
-          <button className="text-white py-2 px-9 bg-green-30" type="submit">Get Verification Code</button>
+          {store.loading ? (<Spinner />) : (<button className="text-white py-2 px-9 bg-green-30" type="submit">Get Verification Code</button>)}
         </div>
       </form>)}
     

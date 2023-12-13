@@ -6,6 +6,11 @@ const Counter = (props) => {
   const [time, setTime] = useState(30);
   const [displayLink, setLink] = useState(false);
 
+  const reset = () => {
+    setTime(30);
+    setLink(false);
+  }
+
   useEffect(() => {
     let interval;
 
@@ -24,7 +29,7 @@ const Counter = (props) => {
 
   return (
     <>
-      { displayLink ? (<Link onClick={login} className="not-italic text-green-30">Resend Code</Link>) : <span className="not-italic text-green-30">{time}</span>}
+      { displayLink ? (<Link onClick={() => {login; reset();}} className="not-italic text-green-30">Resend Code</Link>) : <span className="not-italic text-green-30">{time}</span>}
     </>
   )
 }

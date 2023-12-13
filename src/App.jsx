@@ -102,7 +102,7 @@ const App = () => {
     },
     {
       path: '/dashboard',
-      element: <Dashboard />,
+      element: !userToken ? <Navigate to='/auth/login' /> : <Dashboard />,
       children: [
         {
           path: 'home',
