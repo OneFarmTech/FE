@@ -15,12 +15,12 @@ import { clearUser } from '../../redux/register/registerSlice';
 
 const DashNav = (props) => {
   const { permissions } = props;
-  const [ activeNav, setActive ] = useState(false);
+  const [activeNav, setActive] = useState(false);
   const dispatch = useDispatch();
   const can = (permission) => {
-        if(permissions.includes(permission)){
-          return true;
-        }
+    if (permissions.includes(permission)) {
+      return true;
+    }
   }
 
   console.log(permissions);
@@ -33,6 +33,13 @@ const DashNav = (props) => {
     setActive(false);
   };
 
+  const handleLogout = () => {
+
+    closeNav();
+    dispatch(clearUser());
+    window.location.href = '/'
+  }
+
   return (
     <section className={`fixed top-0 lg:hidden 2xl:flex lg:w-[16%] w-full flex-col gap-20 2xl:left-0 ${activeNav ? 'h-full' : 'h-fit'} lg:h-full bg-white 2xl:border 2xl:border-r-2 border-black-15 p-5 z-50`}>
       <div className='flex justify-between items-center'>
@@ -44,62 +51,62 @@ const DashNav = (props) => {
           <VscMenu size={25} />
         </div>)}
 
-        
+
         {activeNav && (<div className='lg:hidden cursor-pointer' onClick={closeNav}>
           <GrClose size={35} />
-        </div>)}        
+        </div>)}
       </div>
       <nav className={`${activeNav ? 'flex' : 'hidden'} flex-col justify-between h-[87%] 2xl:flex`}>
         <ul className='flex flex-col gap-5 pt-7'>
           <li>
-            <NavLink to='home' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='home' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={home} alt="Home Icon" />
-              </div>  
+              </div>
               <h4 className='text-xl'>Home</h4>
             </NavLink>
           </li>
           {
-          // can('read-market') ?
-          <li>
-            <NavLink to='marketplace' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
-              <div className='w-6'>
-                <img src={market} alt="Market place icon" />
-              </div>  
-              <h4 className='text-xl'>MarketPlace</h4>
-            </NavLink>
-          </li>
-          // : ""
+            // can('read-market') ?
+            <li>
+              <NavLink to='marketplace' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+                <div className='w-6'>
+                  <img src={market} alt="Market place icon" />
+                </div>
+                <h4 className='text-xl'>MarketPlace</h4>
+              </NavLink>
+            </li>
+            // : ""
           }
           <li>
-            <NavLink to='cart' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='cart' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={message} alt="Messages" />
-              </div>  
+              </div>
               <h4 className='text-xl'>Cart</h4>
             </NavLink>
           </li>
           <li>
-            <NavLink to='messages' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='messages' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={message} alt="Messages" />
-              </div>  
+              </div>
               <h4 className='text-xl'>Messages</h4>
             </NavLink>
           </li>
           <li>
-            <NavLink to='payment' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='payment' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={pay} alt="" />
-              </div>  
+              </div>
               <h4 className='text-xl'>Payment</h4>
             </NavLink>
           </li>
           <li>
-            <NavLink to='support' className={({isActive}) => ( isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='support' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={support} alt="" />
-              </div>  
+              </div>
               <h4 className='text-xl'>Support</h4>
             </NavLink>
           </li>
@@ -110,18 +117,15 @@ const DashNav = (props) => {
             <Link to='profile' className='flex gap-4 items-center' onClick={closeNav}>
               <div className='w-6'>
                 <img src={profile} alt="" />
-              </div>  
+              </div>
               <h4 className='text-xl text-black-20'>Profile</h4>
             </Link>
           </li>
           <li>
-            <Link className='flex gap-4 items-center' onClick={() => {
-              closeNav();
-              dispatch(clearUser());
-            }}>
+            <Link className='flex gap-4 items-center' onClick={handleLogout}>
               <div className='w-6'>
                 <img src={logout} alt="" />
-              </div>  
+              </div>
               <h4 className='text-xl text-red-50'>Sign Out</h4>
             </Link>
           </li>
