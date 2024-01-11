@@ -9,10 +9,11 @@ import { fetchUser, updateUser } from "../redux/user/userSlice";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
 import { fetchStates } from "../redux/states/statesSlice";
 import states from "../js/states";
+import toast from "react-hot-toast";
 
 const Profile = () => {
   const user = useSelector((state) => (state.user));
-  const { userDetails, error } = user;
+  const { userDetails, error, role } = user;
   const imageRef = useRef(null);
   const idRef = useRef(null);
   const [changeHeading, resetHeading] = useOutletContext();
@@ -31,29 +32,30 @@ const Profile = () => {
     identity_type: '',
     id_image: ''
   });
+  const [isLoading, setIsLoading] = useState(false)
 
+  const [refetch, setRefetech] = useState(false)
   const [identification, setId] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
-
   useEffect(() => {
     setProfileData({
-      name: userDetails.name,
-      photo: userDetails.image,
-      email: userDetails.email,
-      phone: userDetails.phone,
-      dob: userDetails.date_of_birth ? (new Date(userDetails.date_of_birth)).toISOString().split('T')[0] : '',
-      busAddress: userDetails.address || '',
-      state: userDetails.state_id || '',
-      city: userDetails.city,
-      gender: userDetails.gender,
+      name: userDetails?.name,
+      photo: userDetails?.image,
+      email: userDetails?.email,
+      phone: userDetails?.phone,
+      dob: userDetails?.date_of_birth ? userDetails?.date_of_birth : '',
+      busAddress: userDetails?.address || '',
+      state: userDetails?.state_id || '',
+      city: userDetails?.city,
+      gender: userDetails?.gender,
       role: role[0] || '',
-      identity: userDetails.id_number,
-      identity_type: userDetails.id_type,
-      id_image: userDetails.id_image
+      identity: userDetails?.id_number,
+      identity_type: userDetails?.id_type,
+      id_image: userDetails?.id_image
     });
   }, [userDetails])
 
@@ -70,12 +72,12 @@ const Profile = () => {
 
   const changeImage = (e) => {
     const file = e.currentTarget.files[0];
-  
+
     if (file) {
       const reader = new FileReader();
-  
+
       reader.onload = (event) => {
-        
+
         const image = new Image();
         image.src = reader.result;
 
@@ -103,16 +105,16 @@ const Profile = () => {
 
           const resizedBase64 = canvas.toDataURL('image/jpeg'); // You can change the format as needed
 
-          setProfileData((state) => ({...state, photo: resizedBase64}));
+          setProfileData((state) => ({ ...state, photo: resizedBase64 }));
           console.log(resizedBase64);
         };
 
       };
-  
+
       reader.readAsDataURL(file);
     }
   };
-  
+
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
@@ -123,7 +125,7 @@ const Profile = () => {
     let newKey = e.currentTarget.name;
     let val = e.currentTarget.value;
 
-    setPass((state) => ({...state, [newKey]: val}));
+    setPass((state) => ({ ...state, [newKey]: val }));
   };
 
   const clickRedirect = (e) => {
@@ -139,12 +141,12 @@ const Profile = () => {
     let newfile = e.currentTarget.files[0];
     // setId(newfile)
     // const file = e.currentTarget.files[0];
-  
+
     if (newfile) {
       const reader = new FileReader();
-  
+
       reader.onload = (event) => {
-        
+
         const image = new Image();
         image.src = reader.result;
 
@@ -177,7 +179,7 @@ const Profile = () => {
         };
 
       };
-  
+
       reader.readAsDataURL(newfile);
     }
   };
@@ -187,31 +189,39 @@ const Profile = () => {
     return () => {
       resetHeading();
     }
-  });
+  }, []);
 
-  const updateProfile = (e) => {
+  const updateProfile = async (e) => {
+    setIsLoading(true)
     e.preventDefault();
+    console.log(profileData);
+    try {
+      dispatch(updateUser({
+        name: profileData.name,
+        email: profileData.email,
+        phone: profileData.phone,
+        date_of_birth: profileData.dob,
+        address: profileData.busAddress,
+        state_id: parseInt(profileData.state),
+        city: profileData.city,
+        gender: profileData.gender,
+        roles: [profileData.role],
+        id_number: profileData.identity,
+        id_image: identification ? identification : 'No Image',
+        image: profileData.photo
 
-    dispatch(updateUser({
-      name: profileData.name,
-      email: profileData.email,
-      phone: profileData.phone,
-      date_of_birth: profileData.dob,
-      address: profileData.busAddress,
-      state_id: parseInt(profileData.state),
-      city: profileData.city,
-      gender: profileData.gender,
-      roles: [profileData.role],
-      id_number: profileData.identity,
-      id_image: identification ? identification : 'No Image',
-      image: profileData.photo
+      }));
+      toast.success('Updated')
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading
+    }
 
-}));
   }
 
   return (
     <main className="px-[4%] py-4 w-full h-full">
-      { error && <ErrorMessage /> }
+      {error && <ErrorMessage />}
       <form action="#" className="flex flex-col gap-7 p-5" onSubmit={updateProfile}>
         <div className="flex flex-col gap-5">
           <h2 className="font-bold text-xl">Profile Picture</h2>
@@ -226,7 +236,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="flex flex-col gap-5">
           <h2 className="font-bold text-xl">Basic Information</h2>
           <div className="flex flex-col md:flex-row gap-6">
@@ -239,13 +249,13 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-                <select onChange={handleProfileChange} value={profileData.gender} name="gender" required id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
-                  <option disabled selected hidden>Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </div>
-          </div>          
+              <select onChange={handleProfileChange} value={profileData.gender} name="gender" required id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
+                <option disabled selected hidden>Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-col gap-5">
@@ -317,10 +327,10 @@ const Profile = () => {
               </div>
             </div>
             <input type="file" name="id" hidden ref={idRef} onChange={handleIdChange} accept="image/*" />
-            
+
             <div className="flex flex-col gap-4 flex-1">
               <label htmlFor="identity" className="font-bold">ID Number:</label>
-              <input type="text" name="identity" id="identity" onChange={handleProfileChange} value={profileData.identity}  placeholder="Enter Your ID Number" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" />
+              <input type="text" name="identity" id="identity" onChange={handleProfileChange} value={profileData.identity} placeholder="Enter Your ID Number" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" />
             </div>
           </div>
         </div>
@@ -370,7 +380,7 @@ const Profile = () => {
 
         <div className="flex flex-col md:flex-row gap-6 justify-between w-full pt-6">
           <Link to='/dashboard/home' className="flex justify-center items-center py-2 px-16 bg-white border border-1 border-red-50 text-red-50 lg:block">Go Back</Link>
-          <button className="text-white px-16 bg-green-30 py-3" type="submit">Submit</button>
+          <button className="text-white px-16 bg-green-30 py-3" type="submit" disabled={isLoading}>{isLoading ? 'Please wait....' : 'Submit'}</button>
         </div>
       </form>
     </main>
