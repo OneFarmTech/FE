@@ -68,24 +68,25 @@ const Login = () => {
 
   const codeVerification = (e) => {
     e.preventDefault();
-    if (loginDetails.otp == '') {
-      setvalid((state) => ({
-        ...state,
-        error: true,
-        message: 'otp'
-      }));
+    // if (loginDetails.otp == '') {
+    //   setvalid((state) => ({
+    //     ...state,
+    //     error: true,
+    //     message: 'otp'
+    //   }));
 
-      setTimeout(() => {
-        setvalid((state) => ({
-          ...state,
-          error: false,
-          message: ''
-        }))
-      }, 3000)
-      return;
-    }
+    //   setTimeout(() => {
+    //     setvalid((state) => ({
+    //       ...state,
+    //       error: false,
+    //       message: ''
+    //     }))
+    //   }, 3000)
+    //   return;
+    // }
 
-    dispatch(verifyLogin(loginDetails));
+    // dispatch(verifyLogin(loginDetails));
+    mutate
 
   }
 
