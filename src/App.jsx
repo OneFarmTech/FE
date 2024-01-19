@@ -24,10 +24,10 @@ import ViewProduct from "./pages/ViewProduct";
 import Cart from "./pages/Cart";
 
 const App = () => {
-  const {userToken} = useSelector((state) => (state.register));
+  const { userToken } = useSelector((state) => (state.register));
   const isFromSignup = window.location.pathname.includes('/auth/signup');
   const isLoginRoute = window.location.pathname.includes('/auth/login');
-  
+
   const router1 = createBrowserRouter([
     {
       path: '/',
@@ -86,7 +86,7 @@ const App = () => {
     },
     {
       path: '/auth',
-      element:(
+      element: (
         <>
           {isFromSignup && userToken ? (
             <Navigate to='/dashboard/profile' />
