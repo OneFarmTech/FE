@@ -7,8 +7,11 @@ const loginThunk = createAsyncThunk('user/login', async (email) => {
       email
     });
     return await response.data;
+    console.log('API sucess');
   } catch (error) {
+    console.log('API error');
     throw error;
+
   }
 });
 
@@ -19,7 +22,7 @@ const signupThunk = createAsyncThunk('user/signup', async (details) => {
   } catch (error) {
     throw error;
   }
-  
+
 });
 
 const codeVerification = createAsyncThunk('user/verifyCode', async (details) => {
@@ -29,7 +32,7 @@ const codeVerification = createAsyncThunk('user/verifyCode', async (details) => 
   } catch (error) {
     throw error;
   }
-  
+
 });
 
 const verifyLogin = createAsyncThunk('user/verifyLogin', async (details) => {
@@ -39,7 +42,7 @@ const verifyLogin = createAsyncThunk('user/verifyLogin', async (details) => {
   } catch (error) {
     throw error;
   }
-  
+
 });
 
 const initial = {

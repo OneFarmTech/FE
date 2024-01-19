@@ -5,30 +5,21 @@ import QueryClient from "../js/QueryClient";
 import Swal from 'sweetalert2';
 
 const NewProduct = () => {
-  const productImage = useRef(null);
+  const productImages = useRef(null);
   const [productDetails, setDetails] = useState({
     name: "",
     cost: "",
-    image: null,
+    images: [],
     desc: "",
   });
   const [changeHeading, resetHeading] = useOutletContext();
-
-  // const showAlert = () => {
-  //   Swal.fire({
-  //     title: 'Hello!',
-  //     text: 'This is a sweet alert!',
-  //     icon: 'success',
-  //     confirmButtonText: 'Okay',
-  //   });
-  // };
 
   useEffect(() => {
     changeHeading("Upload Product");
     return () => {
       resetHeading();
     };
-  });
+  }, [changeHeading, resetHeading]);
 
   const handleChange = (e) => {
     let newKey = e.currentTarget.name;
@@ -39,61 +30,69 @@ const NewProduct = () => {
 
   const clickRedirect = (e) => {
     e.preventDefault();
-    productImage.current?.click();
+    productImages.current?.click();
   };
 
-  const changeImage = (e) => {
-    const file = e.currentTarget.files[0];
+  const changeImages = (e) => {
+    const files = e.currentTarget.files;
 
-    if (file) {
-      const reader = new FileReader();
+    if (files) {
+      const imagesArray = Array.from(files);
 
-      reader.onload = (event) => {
-        const image = new Image();
-        image.src = reader.result;
+      const imagesPromiseArray = imagesArray.map((file) => {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
 
-        image.onload = () => {
-          const canvas = document.createElement("canvas");
-          const maxImageSize = 300; // Set your desired maximum size in pixels
+          reader.onload = (event) => {
+            const image = new Image();
+            image.src = reader.result;
 
-          let width = image.width;
-          let height = image.height;
+            image.onload = () => {
+              const canvas = document.createElement("canvas");
+              const maxImageSize = 300; // Set your desired maximum size in pixels
 
-          if (width > maxImageSize || height > maxImageSize) {
-            if (width > height) {
-              height = (maxImageSize * height) / width;
-              width = maxImageSize;
-            } else {
-              width = (maxImageSize * width) / height;
-              height = maxImageSize;
-            }
-          }
-          canvas.width = width;
-          canvas.height = height;
+              let width = image.width;
+              let height = image.height;
 
-          const ctx = canvas.getContext("2d");
-          ctx.drawImage(image, 0, 0, width, height);
+              if (width > maxImageSize || height > maxImageSize) {
+                if (width > height) {
+                  height = (maxImageSize * height) / width;
+                  width = maxImageSize;
+                } else {
+                  width = (maxImageSize * width) / height;
+                  height = maxImageSize;
+                }
+              }
+              canvas.width = width;
+              canvas.height = height;
 
-          const resizedBase64 = canvas.toDataURL("image/jpeg"); // You can change the format as needed
+              const ctx = canvas.getContext("2d");
+              ctx.drawImage(image, 0, 0, width, height);
 
-          setDetails((state) => ({ ...state, image: resizedBase64 }));
-          console.log(resizedBase64);
-        };
-      };
+              const resizedBase64 = canvas.toDataURL("image/jpeg"); // You can change the format as needed
+              resolve(resizedBase64);
+            };
+          };
 
-      reader.readAsDataURL(file);
+          reader.readAsDataURL(file);
+        });
+      });
+
+      Promise.all(imagesPromiseArray).then((resizedImages) => {
+        setDetails((state) => ({ ...state, images: resizedImages }));
+      });
     }
   };
-
+  console.log(productDetails);
   const saveProduct = (e) => {
     e.preventDefault();
     let authToken = sessionStorage.getItem("token");
     const client = new QueryClient(authToken);
     const productData = {
-        name: productDetails.name,
-        cost: productDetails.cost,
-        image: productDetails.image,
-        description: productDetails.desc
+      name: productDetails.name,
+      cost: productDetails.cost,
+      images: productDetails.images,
+      description: productDetails.desc,
     }
     let response = client.post("/products/create", productData);
     console.log(response);
@@ -104,7 +103,6 @@ const NewProduct = () => {
     //   confirmButtonText: 'Okay',
     // });
     //   window.location.href = "marketplace";
-    
   };
 
   return (
@@ -152,32 +150,32 @@ const NewProduct = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-5 lg:gap-9 lg:flex-row w-full items-stretch">
-          <div className="flex flex-col gap-3 w-full">
-            <label htmlFor="name" className="font-bold text-lg">
-              Product Image
-            </label>
-            <div className="bg-white p-10 rounded-md shadow-md flex flex-col items-center gap-5 w-full">
-              <figure>
-                <img
-                  src={productDetails.image ? productDetails.image : dummy}
-                  alt=""
-                />
-              </figure>
-              <input
-                ref={productImage}
-                type="file"
-                hidden
-                accept="image/*"
-                onChange={changeImage}
-              />
-              <button
-                onClick={clickRedirect}
-                className="bg-white text-green-30 border border-green-30 px-20 py-2 font-bold text-sm"
-              >
-                Upload product image
-              </button>
+        <div className="flex flex-col gap-3 w-full">
+          <label htmlFor="images" className="font-bold text-lg">
+            Product Images
+          </label>
+          <div className="bg-white p-10 rounded-md shadow-md flex flex-col items-center gap-5 w-full">
+            <div className="flex gap-5">
+              {productDetails.images.map((image, index) => (
+                <figure key={index}>
+                  <img src={image ? image : image} alt={`Product Image ${index + 1}`} />
+                </figure>
+              ))}
             </div>
+            <input
+              ref={productImages}
+              type="file"
+              hidden
+              accept="image/*"
+              multiple
+              onChange={changeImages}
+            />
+            <button
+              onClick={clickRedirect}
+              className="bg-white text-green-30 border border-green-30 px-20 py-2 font-bold text-sm"
+            >
+              Upload product images
+            </button>
           </div>
 
           <div className="flex flex-col gap-3 w-full">
@@ -196,14 +194,13 @@ const NewProduct = () => {
             </div>
           </div>
         </div>
-
         <button
           className="bg-green-30 px-20 md:px-32 py-5 self-center font-bold text-xl text-white disabled:bg-black-50"
           disabled={
             productDetails.name == "" ||
             productDetails.cost == "" ||
             productDetails.desc == "" ||
-            productDetails.image == null
+            productDetails.images == null
           }
         >
           Upload your product
