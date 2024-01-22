@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SocialIcons from "../components/SocialIcons";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -10,6 +10,7 @@ import Counter from "../components/pageChange/Counter";
 import { usePOST } from "../hooks/usePOST.hook";
 
 const Login = () => {
+  const navigate = useNavigate();
   const { mutate, isPending, isError, isSuccess } = usePOST('login', false)
   const [loginDetails, setDetails] = useState({
     email: '',
@@ -68,22 +69,32 @@ const Login = () => {
 
   const codeVerification = (e) => {
     e.preventDefault();
-    // if (loginDetails.otp == '') {
-    //   setvalid((state) => ({
-    //     ...state,
-    //     error: true,
-    //     message: 'otp'
-    //   }));
+    if (loginDetails.otp == '') {
+      setvalid((state) => ({
+        ...state,
+        error: true,
+        message: 'otp'
+      }));
 
-    //   setTimeout(() => {
-    //     setvalid((state) => ({
-    //       ...state,
-    //       error: false,
-    //       message: ''
-    //     }))
-    //   }, 3000)
-    //   return;
-    // }
+      setTimeout(() => {
+        setvalid((state) => ({
+          ...state,
+          error: false,
+          message: ''
+        }))
+      }, 3000)
+      return;
+    }
+    mutate(loginDetails, {
+      onSuccess: (returnData) => {
+        sessionStorage.setItem("token", returnData.token)
+        navigate('/dashboard/home')
+
+      },
+      onError: (error) => {
+        console.log(error);
+      }
+    })
 
     // dispatch(verifyLogin(loginDetails));
     mutate
@@ -137,7 +148,7 @@ const Login = () => {
 
         <div className="flex justify-between pr-3 max-w-md self-center w-full lg:self-start">
           <button type="button" className="text-white py-2 px-9 bg-black-100" onClick={() => { dispatch(clearUser()) }}>Go Back</button>
-          <button className="text-white py-2 px-9 bg-green-30" type="submit">Login</button>
+          <button className="text-white py-2 px-9 bg-green-30" type="submit" disabled={isPending} >{isPending ? 'Please wait.....' : 'Login'}</button>
         </div>
       </form>)}
 

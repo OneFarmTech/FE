@@ -15,7 +15,7 @@ export const usePOST = (url, withAuth = true) => {
             // })
             // storeCallback && storeCallback(returnedData)
             // console.log('Data >>>>', returnedData)
-            toast.success(returnedData.message + ' and sent to your email')
+            returnedData.message ? toast.success(returnedData.message) : toast.success('Success')
 
         },
         onError: (err) => {

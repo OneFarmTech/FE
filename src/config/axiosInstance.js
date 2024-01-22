@@ -7,8 +7,9 @@ const instanceSettings = {
   baseURL: import.meta.env.VITE_API_URL,
   timeout: 300000,
 };
-// let jwt = useAppStore?.getState()?.userDetails?.token;
-let jwt = 'asdfghjkloiuytrewqasdfghjkl'
+
+
+let jwt = sessionStorage.getItem("token");
 
 const onRequestError = (error) => {
   return Promise.reject(error?.response)

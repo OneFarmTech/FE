@@ -7,9 +7,7 @@ const loginThunk = createAsyncThunk('user/login', async (email) => {
       email
     });
     return await response.data;
-    console.log('API sucess');
   } catch (error) {
-    console.log('API error');
     throw error;
 
   }

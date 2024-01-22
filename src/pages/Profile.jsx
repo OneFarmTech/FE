@@ -8,10 +8,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, updateUser } from "../redux/user/userSlice";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
 import { fetchStates } from "../redux/states/statesSlice";
+import { usePOST } from "../hooks/usePOST.hook";
+
 import states from "../js/states";
 import toast from "react-hot-toast";
 
 const Profile = () => {
+  const { mutate, isPending, isSuccess, isError } = usePOST('profile/update', true)
   const user = useSelector((state) => (state.user));
   const { userDetails, error, role } = user;
   const imageRef = useRef(null);
@@ -36,6 +39,7 @@ const Profile = () => {
 
   const [refetch, setRefetech] = useState(false)
   const [identification, setId] = useState(null);
+  const [selectedState, setSelectedState] = useState(null)
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -195,28 +199,55 @@ const Profile = () => {
     setIsLoading(true)
     e.preventDefault();
     console.log(profileData);
-    try {
-      dispatch(updateUser({
-        name: profileData.name,
-        email: profileData.email,
-        phone: profileData.phone,
-        date_of_birth: profileData.dob,
-        address: profileData.busAddress,
-        state_id: parseInt(profileData.state),
-        city: profileData.city,
-        gender: profileData.gender,
-        roles: [profileData.role],
-        id_number: profileData.identity,
-        id_image: identification ? identification : 'No Image',
-        image: profileData.photo
+    // dispatch(updateUser({
+    //   name: profileData.name,
+    //   email: profileData.email,
+    //   phone: profileData.phone,
+    //   date_of_birth: profileData.dob,
+    //   address: profileData.busAddress,
+    //   state_id: parseInt(profileData.state),
+    //   city: profileData.city,
+    //   gender: profileData.gender,
+    //   roles: [profileData.role],
+    //   id_number: profileData.identity,
+    //   id_image: identification ? identification : 'No Image',
+    //   image: profileData.photo
 
-      }));
-      toast.success('Updated')
-      setIsLoading(false)
-    } catch (error) {
-      setIsLoading
+    // }));
+    mutate({
+      name: profileData.name,
+      email: profileData.email,
+      phone: profileData.phone,
+      date_of_birth: profileData.dob,
+      address: profileData.busAddress,
+      state_id: parseInt(profileData.state),
+      city: profileData.city,
+      gender: profileData.gender,
+      roles: [profileData.role],
+      id_number: profileData.identity,
+      id_image: identification ? identification : 'No Image',
+      image: profileData.photo
+
+    }, {
+      onSuccess: (returnData) => {
+        setTimeout(() => {
+          window.location.reload()
+        }, 1000)
+      },
+      onError: (error) => {
+        console.log(error);
+      }
+    })
+
+  }
+  // console.log(profileData);
+  const handleFindState = (e) => {
+    const id = e.target.value
+    let state
+    if (id) {
+      state = states.find(state => state.id == id)
+      setSelectedState(state)
     }
-
   }
 
   return (
@@ -250,7 +281,8 @@ const Profile = () => {
 
             <div className="flex flex-col gap-4 flex-1">
               <select onChange={handleProfileChange} value={profileData.gender} name="gender" required id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
-                <option disabled selected hidden>Select Gender</option>
+                {/* <option disabled selected hidden>Select Gender</option> */}
+                <option value={profileData.gender === 'gender' ? null : profileData.gender}>{profileData.gender === 'gender' ? 'Select your gender' : profileData.gender}</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
               </select>
@@ -276,8 +308,9 @@ const Profile = () => {
 
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
-              <select name="state" required id="state" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.state}>
+              <select name="state" required id="state" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={e => { handleProfileChange(e); handleFindState(e) }} value={profileData.state}>
                 <option selected disabled hidden>State</option>
+                <option value={profileData.state || null}>{selectedState?.name || 'select state'}</option>
                 {
                   states.map((state) => (
                     <option value={state.id} key={state.id}>{state.name}</option>
@@ -292,7 +325,8 @@ const Profile = () => {
 
             <div className="flex flex-col gap-4 flex-1">
               <select name="role" required id="role" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.role}>
-                <option selected disabled hidden>Are you a Farmer or Retailer?</option>
+                {/* <option selected disabled hidden>Are you a Farmer or Retailer?</option> */}
+                <option value={profileData.role || null}>{profileData.role || 'Select account type'}</option>
                 <option value="farmer">Farmer</option>
                 <option value="wholesaler">Wholesaler</option>
                 <option value="retailer">Retailer</option>
@@ -330,7 +364,7 @@ const Profile = () => {
 
             <div className="flex flex-col gap-4 flex-1">
               <label htmlFor="identity" className="font-bold">ID Number:</label>
-              <input type="text" name="identity" id="identity" onChange={handleProfileChange} value={profileData.identity} placeholder="Enter Your ID Number" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" />
+              <input type="text" name="identity" id="identity" onChange={handleProfileChange} value={profileData.identity} placeholder="Enter Your ID Number" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" required />
             </div>
           </div>
         </div>
@@ -380,7 +414,7 @@ const Profile = () => {
 
         <div className="flex flex-col md:flex-row gap-6 justify-between w-full pt-6">
           <Link to='/dashboard/home' className="flex justify-center items-center py-2 px-16 bg-white border border-1 border-red-50 text-red-50 lg:block">Go Back</Link>
-          <button className="text-white px-16 bg-green-30 py-3" type="submit" disabled={isLoading}>{isLoading ? 'Please wait....' : 'Submit'}</button>
+          <button className="text-white px-16 bg-green-30 py-3" type="submit" disabled={isPending}>{isPending ? 'Please wait....' : 'Submit'}</button>
         </div>
       </form>
     </main>
