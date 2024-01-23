@@ -5,7 +5,7 @@ const DashboardHome = () => {
   return (
     <section className="px-[4%] py-4 flex flex-col w-full h-full">
       <div className="overflow-auto">
-        <div className="flex gap-10 h-52 wx-fit py-4 items-stretch">
+        <div className="flex gap-10 h-52 w-fit py-4 items-stretch">
           <div className="flex gap-6">
             <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-80 bg-white text-black-100">
               <h4 className="text-lg">Pending Orders</h4>
