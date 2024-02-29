@@ -22,6 +22,8 @@ import NewProduct from "./pages/NewProduct";
 import RetailMarketplace from "./pages/RetailMarketplace";
 import ViewProduct from "./pages/ViewProduct";
 import Cart from "./pages/Cart";
+import { UserProvider } from "./components/contexts/UserContext.jsx";
+import ProductUpdate from "./pages/ProductUpdate.jsx"
 
 const App = () => {
   const { userToken } = useSelector((state) => (state.register));
@@ -87,6 +89,7 @@ const App = () => {
     {
       path: '/auth',
       element: (
+        <UserProvider>
         <>
           {isFromSignup && userToken ? (
             <Navigate to='/dashboard/profile' />
@@ -100,6 +103,7 @@ const App = () => {
             </>
           )}
         </>
+        </UserProvider>
       ),
       children: [
         {
@@ -118,7 +122,11 @@ const App = () => {
     },
     {
       path: '/dashboard',
-      element: <Dashboard />,
+      element:
+      <UserProvider>
+       <Dashboard />
+       </UserProvider>
+       ,
       children: [
         {
           path: 'home',
@@ -144,6 +152,12 @@ const App = () => {
           path: 'viewproduct/:productId',
           element: <ViewProduct />
         },
+
+          {
+            path: 'updateproduct/:id',
+            element: <ProductUpdate />
+          },
+
         {
           path: 'cart',
           element: <Cart />

@@ -8,8 +8,14 @@ import ErrorMessage from "../components/pageChange/ErrorMessage";
 import InputValidation from "../components/pageChange/InputValidation";
 import Counter from "../components/pageChange/Counter";
 import { usePOST } from "../hooks/usePOST.hook";
+import { useUser } from "../components/contexts/UserContext.jsx";
+import { UserProvider } from "../components/contexts/UserContext.jsx";
+import axios from 'axios';
+
+
 
 const Login = () => {
+  const { updateUserRole } = useUser();
   const navigate = useNavigate();
   const { mutate, isPending, isError, isSuccess } = usePOST('login', false)
   const [loginDetails, setDetails] = useState({
@@ -67,7 +73,8 @@ const Login = () => {
 
   }
 
-  const codeVerification = (e) => {
+  
+ const codeVerification = (e) => {
     e.preventDefault();
     if (loginDetails.otp == '') {
       setvalid((state) => ({
@@ -85,11 +92,16 @@ const Login = () => {
       }, 3000)
       return;
     }
+   
+  
     mutate(loginDetails, {
       onSuccess: (returnData) => {
-        sessionStorage.setItem("token", returnData.token)
-        navigate('/dashboard/home')
-
+        sessionStorage.setItem("token", returnData.token);
+      
+        updateUserRole(localStorage.getItem('userRole'));
+       
+        navigate('/dashboard/home');
+        
       },
       onError: (error) => {
         console.log(error);
@@ -102,6 +114,7 @@ const Login = () => {
   }
 
   return (
+    <UserProvider>
     <section className="flex flex-col w-[90%] max-w-5xl gap-10 mx-auto">
       <h1 className="text-5xl text-center lg:text-left leading-[3.2rem]">Log In To Your Account</h1>
 
@@ -158,6 +171,7 @@ const Login = () => {
         }}>Sign Up</Link>
       </div>
     </section>
+    </UserProvider>
   );
 }
 

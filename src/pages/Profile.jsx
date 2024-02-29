@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 const Profile = () => {
   const { mutate, isPending, isSuccess, isError } = usePOST('profile/update', true)
   const user = useSelector((state) => (state.user));
-  const { userDetails, error, role } = user;
+  const { userDetails, error, roles } = user;
   const imageRef = useRef(null);
   const idRef = useRef(null);
   const [changeHeading, resetHeading] = useOutletContext();
@@ -30,7 +30,7 @@ const Profile = () => {
     busAddress: '',
     dob: '',
     gender: '',
-    role: '',
+    roles: '',
     identity: '',
     identity_type: '',
     id_image: ''
@@ -56,12 +56,12 @@ const Profile = () => {
       state: userDetails?.state_id || '',
       city: userDetails?.city,
       gender: userDetails?.gender,
-      role: role[0] || '',
+      roles: roles[0] || '',
       identity: userDetails?.id_number,
       identity_type: userDetails?.id_type,
       id_image: userDetails?.id_image
     });
-  }, [userDetails])
+  }, [roles, userDetails])
 
   const [passChange, setPass] = useState({
     opass: '',
@@ -208,7 +208,7 @@ const Profile = () => {
     //   state_id: parseInt(profileData.state),
     //   city: profileData.city,
     //   gender: profileData.gender,
-    //   roles: [profileData.role],
+    //   roles: [profileData.roles],
     //   id_number: profileData.identity,
     //   id_image: identification ? identification : 'No Image',
     //   image: profileData.photo
@@ -223,7 +223,7 @@ const Profile = () => {
       state_id: parseInt(profileData.state),
       city: profileData.city,
       gender: profileData.gender,
-      roles: [profileData.role],
+      roles: [profileData.roles],
       id_number: profileData.identity,
       id_image: identification ? identification : 'No Image',
       image: profileData.photo
@@ -322,16 +322,7 @@ const Profile = () => {
             <div className="flex flex-col gap-4 flex-1">
               <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="text" id="busAddress" name="busAddress" placeholder="Business Address" onChange={handleProfileChange} value={profileData.busAddress} />
             </div>
-
-            <div className="flex flex-col gap-4 flex-1">
-              <select name="role" required id="role" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.role}>
-                {/* <option selected disabled hidden>Are you a Farmer or Retailer?</option> */}
-                <option value={profileData.role || null}>{profileData.role || 'Select account type'}</option>
-                <option value="farmer">Farmer</option>
-                <option value="wholesaler">Wholesaler</option>
-                <option value="retailer">Retailer</option>
-              </select>
-            </div>
+            
           </div>
         </div>
 

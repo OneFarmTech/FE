@@ -8,7 +8,9 @@ import InputValidation from "../components/pageChange/InputValidation";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
 import Counter from "../components/pageChange/Counter";
 import { usePOST } from "../hooks/usePOST.hook";
+import { UserProvider, useUser } from "../components/contexts/UserContext";
 const Signup = () => {
+  const { updateUserRole } = useUser();
   const navigate = useNavigate();
   const register = useSelector((state) => (state.register));
   const [showVerifyOTP, setShowVerifyOTP] = useState(false)
@@ -18,13 +20,15 @@ const Signup = () => {
   const [signupDetails, setDetails] = useState({
     name: '',
     email: '',
-    phone: ''
+    phone: '',
+    roles: '',
   });
 
   const [invalid, setvalid] = useState({
     error: false,
     message: ''
   });
+
 
   const { mutate, isPending, isError, isSuccess } = usePOST('register', false)
   const handleChange = (e) => {
@@ -64,15 +68,24 @@ const Signup = () => {
     mutate(signupDetails, {
       onSuccess: (returnData) => {
         if (returnData.message === 'Account Already Exist') {
-          return navigate('/auth/login')
+          alert('You already have an account with OneFarm. Redirecting to login page in a few seconds...');
+          setTimeout(() => {
+            navigate('/auth/login');
+          }, 3000);
+        } else {
+          
+          
+          setShowVerifyOTP(true)
+         
         }
-        setShowVerifyOTP(true)
+        
       },
       onError: (error) => {
         console.log(error);
       }
     })
   };
+
 
   const submitOtp = (e) => {
     e.preventDefault();
@@ -105,7 +118,14 @@ const Signup = () => {
       onSuccess: (returnData) => {
         console.log('>>>', returnData);
         sessionStorage.setItem("token", returnData.token)
-        navigate('/dashboard/home')
+
+        navigate('/dashboard/home');
+        const userRole = signupDetails.roles[0];
+        localStorage.setItem('userRole', userRole);
+    
+
+        updateUserRole(signupDetails.roles[0]);
+        
       },
       onError: (error) => {
         console.log(error);
@@ -114,6 +134,7 @@ const Signup = () => {
   }
 
   return (
+    <UserProvider>
     <section className="flex flex-col w-[90%] max-w-5xl gap-10 mx-auto">
       <h1 className="text-5xl text-center lg:text-left leading-[3.2rem]">Sign Up To Create An Account</h1>
 
@@ -141,6 +162,15 @@ const Signup = () => {
               <label htmlFor="email" className="font-bold">Email</label>
               <input onChange={handleChange} className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-[70%]" type="email" id="email" name="email" placeholder="Enter Your Email" value={signupDetails.email} required />
             </div>
+
+            <div className="flex flex-col gap-4">
+        <label htmlFor="roles" className="font-bold">Role</label>
+        <select onChange={handleChange} className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-[70%]" id="roles" name="roles" value={signupDetails.roles} required >
+        <option value=""  disabled selected>Select your Role</option>
+          <option value="farmer">Farmer</option>
+          <option value="retailer">Retailer</option>
+        </select>
+      </div>
 
           </div>
 
@@ -192,6 +222,7 @@ const Signup = () => {
         }}>Log In</Link>
       </div>
     </section>
+    </UserProvider>
   );
 };
 

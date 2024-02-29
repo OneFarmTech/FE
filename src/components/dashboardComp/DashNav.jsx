@@ -1,4 +1,5 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink,} from 'react-router-dom';
+import {useNavigate } from "react-router-dom";
 import logo from '../../assets/images/onefarm.svg';
 import logout from '../../assets/images/dashboard/logout.svg';
 import market from '../../assets/images/dashboard/market.svg';
@@ -12,16 +13,40 @@ import { useState } from 'react';
 import { GrClose } from 'react-icons/gr';
 import { useDispatch } from 'react-redux';
 import { clearUser } from '../../redux/register/registerSlice';
+import { UserProvider, useUser} from '../contexts/UserContext.jsx';
+
 
 const DashNav = (props) => {
+  const { userRole } = useUser();
+  const { updateUserRole } = useUser();
+  const [isActive, setIsActive] = useState(false);
+  const navigate = useNavigate();
   const { permissions } = props;
   const [activeNav, setActive] = useState(false);
   const dispatch = useDispatch();
+  const userKey = localStorage.getItem('userKey');
   const can = (permission) => {
     if (permissions.includes(permission)) {
       return true;
     }
   }
+
+
+  const redirectToMarketplace = () => {
+    const Role = localStorage.getItem('userRole');
+    if (Role === 'retailer') {
+      navigate('/dashboard/retailmarketplace');
+    } else if (Role === 'farmer') {
+      navigate('/dashboard/marketplace');
+    } else {
+      console.log(Role);
+    }
+    setIsActive(true);
+  };
+  
+   
+  
+
 
   console.log(permissions);
 
@@ -30,7 +55,7 @@ const DashNav = (props) => {
   };
 
   const closeNav = () => {
-    setActive(false);
+    setIsActive(false);
   };
 
   const handleLogout = () => {
@@ -41,6 +66,7 @@ const DashNav = (props) => {
   }
 
   return (
+    <UserProvider>
     <section className={`fixed top-0 lg:hidden 2xl:flex lg:w-[16%] w-full flex-col gap-20 2xl:left-0 ${activeNav ? 'h-full' : 'h-fit'} lg:h-full bg-white 2xl:border 2xl:border-r-2 border-black-15 p-5 z-50`}>
       <div className='flex justify-between items-center'>
         <Link to='/dashboard/home' className='block w-32 h-[15%]'>
@@ -63,51 +89,59 @@ const DashNav = (props) => {
               <div className='w-6'>
                 <img src={home} alt="Home Icon" />
               </div>
-              <h4 className='text-xl'>Home</h4>
+              <h4 className='text-xl hover:text-green-600'>Home</h4>
             </NavLink>
           </li>
           {
             // can('read-market') ?
-            <li>
-              <NavLink to='marketplace' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
-                <div className='w-6'>
-                  <img src={market} alt="Market place icon" />
-                </div>
-                <h4 className='text-xl'>MarketPlace</h4>
-              </NavLink>
-            </li>
+            <li className='active:text-green-600'>
+
+      <button
+        className={`flex gap-4 items-center text-black-50 hover:text-green-600 ${
+          isActive ? 'text-green-600' : ''
+        }`}
+        onClick={redirectToMarketplace}
+      >
+        <div className="w-6">
+          <img src={market} alt="Market place icon" />
+        </div>
+        <h4 className="text-xl hover:text-green-600">MarketPlace</h4>
+      </button>
+      
+    </li>
+          
             // : ""
           }
           <li>
-            <NavLink to='cart' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='cart' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={message} alt="Messages" />
               </div>
-              <h4 className='text-xl'>Cart</h4>
+              <h4 className='text-xl hover:text-green-600'>Cart</h4>
             </NavLink>
           </li>
           <li>
-            <NavLink to='messages' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='messages' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={message} alt="Messages" />
               </div>
-              <h4 className='text-xl'>Messages</h4>
+              <h4 className='text-xl hover:text-green-600'>Messages</h4>
             </NavLink>
           </li>
           <li>
-            <NavLink to='payment' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='payment' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={pay} alt="" />
               </div>
-              <h4 className='text-xl'>Payment</h4>
+              <h4 className='text-xl hover:text-green-600'>Payment</h4>
             </NavLink>
           </li>
           <li>
-            <NavLink to='support' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='support' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={support} alt="" />
               </div>
-              <h4 className='text-xl'>Support</h4>
+              <h4 className='text-xl hover:text-green-600'>Support</h4>
             </NavLink>
           </li>
         </ul>
@@ -116,14 +150,14 @@ const DashNav = (props) => {
           <li>
             <Link to='profile' className='flex gap-4 items-center' onClick={closeNav}>
               <div className='w-6'>
-                <img src={profile} alt="" />
+                <img src={profile}  alt="" />
               </div>
-              <h4 className='text-xl text-black-20'>Profile</h4>
+              <h4 className='text-xl text-black-20 hover:text-green-600'>Profile</h4>
             </Link>
           </li>
           <li>
             <Link className='flex gap-4 items-center' onClick={handleLogout}>
-              <div className='w-6'>
+              <div className='w-6 '>
                 <img src={logout} alt="" />
               </div>
               <h4 className='text-xl text-red-50'>Sign Out</h4>
@@ -133,6 +167,7 @@ const DashNav = (props) => {
         </ul>
       </nav>
     </section>
+    </UserProvider>
   );
 };
 

@@ -25,7 +25,7 @@ const Header = () => {
   }
   
   return (
-    <header className="flex flex-row justify-between px-[4%] py-4 items-center">
+    <header className="flex flex-row justify-between px-[2%] py-4 items-center">
       <Link to="/" className="block w-[100px] lg:w-[150px]">
         <img src={logo} alt="Logo" />
       </Link>
@@ -96,11 +96,15 @@ const Header = () => {
           </li>
         </ul>
       </nav>
+         <div className="flex flex-row gap-x-5">
+      <div className="hidden lg:block">
+        <Button linkTo="/auth/login" clas='login' name="Login" />
+      </div>
 
       <div className="hidden lg:block">
         <Button linkTo="/auth/signup" clas='green' name="Get started" />
       </div>
-
+      </div>
       <div className="cursor-pointer lg:hidden" onClick={handleActive}>
         <VscMenu size={25} />
       </div>

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import axios from 'axios';
 import { useOutletContext } from "react-router-dom";
-import QueryClient from "../js/QueryClient";
 import Swal from 'sweetalert2';
-import  '../assets/images/sweetcheck.png'
 
-const NewProduct = () => {
+const ProductUpdate = () => {
+  const { id } = useParams();
   const productImages = useRef(null);
   const [productDetails, setDetails] = useState({
     name: "",
@@ -13,13 +14,45 @@ const NewProduct = () => {
     desc: "",
   });
   const [changeHeading, resetHeading] = useOutletContext();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    changeHeading("Upload Product");
+    changeHeading("Update Product");
+    fetchProductData(id);
     return () => {
       resetHeading();
     };
-  }, [changeHeading, resetHeading]);
+  }, [changeHeading, resetHeading, id]);
+
+  const fetchProductData = async (id) => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await axios.get(`/api/products/${id}/find`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = response.data;
+      setDetails(data);
+    } catch (error) {
+      console.error('Error fetching product data:', error);
+  
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'There was an error fetching the product details. Please try again.',
+        confirmButtonText: 'Retry',
+        showCancelButton: true,
+        cancelButtonText: 'Go Back',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.reload();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          navigate('/dashboard/marketplace');
+        }
+      });
+    }
+  };
 
   const handleChange = (e) => {
     let newKey = e.currentTarget.name;
@@ -49,7 +82,7 @@ const NewProduct = () => {
 
             image.onload = () => {
               const canvas = document.createElement("canvas");
-              const maxImageSize = 300; 
+              const maxImageSize = 300;
 
               let width = image.width;
               let height = image.height;
@@ -69,7 +102,7 @@ const NewProduct = () => {
               const ctx = canvas.getContext("2d");
               ctx.drawImage(image, 0, 0, width, height);
 
-              const resizedBase64 = canvas.toDataURL("image/jpeg"); // You can change the format as needed
+              const resizedBase64 = canvas.toDataURL("image/jpeg");
               resolve(resizedBase64);
             };
           };
@@ -83,48 +116,78 @@ const NewProduct = () => {
       });
     }
   };
-  console.log(productDetails);
-  
-  const saveProduct = (e) => {
+console.log(productDetails);
+  const handleProductUpdate = async (e) => {
     e.preventDefault();
-    const { name } = productDetails;
-    let authToken = sessionStorage.getItem("token");
-    const client = new QueryClient(authToken);
-    const productData = {
-      name: productDetails.name,
-      cost: productDetails.cost,
-      images: productDetails.images,
-      description: productDetails.desc,
-    }
-    let response = client.post("/products/create", productData);
-    console.log(response);
-     Swal.fire({
-       title: 'GREAT',
-      text: `you have successfully added "${name}" to the list of your products on One-Farm`,
-      imageUrl: '/src/assets/images/sweetcheck.png',
-      imageHeight: 200,
-      imageWidth: 200,
-      imageAlt:'success Icon',
-      showCloseButton:false,
-      allowOutsideClick: false,
-      focusConfirm: true,
-      confirmButtonText: 'Okay',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = "marketplace";
-      }
-  });
-};
+    const { name, id } = productDetails;
+    const token = sessionStorage.getItem("token");
+    
+    try {
+      const formData = new FormData();
+      formData.append('name', productDetails.name);
+      formData.append('cost', productDetails.cost);
+      formData.append('desc', productDetails.desc);
 
+      // Append each file in the array
+      productDetails.images.forEach((image, index) => {
+        formData.append(`images[${index}]`, image);
+      });
+
+      await axios.post(`/api/products/${id}/update`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      
+      Swal.fire({
+        title: 'GREAT',
+        text: `Product "${name}" has been updated successfully!`,
+        imageUrl: '/src/assets/images/sweetcheck.png',
+        imageHeight: 200,
+        imageWidth: 200,
+        imageAlt: 'success Icon',
+        showCloseButton: false,
+        allowOutsideClick: false,
+        focusConfirm: true,
+        confirmButtonText: 'Okay',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/dashboard/marketplace');
+        }
+      });
+    } catch (error) {
+      console.error('Error updating product:', error);
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'There was an error updating the product. Please try again.',
+        confirmButtonText: 'Retry',
+        showCancelButton: true,
+        cancelButtonText: 'Go Back',
+
+      }).then((result) => {
+  if (result.isConfirmed) {
+    
+    console.log('Retry button clicked');
+  } else if (result.dismiss === Swal.DismissReason.cancel) {
+   
+    navigate('/dashboard/marketplace');
+  }
+});
+    }
+  };
 
   return (
     <>
       <form
         action=""
-        onSubmit={saveProduct}
+        onSubmit={handleProductUpdate}
         className="flex flex-col gap-16 bg-transparent px-[4%] py-4 w-full h-full"
       >
-        <div className="flex flex-col gap-5 lg:gap-9 lg:flex-row w-full">
+
+<div className="flex flex-col gap-5 lg:gap-9 lg:flex-row w-full">
           <div className="flex flex-col gap-3 w-full">
             <label htmlFor="name" className="font-bold text-lg">
               Name of Product
@@ -186,7 +249,7 @@ const NewProduct = () => {
               onClick={clickRedirect}
               className="bg-white text-green-30 border border-green-30 px-20 py-2 font-bold text-sm"
             >
-              Upload product images
+              Update product images
             </button>
           </div>
 
@@ -215,11 +278,11 @@ const NewProduct = () => {
             productDetails.images == []
           }
         >
-          Upload your product
+          Update Product
         </button>
       </form>
     </>
   );
 };
 
-export default NewProduct;
+export default ProductUpdate;
