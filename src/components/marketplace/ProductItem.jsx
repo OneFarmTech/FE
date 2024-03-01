@@ -58,7 +58,6 @@ const ProductItem = ({ data }) => {
 
   return (
     <div className="rounded-md shadow-md p-3 bg-white flex flex-col gap-4 w-80">
-    <a href={`viewproduct/${data.id}`} >
       <figure className="w-[60%] h-32 bg-black-15 self-center">
       <img src={data.images[0].image || ''} alt={data.name} />
 
@@ -69,7 +68,7 @@ const ProductItem = ({ data }) => {
         <h2 className="text-green-30">N{data.cost}</h2>
       </div>
 
-      <p className="text-black-50 text-sm">{data.description}</p>  </a>
+      <p className="text-black-50 text-sm">{data.description}</p> 
 
       <button className="bg-green-30 text-white py-3"> <a href={`updateproduct/${data.id}`} >
        Edit Product

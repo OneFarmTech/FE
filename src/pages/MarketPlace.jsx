@@ -48,10 +48,10 @@ const MarketPlace = () => {
       });
   }, []);
   return (
-    <section className="px-[4%] py-2 flex flex-col ">
-   
+    <section className="px-[4%] py-2 flex gap-10 lg:gap-0 flex-col h-auto ">
+   <div className="h-auto mb-40 lg:mb-0 flex flex-col lg:m-0 lg:items-stretch m-auto ">
         <TopSection />
-    
+        </div>
         <div className="flex flex-col w-full h-auto">
 
       <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:gap-10">

@@ -14,6 +14,7 @@ import { GrClose } from 'react-icons/gr';
 import { useDispatch } from 'react-redux';
 import { clearUser } from '../../redux/register/registerSlice';
 import { UserProvider, useUser} from '../contexts/UserContext.jsx';
+import cart from '../../assets/images/dashboard/market.svg'
 
 
 const DashNav = (props) => {
@@ -30,7 +31,7 @@ const DashNav = (props) => {
       return true;
     }
   }
-
+  
 
   const redirectToMarketplace = () => {
     const Role = localStorage.getItem('userRole');
@@ -112,14 +113,16 @@ const DashNav = (props) => {
           
             // : ""
           }
-          <li>
-            <NavLink to='cart' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
-              <div className='w-6'>
-                <img src={message} alt="Messages" />
-              </div>
-              <h4 className='text-xl hover:text-green-600'>Cart</h4>
-            </NavLink>
-          </li>
+           {userRole !== 'farmer' && (
+              <li>
+                <NavLink to='cart' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+                  <div className='w-6'>
+                    <img src={cart} alt="Messages" />
+                  </div>
+                  <h4 className='text-xl hover:text-green-600'>Cart</h4>
+                </NavLink>
+              </li>
+            )}
           <li>
             <NavLink to='messages' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
               <div className='w-6'>

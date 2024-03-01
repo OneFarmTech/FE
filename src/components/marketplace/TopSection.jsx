@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const TopSection = () => {
   return (
     <section >
-      <div className="mt-5 w-full flex flex-col gap-5 lg:flex-row lg:gap-10 lg:mt-0 h-52 lg:w-fit py-4 items-stretch">
+      <div className="mt-1 w-full flex flex-col gap-2 lg:flex-row lg:gap-10 lg:mt-0 h-52 lg:w-fit py-4 items-stretch">
         
           {
             <Link to='/dashboard/new' className="flex flex-col justify-between rounded-md p-5 w-80 bg-green-30 text-white shadow-md">
