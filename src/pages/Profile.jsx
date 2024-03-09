@@ -214,7 +214,13 @@ const Profile = () => {
     //   image: profileData.photo
 
     // }));
-    mutate({
+
+    
+  const authToken = sessionStorage.getItem("token");
+  console.log(authToken);
+
+  try {
+     mutate({
       name: profileData.name,
       email: profileData.email,
       phone: profileData.phone,
@@ -223,23 +229,32 @@ const Profile = () => {
       state_id: parseInt(profileData.state),
       city: profileData.city,
       gender: profileData.gender,
-      roles: [profileData.roles],
+      roles: localStorage.getItem('userRole'),
       id_number: profileData.identity,
       id_image: identification ? identification : 'No Image',
       image: profileData.photo
-
     }, {
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
       onSuccess: (returnData) => {
         setTimeout(() => {
-          window.location.reload()
-        }, 1000)
+          window.location.reload();
+        }, 1000);
       },
       onError: (error) => {
         console.log(error);
       }
-    })
+    });
 
+  
+  } catch (error) {
+    console.error("Error updating profile:", error);
+  } finally {
+    setIsLoading(false);
   }
+};
+  
   // console.log(profileData);
   const handleFindState = (e) => {
     const id = e.target.value
@@ -272,14 +287,17 @@ const Profile = () => {
           <h2 className="font-bold text-xl">Basic Information</h2>
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
+            <label htmlFor="name" className="font-bold">Name:</label>
               <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" required id="name" name="name" placeholder="Full Name" onChange={handleProfileChange} value={profileData.name} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
+            <label htmlFor="dob" className="font-bold">Date of Birth:</label>
               <input type="date" name="dob" id="dob" placeholder="Date of Birth" required className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.dob} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
+            <label htmlFor="gender" className="font-bold">Gender:</label>
               <select onChange={handleProfileChange} value={profileData.gender} name="gender" required id="gender" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1">
                 {/* <option disabled selected hidden>Select Gender</option> */}
                 <option value={profileData.gender === 'gender' ? null : profileData.gender}>{profileData.gender === 'gender' ? 'Select your gender' : profileData.gender}</option>
@@ -294,20 +312,29 @@ const Profile = () => {
           <h2 className="font-bold text-xl">Contact Information</h2>
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
+            <label htmlFor="email" className="font-bold">Email:</label>
               <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="email" id="email" name="email" placeholder="Email Address" onChange={handleProfileChange} value={profileData.email} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
+            <label htmlFor="phone" className="font-bold">Phone Number:</label>
               <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="text" id="phone" name="phone" placeholder="Phone Number" onChange={handleProfileChange} value={profileData.phone} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
+            <label htmlFor="roles" className="font-bold">Role:</label>
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" disabled type="text" id="roles" name="roles" placeholder="" onChange={handleProfileChange} value={localStorage.getItem('userRole')} />
+            </div>
+
+            <div className="flex flex-col gap-4 flex-1">
+            <label htmlFor="city" className="font-bold">City:</label>
               <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="text" id="city" name="city" placeholder="City" onChange={handleProfileChange} value={profileData.city} />
             </div>
           </div>
 
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
+            <label htmlFor="state" className="font-bold">State:</label>
               <select name="state" required id="state" className="pl-3 text-ellipsis bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={e => { handleProfileChange(e); handleFindState(e) }} value={profileData.state}>
                 <option selected disabled hidden>State</option>
                 <option value={profileData.state || null}>{selectedState?.name || 'select state'}</option>
@@ -320,6 +347,7 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
+            <label htmlFor="busAddress" className="font-bold">Address:</label>
               <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="text" id="busAddress" name="busAddress" placeholder="Business Address" onChange={handleProfileChange} value={profileData.busAddress} />
             </div>
             

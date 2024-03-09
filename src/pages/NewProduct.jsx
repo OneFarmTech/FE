@@ -6,11 +6,14 @@ import  '../assets/images/sweetcheck.png'
 
 const NewProduct = () => {
   const productImages = useRef(null);
+  const [classSelected, setClassSelected] = useState(false); 
   const [productDetails, setDetails] = useState({
     name: "",
     cost: "",
     images: [],
     desc: "",
+    class: "",
+    costLabel: "",
   });
   const [changeHeading, resetHeading] = useOutletContext();
 
@@ -26,6 +29,14 @@ const NewProduct = () => {
     let val = e.currentTarget.value;
 
     setDetails((state) => ({ ...state, [newKey]: val }));
+
+    if (newKey === "class") {
+      // Dynamically update the cost label based on the selected product class
+      const costLabel = val === "Fruit" ? "per kg" : "per Bag";
+      setDetails((state) => ({ ...state, costLabel }));
+      setClassSelected(true);
+    }
+  
   };
 
   const clickRedirect = (e) => {
@@ -69,7 +80,7 @@ const NewProduct = () => {
               const ctx = canvas.getContext("2d");
               ctx.drawImage(image, 0, 0, width, height);
 
-              const resizedBase64 = canvas.toDataURL("image/jpeg"); // You can change the format as needed
+              const resizedBase64 = canvas.toDataURL("image/jpeg"); 
               resolve(resizedBase64);
             };
           };
@@ -85,36 +96,54 @@ const NewProduct = () => {
   };
   console.log(productDetails);
   
-  const saveProduct = (e) => {
+  const saveProduct = async (e) => {
     e.preventDefault();
     const { name } = productDetails;
-    let authToken = sessionStorage.getItem("token");
-    const client = new QueryClient(authToken);
-    const productData = {
-      name: productDetails.name,
-      cost: productDetails.cost,
-      images: productDetails.images,
-      description: productDetails.desc,
-    }
-    let response = client.post("/products/create", productData);
-    console.log(response);
-     Swal.fire({
-       title: 'GREAT',
-      text: `you have successfully added "${name}" to the list of your products on One-Farm`,
-      imageUrl: '/src/assets/images/sweetcheck.png',
-      imageHeight: 200,
-      imageWidth: 200,
-      imageAlt:'success Icon',
-      showCloseButton:false,
-      allowOutsideClick: false,
-      focusConfirm: true,
-      confirmButtonText: 'Okay',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = "marketplace";
+  
+    try {
+      let authToken = sessionStorage.getItem("token");
+      const client = new QueryClient(authToken);
+      const productData = {
+        name: productDetails.name,
+        cost: productDetails.cost,
+        images: productDetails.images,
+        description: productDetails.desc,
+        class:productDetails.class,
+        costLabel:productDetails.costLabel, 
       }
-  });
-};
+  
+      // Using async/await to wait for the response
+      let response = await client.post("/products/create", productData);
+      console.log(response);
+  
+      Swal.fire({
+        title: 'GREAT',
+        text: `You have successfully added "${name}" to the list of your products on One-Farm`,
+        imageUrl: '/src/assets/images/sweetcheck.png',
+        imageHeight: 200,
+        imageWidth: 200,
+        imageAlt: 'success Icon',
+        showCloseButton: false,
+        allowOutsideClick: false,
+        focusConfirm: true,
+        confirmButtonText: 'Okay',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "marketplace";
+        }
+      });
+    } catch (error) {
+      console.error('Error uploading product:', error);
+  
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'There was an error uploading the product. Please try again.',
+        confirmButtonText: 'Okay',
+      });
+    }
+  };
+  
 
 
   return (
@@ -144,22 +173,48 @@ const NewProduct = () => {
           </div>
 
           <div className="flex flex-col gap-3 w-full">
-            <label htmlFor="cost" className="font-bold text-lg">
-              Cost of Product
-            </label>
-            <div className="bg-white p-4 rounded-md shadow-md flex w-full">
-              <input
-                className="pl-3 bg-transparent border border-[#C7CDD2] p-3 w-full"
-                type="text"
-                required
-                id="cost"
-                name="cost"
-                placeholder="Enter Cost of Product"
-                value={productDetails.cost}
-                onChange={handleChange}
-              />
-            </div>
+          <label htmlFor="class" className="font-bold text-lg">
+            Product Class
+          </label>
+          <div className="bg-white p-4 rounded-md shadow-md flex w-full">
+            <select
+              className="pl-3 bg-transparent border border-[#C7CDD2] p-3 w-full"
+              required
+              id="class"
+              name="class"
+              value={productDetails.class}
+              onChange={handleChange}
+            >
+              <option value="" disabled>Select Product Class</option>
+              <option value="Fruit">Fruit</option>
+              <option value="Vegetable">Vegetable</option>
+            </select>
           </div>
+        </div>
+
+          <div className="flex flex-col gap-3 w-full">
+        <label htmlFor="cost" className="font-bold text-lg">
+     cost {productDetails.costLabel}
+        </label>
+        <div className="bg-white p-4 rounded-md shadow-md flex w-full">
+          <input
+            className="pl-3 bg-transparent border border-[#C7CDD2] p-3 w-full"
+            type="number"
+            required
+            id="cost"
+            name="cost"
+            placeholder={`Enter Cost ${productDetails.costLabel}`} 
+            value={productDetails.cost}
+            onChange={handleChange}
+            disabled={!productDetails.class}
+          />
+        </div>
+        {!classSelected && (
+            <p className="text-red-500 mt-2">
+              Please select a product class before filling the cost field.
+            </p>
+          )}
+      </div>
         </div>
 
         <div className="flex flex-col gap-3 w-full">
@@ -210,6 +265,7 @@ const NewProduct = () => {
           className="bg-green-30 px-20 md:px-32 py-5 self-center font-bold text-xl text-white disabled:bg-black-50"
           disabled={
             productDetails.name == "" ||
+            productDetails.class == "" ||
             productDetails.cost == "" ||
             productDetails.desc == "" ||
             productDetails.images == []

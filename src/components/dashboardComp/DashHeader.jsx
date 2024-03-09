@@ -18,10 +18,10 @@ const DashHeader = (props) => {
       
       <div className='flex items-center gap-14 justify-end'>
         <div className="bg-black-15 px-9 rounded-xl lg:rounded-[50px] h-14 w-auto min-w-md flex gap-3 items-center">
-          <label className='w-6'>
+          <label htmlFor='search' className='w-6'>
             <img src={search} alt="Search icon" />
           </label>
-          <input type="search" placeholder="Search" className="bg-transparent outline-none placeholder:text-black-30" />
+          <input type="search" id='search' name='search' placeholder="Search" className="bg-transparent outline-none placeholder:text-black-30" />
         </div>
 
         <div className='text-green-30 text-md hidden lg:block'>
@@ -34,7 +34,7 @@ const DashHeader = (props) => {
 
         <Link to='profile' className='items-center gap-2 hidden lg:flex'>
           <div className='h-14 w-14 rounded-full bg-black-30'>
-            <img src={avatar} alt="Profile" className='rounded-full' />
+            <img src={avatar} alt="Profile" className='rounded-full h-14 w-14' />
           </div>
           <h3 className='text-black-100 text-lg'>{username}</h3>
         </Link>

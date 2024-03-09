@@ -6,6 +6,7 @@ import mango2 from '../assets/images/dashboard/mango2.png';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import QueryClient from "../js/QueryClient";
 import ShoppingCart from "../js/Cart";
+import { data } from "autoprefixer";
 
 
 
@@ -15,30 +16,58 @@ const ViewProduct = () => {
   const [pic, setPic] = useState(0);
   const [product, setProduct] = useState({});
   const  { productId }  = useParams();
-  console.log(productId);
+  const [startIndex, setStartIndex] = useState(0);
+  
+  
   useEffect(() => {
-   
     let authToken = sessionStorage.getItem("token");
     const client = new QueryClient(authToken);
-    client
-      .get(`products/${productId}/find`)
-      .then((data) => {
-        console.log(data.name);
-        setProduct(data); // Set the state using setMyProducts
-      })
-      .catch((error) => {
+
+    const fetchData = async () => {
+      try {
+        const data = await client.get(`products/${productId}/find`);
+        console.log(data[0].images);
+          
+        // Handling images
+        
+        setProduct(data[0]);
+      } catch (error) {
         console.log(error);
-      });
+      }
+    };
 
-  });
+    fetchData();
+  }, [productId]);
 
-  const nextPic = () => {
-    setPic((state) => (state >= (pics.length - 1) ? 0 : (state + 1)))
-  }
+  {/*
+  useEffect(() => {
+    let authToken = sessionStorage.getItem("token");
+    const client = new QueryClient(authToken);
 
-  const prevPic = () => {
-    setPic((state) => (state <= 0 ? (pics.length - 1) : (state - 1)))
-  }
+    const fetchData = async () => {
+      try {
+        const dataArray = await client.get(`products/${productId}/find`);
+        const data = dataArray[0];
+
+        // Handling images
+        const imagesArray = data.images.map((imageObj) => imageObj.image);
+        setProduct({ ...data, images: imagesArray });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, [productId]);*
+
+{/*console.log(product);*/}
+const nextPic = () => {
+  setStartIndex((index) => (index + 3 >= product.images.length ? 0 : index + 3));
+};
+
+const prevPic = () => {
+  setStartIndex((index) => (index - 3 < 0 ? product.images.length - (product.images.length % 3 || 3) : index - 3));
+};
 
   const switchFruits = () => {
     setSwitch(true);
@@ -56,47 +85,63 @@ const ViewProduct = () => {
     // You can add additional logic or UI updates here
   };
 
-  return (
-    <section className="px-[4%] py-4 flex flex-col w-full h-full gap-8">
-      <div className="flex flex-col lg:flex-row lg:items-center gap-7">
-        <div className="flex flex-col gap-6 lg:w-2/5">
-          <figure className="w-4/5 m-auto rounded-3xl overflow-hidden">
-            <img src={product.image} alt="Product picture" />
-          </figure>
+  const displayCost = () => {
+    // Check the product class to determine the cost display format
+    if (product.name === 'Strawberry') {
+      return `${Number(product.cost).toLocaleString()}/kg`;
+    } else if (product.name === 'Irish Potato') {
+      return `${Number(product.cost).toLocaleString()}/bag`;
+    } else {
+      return `${Number(product.cost).toLocaleString()}/unit`; // Default display if no product class is specified
+    }
+  };
 
-          <div className="flex gap-5 items-center w-3/5 m-auto">
-            <div className="text-black-25 cursor-pointer" onClick={prevPic}>
-              <IoIosArrowBack size={30} />
-            </div>
-            <ul className="flex gap-2">
-              { pics.map((one) => (
-                <li className="rounded-md overflow-hidden flex-1" key={one}>
-                  <img src={one} alt="" />
-                </li>
-              ))}
-            </ul>
-            <div className="text-black-25 cursor-pointer" onClick={nextPic}>
-              <IoIosArrowForward size={30} />
-            </div>
+  return (
+    <section className=" py-4 flex flex-col w-full h-full gap-8">
+      <div className="flex flex-col lg:flex-row gap-0">
+        
+        <div className="flex flex-col gap-6 lg:w-4/12 pl-[2%]">
+          <figure className="w-9/12 rounded-3xl overflow-hidden ml-6">
+          {product.images?.[0] && (
+    <img src={product.images[0].image || ""} alt={product.name} />
+      )}
+     </figure>
+
+     <div className="flex gap-5 items-center w-4/5 ml-6">
+          <div className="text-black-25 cursor-pointer" onClick={prevPic}>
+            <IoIosArrowBack size={30} />
+          </div>
+          <ul className="flex gap-2">
+          {product.images?.slice(startIndex, startIndex + 3).map((image, index) => (
+              <li className="rounded-md overflow-hidden flex-1" key={index} style={{ width: "calc(100% / 3)" }}>
+                <img src={image.image || ""} alt={product.name} className="rounded-md" style={{ width: "95%", height:"90%", }} />
+              </li>
+            ))}
+          </ul>
+          <div className="text-black-25 cursor-pointer" onClick={nextPic}>
+            <IoIosArrowForward size={30} />
           </div>
         </div>
+</div>
+       
 
-        <div className="lg:w-3/5 flex flex-col gap-7">
-          <h1 className="font-semibold text-5xl">{product.name}</h1>
-          <p className="text-2xl">2kg per basket</p>
-          <div className="flex gap-4 items-center">
-            <h3 className="font-semibold text-4xl">#{product.cost}</h3>
-            <h4 className="font-semibold text-2xl line-through italic text-black-50">#8,500</h4>
+        <div className="lg:w-1/2 flex flex-col gap-3 lg:gap-6 px-[4%] lg:px-0 lg:py-4">
+          <h1 className="text-lg lg:text-2xl font-semibold capitalize">{product.name}</h1>
+          {/*<p className="text-2xl">Product Quantities</p>*/}
+          <div className="flex gap-6 items-center">
+            <h3 className="font-medium text-xl naira-sign">{displayCost()}</h3>
             <h5 className="text-white bg-green-200 rounded p-1">-12%</h5>
+          {/*  <h4 className="font-semibold text-2xl line-through italic text-black-50">#8,500</h4>
+            <h5 className="text-white bg-green-200 rounded p-1">-12%</h5>*/}
           </div>
           <p className="text-2xl">Shipping from Pankshin, Jos</p>
-          <button onClick={() => handleAddToCart(product)} className="text-white bg-green-30 py-3 text-xl">Add To Cart</button>
+          <button onClick={() => handleAddToCart(product)} className="text-white w-4/5 bg-green-30 py-3 text-xl rounded-full">Add To Cart</button>
 
         </div>
       </div>
 
-      <div>
-        <div className="flex gap-3 pb-4">
+      <div className="pl-[2%]">
+        <div className="flex gap-3 pb-4 ">
           <h3 className={`p-5 px-14 after:h-1 after:w-full ${switchProd ? 'after:bg-black-50 text-black-50' : 'after:bg-green-30 text-green-30'} relative after:absolute after:bottom-0 after:left-0`} onClick={switchVegetables}>Description</h3>
           <h3 className={`p-5 px-14 after:h-1 after:w-full ${!switchProd ? 'after:bg-black-50 text-black-50' : 'after:bg-green-30 text-green-30'} relative after:absolute after:bottom-0 after:left-0`} onClick={switchFruits}>Rating</h3>
         </div>
@@ -105,7 +150,6 @@ const ViewProduct = () => {
          { !switchProd &&
           (<div className="flex flex-col gap-8">
             <p>{product.description}</p>
-            {/* <p>These succulent fruits are not just a treat for your taste buds; they&apos;re also a treasure trove of nutrients. Loaded with vitamins, minerals, and antioxidants, Peter Mangoes are your ticket to a healthier lifestyle. They boost your immune system, aid digestion, and promote radiant skin.</p> */}
           </div>)
         }
 

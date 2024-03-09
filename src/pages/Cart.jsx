@@ -3,10 +3,29 @@ import { Input, Radio } from "@material-tailwind/react";
 import CartProduct from "../components/dashboardComp/CartProduct";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { PaystackButton } from "react-paystack"
-// import ShoppingCart from "../js/Cart";
+import ShoppingCart from "../js/Cart";
+import Swal from "sweetalert2";
 
 
 const Cart = () => {
+  const [cartItems, setCartItems] = useState(new ShoppingCart().getCartItems());
+  const cart = new ShoppingCart();
+ 
+  const handleRemoveFromCart = (itemId) => {
+    const cart = new ShoppingCart();
+    cart.removeFromCart(itemId);
+    setCartItems(cart.getCartItems());
+  };
+
+  const handleAddToCart = (item) => {
+    const cart = new ShoppingCart();
+    cart.addToCart(item);
+    setCartItems(cart.getCartItems());
+  };
+
+
+  console.log(cart.getCartItems());
+console.log(cart.getTotalAmount());
   const [selectedPayment, setSelectedPayment] = useState("flutterwave");
   // const handlePayment = () => {
   //   // Perform payment processing based on the selected payment option
@@ -23,7 +42,7 @@ const Cart = () => {
   // };
   const publicKey = "pk_test_d59dabde8abe1d35102b70be0c2e19760ece0c65"
 
-  const amount = 1000000
+  let amount = cart.getTotalAmount();
 
   const [email, setEmail] = useState("")
 
@@ -46,7 +65,7 @@ const Cart = () => {
 
     publicKey,
 
-    text: "Pay Now",
+    text: "Place Order",
     className: "text-white px-5 lg:px-9 bg-green-30 py-3 mt-8 self-stretch",
 
     onSuccess: () =>
@@ -59,11 +78,13 @@ const Cart = () => {
   let items = [];
   items = localStorage.getItem("cartItems");
   items = JSON.parse(items);
+
+  const delivery = 2000;
   return (
     <section className="px-[4%] py-4 flex flex-col lg:flex-row gap-8 w-full h-full">
       <div className="flex flex-col gap-5 flex-1">
         {items.map((item) => {
-          return <CartProduct key={item.id} item={item} />;
+          return <CartProduct key={item.id} item={item} onRemove={handleRemoveFromCart} onAddMore={handleAddToCart} />;
         })}
       </div>
 
@@ -84,8 +105,10 @@ const Cart = () => {
                 />
               </summary>
               <div className="h-auto flex flex-col gap-4 pt-5">
-                <Input label="Your Name"  onChange={(e) => setName(e.target.value)} className="w-full pl-4" size="lg" />
+                <Input label="Your Name" name="name" id="name"  onChange={(e) => setName(e.target.value)} className="w-full pl-4" size="lg" />
                 <Input
+                  id="email"
+                  name="email"
                   label="Email Address"
                   type="email"
                   className="w-full pl-4"
@@ -93,6 +116,8 @@ const Cart = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
+                  id="phone"
+                  name="phone"
                   label="Phone Number"
                   type="tel"
                   className="w-full pl-4"
@@ -173,17 +198,18 @@ const Cart = () => {
           <section className="flex flex-col gap-6 border-b py-6 border-black-50 text-xl">
             <div className="flex justify-between items-center">
               <p>Subtotal</p>
-              <h2 className="font-bold">N56,352</h2>
+              <h2 className="font-bold naira-sign">{cart.getTotalAmount().toLocaleString()}</h2>
             </div>
 
             <div className="flex justify-between items-center">
-              <p>Delivery</p>
-              <h2 className="font-bold">N56,352</h2>
+              <p>Delivery Fee</p>
+              <h2 className="font-bold naira-sign">{delivery.toLocaleString()}</h2>
             </div>
 
             <div className="flex justify-between items-center">
               <p>Total</p>
-              <h2 className="font-bold text-green-30">N56,352</h2>
+              
+              <h2 className="font-bold text-green-30 naira-sign">{(cart.getTotalAmount() + delivery).toLocaleString()}</h2>
             </div>
           </section>
 

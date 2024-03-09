@@ -26,6 +26,7 @@ const DashNav = (props) => {
   const [activeNav, setActive] = useState(false);
   const dispatch = useDispatch();
   const userKey = localStorage.getItem('userKey');
+  const role = localStorage.getItem("userRole");
   const can = (permission) => {
     if (permissions.includes(permission)) {
       return true;
@@ -52,7 +53,7 @@ const DashNav = (props) => {
   console.log(permissions);
 
   const openNav = () => {
-    setActive(true);
+    setIsActive(true);
   };
 
   const closeNav = () => {
@@ -68,22 +69,22 @@ const DashNav = (props) => {
 
   return (
     <UserProvider>
-    <section className={`fixed top-0 lg:hidden 2xl:flex lg:w-[16%] w-full flex-col gap-20 2xl:left-0 ${activeNav ? 'h-full' : 'h-fit'} lg:h-full bg-white 2xl:border 2xl:border-r-2 border-black-15 p-5 z-50`}>
+    <section className={`fixed top-0 xl:inline 2xl:flex 2xl:w-[16%] w-full flex-col gap-20 2xl:left-0 ${isActive ? 'h-full' : 'h-fit'} 2xl:h-full bg-white 2xl:border 2xl:border-r-2 border-black-15 p-5 z-50`}>
       <div className='flex justify-between items-center'>
         <Link to='/dashboard/home' className='block w-32 h-[15%]'>
           <img src={logo} alt="Onefarm Logo" />
         </Link>
 
-        {!activeNav && (<div className='lg:hidden cursor-pointer' onClick={openNav}>
+        {!isActive && (<div className='2xl:hidden flex cursor-pointer' onClick={openNav}>
           <VscMenu size={25} />
         </div>)}
 
 
-        {activeNav && (<div className='lg:hidden cursor-pointer' onClick={closeNav}>
+        {isActive && (<div className='2xl:hidden flex cursor-pointer' onClick={closeNav}>
           <GrClose size={35} />
         </div>)}
       </div>
-      <nav className={`${activeNav ? 'flex' : 'hidden'} flex-col justify-between h-[87%] 2xl:flex`}>
+      <nav className={`${isActive ? 'flex' : 'hidden'} flex-col justify-between h-[87%] 2xl:flex`}>
         <ul className='flex flex-col gap-5 pt-7'>
           <li>
             <NavLink to='home' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
@@ -101,7 +102,11 @@ const DashNav = (props) => {
         className={`flex gap-4 items-center text-black-50 hover:text-green-600 ${
           isActive ? 'text-green-600' : ''
         }`}
-        onClick={redirectToMarketplace}
+        onClick={() => {
+          redirectToMarketplace();
+          closeNav();
+         
+        }}
       >
         <div className="w-6">
           <img src={market} alt="Market place icon" />
@@ -113,7 +118,7 @@ const DashNav = (props) => {
           
             // : ""
           }
-           {userRole !== 'farmer' && (
+           {role !== 'farmer' && (
               <li>
                 <NavLink to='cart' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
                   <div className='w-6'>

@@ -161,3 +161,7 @@
 .activeButton {
   @apply text-green-600;
 }
+
+.naira-sign::before {
+  content: "₦";
+}

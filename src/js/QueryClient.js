@@ -4,8 +4,8 @@ import Swal from 'sweetalert2';
 class QueryClient {
   constructor(token = "") {
     this.axiosInstance = axios.create({
-      baseURL: import.meta.env.VITE_API_URL, // Replace with your API's base URL
-      timeout: 5000, // Adjust timeout as needed
+      baseURL: import.meta.env.VITE_API_URL, 
+      timeout: 10000, 
       headers: {
         'Content-Type': 'application/json',
         ...(token && { Authorization: `Bearer ${token}` }),
@@ -15,7 +15,7 @@ class QueryClient {
 
   async get(url, params = {}) {
     try {
-      const response = await this.axiosInstance.get(url, { timeout: 10000, params });
+      const response = await this.axiosInstance.get(url, { timeout: 100000, params });
       return response.data;
     } catch (error) {
       if(axios.isCancel(error)){

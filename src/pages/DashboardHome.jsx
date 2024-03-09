@@ -17,28 +17,29 @@ const DashboardHome = () => {
   };
 
   return (
-    <section className="px-[4%] py-4 flex flex-col w-full h-full">
-      <div className="overflow-auto">
-        <div className="flex gap-10 h-52 w-fit py-4 items-stretch">
-          <div className="flex gap-6">
-            <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-80 bg-white text-black-100">
-              <h4 className="text-lg">Pending Orders</h4>
-              <h2 className="text-3xl">0</h2>
-              <p className="text-md">0% increase from last month</p>
+    <section className="px-[4%] py-4 flex flex-col w-full h-full ">
+        <div className="flex overflow-x-auto xl:overflow-x-hidden gap-5 lg:gap-10 h-52  w-auto py-4 items-stretch px-2">
+         
+         
+
+            <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-96 bg-white text-black-100">
+              <h4 className="text-sm md:text-lg">Pending Orders</h4>
+              <h2 className="text-lg md:text-2xl">0</h2>
+              <p className="text-sm md:text-lg">0% increase from last month</p>
             </div>
-            <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-80 bg-white text-black-100">
-              <h4 className="text-lg">Settled Orders</h4>
-              <h2 className="text-3xl">0</h2>
-              <p className="text-md">0% customer satisfaction</p>
+
+            <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-96 bg-white text-black-100">
+              <h4 className="text-sm md:text-lg">Settled Orders</h4>
+              <h2 className="text-lg md:text-2xl">0</h2>
+              <p className="text-sm md:text-lgd">0% customer satisfaction</p>
             </div>
-          </div>
+          
           <div className="flex flex-col justify-between rounded-md p-5 w-96 bg-green-30 text-white shadow-lg">
-            <h4 className="text-lg">Your Earnings this month</h4>
-            <h2 className="text-3xl">N0</h2>
-            <p className="text-md">0% less than last month (N0)</p>
+            <h4 className="text-sm md:text-lg">Your Earnings this month</h4>
+            <h2 className="text-lg md:text-2xl">N0</h2>
+            <p className="text-sm md:text-lg">0% less than last month (N0)</p>
           </div>
         </div>
-      </div>
 
       <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:gap-10">
         <div className="flex flex-col gap-8 w-full max-w-[42rem]">

@@ -3,62 +3,77 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import { useOutletContext } from "react-router-dom";
 import Swal from 'sweetalert2';
+import QueryClient from "../js/QueryClient";
 
 const ProductUpdate = () => {
   const { id } = useParams();
   const productImages = useRef(null);
+  const [classSelected, setClassSelected] = useState(false); 
   const [productDetails, setDetails] = useState({
     name: "",
     cost: "",
     images: [],
     desc: "",
+    class: "",
+    costLabel: "",
   });
   const [changeHeading, resetHeading] = useOutletContext();
   const navigate = useNavigate();
 
+  
   useEffect(() => {
     changeHeading("Update Product");
-    fetchProductData(id);
+    
+    let authToken = sessionStorage.getItem('token');
+    const client = new QueryClient(authToken);
+
+    client.get(`products/${id}/find`)
+    .then((data) => {
+      if (Array.isArray(data)) {
+        // Assuming the response is an array
+        setDetails(data[0]);
+      } else {
+        setDetails(data);
+      }
+    })
+      .catch((error) => {
+        console.error('Error fetching product data:', error);
+  
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'There was an error fetching the product details. Please try again.',
+          confirmButtonText: 'Retry',
+          showCancelButton: true,
+          cancelButtonText: 'Go Back',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.reload();
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            navigate('/dashboard/marketplace');
+          }
+        });
+      });
+
     return () => {
       resetHeading();
     };
-  }, [changeHeading, resetHeading, id]);
+  }, [changeHeading, resetHeading, id, navigate]);
 
-  const fetchProductData = async (id) => {
-    try {
-      const token = sessionStorage.getItem("token");
-      const response = await axios.get(`/api/products/${id}/find`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const data = response.data;
-      setDetails(data);
-    } catch (error) {
-      console.error('Error fetching product data:', error);
-  
-      Swal.fire({
-        icon: 'error',
-        title: 'Oops...',
-        text: 'There was an error fetching the product details. Please try again.',
-        confirmButtonText: 'Retry',
-        showCancelButton: true,
-        cancelButtonText: 'Go Back',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          window.location.reload();
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-          navigate('/dashboard/marketplace');
-        }
-      });
-    }
-  };
+ 
 
   const handleChange = (e) => {
     let newKey = e.currentTarget.name;
     let val = e.currentTarget.value;
 
     setDetails((state) => ({ ...state, [newKey]: val }));
+
+    if (newKey === "class") {
+      // Dynamically update the cost label based on the selected product class
+      const costLabel = val === "Fruit" ? "per kg" : "per Bag";
+      setDetails((state) => ({ ...state, costLabel }));
+      setClassSelected(true);
+    }
   };
 
   const clickRedirect = (e) => {
@@ -117,29 +132,27 @@ const ProductUpdate = () => {
     }
   };
 console.log(productDetails);
+
   const handleProductUpdate = async (e) => {
     e.preventDefault();
     const { name, id } = productDetails;
-    const token = sessionStorage.getItem("token");
     
     try {
-      const formData = new FormData();
-      formData.append('name', productDetails.name);
-      formData.append('cost', productDetails.cost);
-      formData.append('desc', productDetails.desc);
+      let authToken = sessionStorage.getItem("token");
+      const client = new QueryClient(authToken);
+      const productData = {
+        name: productDetails.name,
+        cost: productDetails.cost,
+        images: productDetails.images,
+        description: productDetails.description,
+        class:productDetails.class,
+        costLabel:productDetails.costLabel,
+      }
 
-      // Append each file in the array
-      productDetails.images.forEach((image, index) => {
-        formData.append(`images[${index}]`, image);
-      });
-
-      await axios.post(`/api/products/${id}/update`, formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      
+     let response = await client.post(`/products/${id}/update`, productData);
+     console.log(response);
+  
+     
       Swal.fire({
         title: 'GREAT',
         text: `Product "${name}" has been updated successfully!`,
@@ -207,22 +220,48 @@ console.log(productDetails);
           </div>
 
           <div className="flex flex-col gap-3 w-full">
-            <label htmlFor="cost" className="font-bold text-lg">
-              Cost of Product
-            </label>
-            <div className="bg-white p-4 rounded-md shadow-md flex w-full">
-              <input
-                className="pl-3 bg-transparent border border-[#C7CDD2] p-3 w-full"
-                type="text"
-                required
-                id="cost"
-                name="cost"
-                placeholder="Enter Cost of Product"
-                value={productDetails.cost}
-                onChange={handleChange}
-              />
-            </div>
+          <label htmlFor="class" className="font-bold text-lg">
+            Product Class
+          </label>
+          <div className="bg-white p-4 rounded-md shadow-md flex w-full">
+            <select
+              className="pl-3 bg-transparent border border-[#C7CDD2] p-3 w-full"
+              required
+              id="class"
+              name="class"
+              value={productDetails.class}
+              onChange={handleChange}
+            >
+              <option value="" disabled>Select Product Class</option>
+              <option value="Fruit">Fruit</option>
+              <option value="Vegetable">Vegetable</option>
+            </select>
           </div>
+        </div>
+
+        <div className="flex flex-col gap-3 w-full">
+        <label htmlFor="cost" className="font-bold text-lg">
+       Cost {productDetails.costLabel}
+        </label>
+        <div className="bg-white p-4 rounded-md shadow-md flex w-full">
+          <input
+            className="pl-3 bg-transparent border border-[#C7CDD2] p-3 w-full"
+            type="text"
+            required
+            id="cost"
+            name="cost"
+            placeholder={`Enter Cost ${productDetails.costLabel}`} 
+            value={productDetails.cost}
+            onChange={handleChange}
+            disabled={!productDetails.class}
+            />
+          </div>
+          {!classSelected && (
+              <p className="text-red-500 mt-2">
+                Please select a product class before filling the cost field.
+              </p>
+            )}
+      </div>
         </div>
 
         <div className="flex flex-col gap-3 w-full">
@@ -230,13 +269,17 @@ console.log(productDetails);
             Product Images
           </label>
           <div className="bg-white p-10 rounded-md shadow-md flex flex-col items-center gap-5 w-full">
-          <div className="flex gap-5">
-          {productDetails.images && productDetails.images.map((images, index) => (
-       <figure key={index}>
-           <img src={images ? images : ''} alt={`Product Image ${index + 1}`} />
-       </figure>
-         ))}
-        </div>
+        <div className="flex gap-5">
+  {productDetails.images &&
+    productDetails.images.map((imageObj, index) => (
+      <figure key={index}>
+        <img
+          src={imageObj.image ? imageObj.image : ''}
+          alt={`Product Image ${index + 1}`}
+        />
+      </figure>
+    ))}
+</div>
             <input
               ref={productImages}
               type="file"
@@ -254,16 +297,16 @@ console.log(productDetails);
           </div>
 
           <div className="flex flex-col gap-3 w-full">
-            <label htmlFor="name" className="font-bold text-lg">
+            <label htmlFor="description" className="font-bold text-lg">
               Product Description
             </label>
             <div className="bg-white p-4 rounded-md shadow-md flex w-full">
               <textarea
-                name="desc"
-                id=""
+                name="description"
+                id="description"
                 className="pl-3 bg-transparent border border-[#C7CDD2] p-3 w-full h-60"
                 placeholder="What is your product about?"
-                value={productDetails.desc}
+                value={productDetails.description}
                 onChange={handleChange}
               ></textarea>
             </div>
@@ -273,8 +316,9 @@ console.log(productDetails);
           className="bg-green-30 px-20 md:px-32 py-5 self-center font-bold text-xl text-white disabled:bg-black-50"
           disabled={
             productDetails.name == "" ||
+            productDetails.class == "" ||
             productDetails.cost == "" ||
-            productDetails.desc == "" ||
+            productDetails.description == "" ||
             productDetails.images == []
           }
         >
