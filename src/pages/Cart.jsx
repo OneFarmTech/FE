@@ -41,8 +41,9 @@ console.log(cart.getTotalAmount());
   //   // After payment processing, you can redirect or perform other actions
   // };
   const publicKey = "pk_test_d59dabde8abe1d35102b70be0c2e19760ece0c65"
+  const delivery = 2000;
 
-  let amount = cart.getTotalAmount();
+  let amount = (cart.getTotalAmount()+ delivery);
 
   const [email, setEmail] = useState("")
 
@@ -79,7 +80,7 @@ console.log(cart.getTotalAmount());
   items = localStorage.getItem("cartItems");
   items = JSON.parse(items);
 
-  const delivery = 2000;
+ 
   return (
     <section className="px-[4%] py-4 flex flex-col lg:flex-row gap-8 w-full h-full">
       <div className="flex flex-col gap-5 flex-1">
