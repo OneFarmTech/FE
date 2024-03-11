@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import ShoppingCart from "/src/js/Cart.js";
 
+
 const RetailProductItem = ({ data }) => {
 
-
-  const Shop = new ShoppingCart(); // Initialize the ShoppingCart
+  const userId = localStorage.getItem('userId');
+  const Shop = new ShoppingCart(userId); // Initialize the ShoppingCart
 
   const handleAddToCart = (item) => {
     Shop.addToCart(item)

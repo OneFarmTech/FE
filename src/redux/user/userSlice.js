@@ -3,13 +3,14 @@ import axios from "axios";
 
 const fetchUser = createAsyncThunk('user/fetch', async () => {
   const token = sessionStorage.getItem("token");
+  // eslint-disable-next-line no-useless-catch
   try {
     const response = await axios.get(import.meta.env.VITE_API_URL + 'profile', {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
-
+    
     return response.data
   }
   catch (error) {
@@ -57,6 +58,9 @@ const userSlice = createSlice({
         state.loading = false;
         const userRole = action.payload.data.roles[0];
         localStorage.setItem('userRole', userRole);
+        const userId = state.userDetails.id;
+        localStorage.setItem('userId', userId);
+      
       })
       .addCase(fetchUser.pending, (state) => {
         state.loading = true;

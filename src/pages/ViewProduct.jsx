@@ -77,16 +77,17 @@ const prevPic = () => {
     setSwitch(false);
   }
 
-  const Shop = new ShoppingCart(); // Initialize the ShoppingCart
+  const userId = localStorage.getItem('userId');
+  const Shop = new ShoppingCart(userId); // Initialize the ShoppingCart
 
   const handleAddToCart = (item) => {
     Shop.addToCart(item)
     window.location.href="/dashboard/cart";
-    // You can add additional logic or UI updates here
+  
   };
 
   const displayCost = () => {
-    // Check the product class to determine the cost display format
+    // Check the product class to determine the cost display format**********using name for now until the end point returns class
     if (product.name === 'Strawberry') {
       return `${Number(product.cost).toLocaleString()}/kg`;
     } else if (product.name === 'Irish Potato') {

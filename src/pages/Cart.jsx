@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect} from "react";
 import { Input, Radio } from "@material-tailwind/react";
 import CartProduct from "../components/dashboardComp/CartProduct";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
@@ -8,22 +8,32 @@ import Swal from "sweetalert2";
 
 
 const Cart = () => {
-  const [cartItems, setCartItems] = useState(new ShoppingCart().getCartItems());
-  const cart = new ShoppingCart();
- 
-  const handleRemoveFromCart = (itemId) => {
-    const cart = new ShoppingCart();
+  
+  const userId = localStorage.getItem('userId');
+  const cart = new ShoppingCart(userId);
+  const [cartItems, setCartItems] = useState(new ShoppingCart(userId).getCartItems());
+
+  useEffect(() => {
+    // Retrieve cartItems from localStorage
+    const userId = localStorage.getItem('userId');
+    const items = localStorage.getItem(`cartItems_${userId}`);
+    const parsedItems = JSON.parse(items) || [];
+    setCartItems(parsedItems);
+  },[setCartItems]);
+
+  
+
+const handleRemoveFromCart = (itemId) => {
     cart.removeFromCart(itemId);
     setCartItems(cart.getCartItems());
   };
 
   const handleAddToCart = (item) => {
-    const cart = new ShoppingCart();
     cart.addToCart(item);
     setCartItems(cart.getCartItems());
   };
 
-
+console.log(userId);
   console.log(cart.getCartItems());
 console.log(cart.getTotalAmount());
   const [selectedPayment, setSelectedPayment] = useState("flutterwave");
@@ -76,17 +86,15 @@ console.log(cart.getTotalAmount());
     onClose: () => alert("Wait! Don't leave :("),
 
   }
-  let items = [];
-  items = localStorage.getItem("cartItems");
-  items = JSON.parse(items);
+  
 
  
   return (
     <section className="px-[4%] py-4 flex flex-col lg:flex-row gap-8 w-full h-full">
       <div className="flex flex-col gap-5 flex-1">
-        {items.map((item) => {
-          return <CartProduct key={item.id} item={item} onRemove={handleRemoveFromCart} onAddMore={handleAddToCart} />;
-        })}
+      {cartItems.map((item) => (
+          <CartProduct key={item.id} item={item} onRemove={handleRemoveFromCart} onAddMore={handleAddToCart} />
+        ))}
       </div>
 
       <div className="flex-1">

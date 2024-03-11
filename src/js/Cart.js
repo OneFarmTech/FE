@@ -1,6 +1,7 @@
 class ShoppingCart {
-    constructor() {
-      this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+  constructor(userId) {
+    this.userId = userId;
+      this.cartItems = JSON.parse(localStorage.getItem(`cartItems_${this.userId}`)) || [];
       this.updateLocalStorage();
     }
    
@@ -59,7 +60,7 @@ class ShoppingCart {
     }
   
     updateLocalStorage() {
-      localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+      localStorage.setItem(`cartItems_${this.userId}`, JSON.stringify(this.cartItems));
     }
   }
   
