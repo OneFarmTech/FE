@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import QueryClient from "../js/QueryClient";
 import Swal from 'sweetalert2';
-import  '../assets/images/sweetcheck.png'
+import  '../../public/sweetcheck.png'
 
 const NewProduct = () => {
   const productImages = useRef(null);
@@ -119,7 +119,7 @@ const NewProduct = () => {
       Swal.fire({
         title: 'GREAT',
         text: `You have successfully added "${name}" to the list of your products on One-Farm`,
-        imageUrl: '/src/assets/images/sweetcheck.png',
+        imageUrl: '/public/sweetcheck.png',
         imageHeight: 200,
         imageWidth: 200,
         imageAlt: 'success Icon',

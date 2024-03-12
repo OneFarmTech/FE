@@ -323,7 +323,9 @@ const Profile = () => {
 
             <div className="flex flex-col gap-4 flex-1">
             <label htmlFor="roles" className="font-bold">Role:</label>
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" disabled type="text" id="roles" name="roles" placeholder="" onChange={handleProfileChange} value={localStorage.getItem('userRole')} />
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" 
+              disabled type="text" id="roles" name="roles" placeholder="" 
+              onChange={handleProfileChange} value={localStorage.getItem('userRole')}  style={{ cursor: 'not-allowed' }}/>
             </div>
 
             <div className="flex flex-col gap-4 flex-1">

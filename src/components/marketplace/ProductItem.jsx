@@ -66,15 +66,18 @@ const ProductItem = ({ data, onDelete }) => {
   };
 
   const displayCost = () => {
+    const lowerCaseName = data.name.toLowerCase();
+  
     // Check the product class to determine the cost display format
-    if (data.name === 'Strawberry') {
+    if (lowerCaseName === 'strawberry') {
       return `${Number(data.cost).toLocaleString()}/kg`;
-    } else if (data.name === 'Irish Potato') {
+    } else if (lowerCaseName === 'irish potato') {
       return `${Number(data.cost).toLocaleString()}/bag`;
     } else {
       return `${Number(data.cost).toLocaleString()}/unit`; // Default display if no product class is specified
     }
   };
+  
 
   return (
     <div className="rounded-md shadow-md p-3 bg-white flex flex-col gap-4 lg:w-72">
@@ -83,7 +86,7 @@ const ProductItem = ({ data, onDelete }) => {
 
       </figure>
       <div className="pl-6 flex flex-col gap-3">
-      <h2>{data.name}</h2>
+      <h2 className='capitalize'>{data.name}</h2>
       
       <h2 className="text-green-30 naira-sign">{displayCost()}</h2>
       {/*<p className="text-black-50 text-sm">{data.description}</p> */}

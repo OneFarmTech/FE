@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useOutletContext } from "react-router-dom";
 import Swal from 'sweetalert2';
 import QueryClient from "../js/QueryClient";
+import  '../../public/sweetcheck.png'
 
 const ProductUpdate = () => {
   const { id } = useParams();
@@ -156,7 +157,7 @@ console.log(productDetails);
       Swal.fire({
         title: 'GREAT',
         text: `Product "${name}" has been updated successfully!`,
-        imageUrl: '/src/assets/images/sweetcheck.png',
+        imageUrl: '/public/sweetcheck.png',
         imageHeight: 200,
         imageWidth: 200,
         imageAlt: 'success Icon',

@@ -129,7 +129,9 @@ const DashNav = (props) => {
               </li>
             )}
           <li>
-            <NavLink to='messages' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='messages' className={({ isActive }) => (isActive
+        ? 'flex gap-4 items-center text-green-30'
+        : 'flex gap-4 items-center text-black-50 pointer-events-none')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={message} alt="Messages" />
               </div>
@@ -137,7 +139,9 @@ const DashNav = (props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to='payment' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='payment' className={({ isActive }) => ( isActive
+        ? 'flex gap-4 items-center text-green-30'
+        : 'flex gap-4 items-center text-black-50 pointer-events-none')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={pay} alt="" />
               </div>
@@ -145,11 +149,13 @@ const DashNav = (props) => {
             </NavLink>
           </li>
           <li>
-            <NavLink to='support' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+            <NavLink to='support' className={({ isActive }) => ( isActive
+        ? 'flex gap-4 items-center text-green-30'
+        : 'flex gap-4 items-center text-black-50 pointer-events-none')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={support} alt="" />
               </div>
-              <h4 className='text-xl hover:text-green-600'>Support</h4>
+              <h4 className='text-xl hover:text-green-600 ' >Support</h4>
             </NavLink>
           </li>
         </ul>
