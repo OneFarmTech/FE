@@ -35,9 +35,9 @@ const DashboardHome = () => {
             </div>
           
           <div className="flex flex-col justify-between rounded-md p-5 w-96 bg-green-30 text-white shadow-lg">
-            <h4 className="text-sm md:text-lg">Your Earnings this month</h4>
-            <h2 className="text-lg md:text-2xl">N0</h2>
-            <p className="text-sm md:text-lg">0% less than last month (N0)</p>
+            <h4 className="text-sm md:text-lg">Earnings This Month</h4>
+            <h2 className="text-lg md:text-2xl naira-sign">0</h2>
+            <p className="text-sm md:text-lg">0% less than last month</p>
           </div>
         </div>
 

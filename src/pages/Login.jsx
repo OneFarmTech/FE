@@ -160,7 +160,7 @@ const Login = () => {
         </div>
 
         <div className="flex justify-between pr-3 max-w-md self-center w-full lg:self-start">
-          <button type="button" className="text-white py-2 px-9 bg-black-100" onClick={() => { dispatch(clearUser()) }}>Go Back</button>
+          <button type="button" className="text-white py-2 px-9 bg-black-100" onClick={() => {  navigate('/dashboard/home')}}>Go Back</button>
           <button className="text-white py-2 px-9 bg-green-30" type="submit" disabled={isPending} >{isPending ? 'Please wait.....' : 'Login'}</button>
         </div>
       </form>)}

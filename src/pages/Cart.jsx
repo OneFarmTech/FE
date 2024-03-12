@@ -90,7 +90,7 @@ console.log(cart.getTotalAmount());
 
  
   return (
-    <section className="px-[4%] py-4 flex flex-col lg:flex-row gap-8 w-full h-full">
+    <section className="px-[4%] py-4 flex flex-col md:flex-row gap-8 w-full h-full">
       <div className="flex flex-col gap-5 flex-1">
       {cartItems.map((item) => (
           <CartProduct key={item.id} item={item} onRemove={handleRemoveFromCart} onAddMore={handleAddToCart} />
@@ -106,8 +106,8 @@ console.log(cart.getTotalAmount());
             className="flex flex-col gap-6 py-2 border-b pb-7 border-black-50"
           >
             <details className="">
-              <summary className="font-semibold text-xl flex justify-between items-center list-none">
-                <h3>Contact Information</h3>
+              <summary className="font-medium text-xl flex justify-between items-center list-none">
+                <h3 className="text-green-50">Contact Information</h3>
                 <MdOutlineKeyboardArrowDown
                   size={25}
                   className="text-black-100"
@@ -137,23 +137,23 @@ console.log(cart.getTotalAmount());
             </details>
 
             <details className="">
-              <summary className="font-semibold text-xl flex justify-between items-center list-none">
-                <h3>Delivery Options</h3>
+              <summary className="font-medium text-green-60 text-xl flex justify-between items-center list-none">
+                <h3 className="text-green-60">Delivery Options</h3>
                 <MdOutlineKeyboardArrowDown
                   size={25}
                   className="text-black-100"
                 />
               </summary>
-              <div className="h-auto flex flex-col gap-1 pt-5">
+              <div className="h-auto flex flex-col gap-1 pt-5 ">
                 <Radio
-                  className="!font-normal"
+                  className="!font-normal text-green-60"
                   name="delivery"
                   color="green"
                   size="lg"
                   label="Pick-up Station"
                 />
                 <Radio
-                  className="!font-normal"
+                  className="!font-normal text-green-60"
                   name="delivery"
                   color="green"
                   size="lg"
@@ -164,8 +164,8 @@ console.log(cart.getTotalAmount());
             </details>
 
             <details className="">
-              <summary className="font-semibold text-xl flex justify-between items-center list-none">
-                <h3>Shipping Address</h3>
+              <summary className="font-medium text-xl flex justify-between items-center list-none">
+                <h3 className="text-green-50">Shipping Address</h3>
                 <MdOutlineKeyboardArrowDown
                   size={25}
                   className="text-black-100"
@@ -184,8 +184,8 @@ console.log(cart.getTotalAmount());
             </details>
 
             <details className="">
-              <summary className="font-semibold text-xl flex justify-between items-center list-none">
-                <h3>Promo Code</h3>
+              <summary className="font-medium text-xl flex justify-between items-center list-none">
+                <h3 className="text-green-50">Promo Code</h3>
                 <MdOutlineKeyboardArrowDown
                   size={25}
                   className="text-black-100"
@@ -206,26 +206,26 @@ console.log(cart.getTotalAmount());
 
           <section className="flex flex-col gap-6 border-b py-6 border-black-50 text-xl">
             <div className="flex justify-between items-center">
-              <p>Subtotal</p>
-              <h2 className="font-bold naira-sign">{cart.getTotalAmount().toLocaleString()}</h2>
+              <p  className="text-green-50">Subtotal</p>
+              <h2 className="font-semibold  text-green-50 naira-sign">{cart.getTotalAmount().toLocaleString()}</h2>
             </div>
 
             <div className="flex justify-between items-center">
-              <p>Delivery Fee</p>
-              <h2 className="font-bold naira-sign">{delivery.toLocaleString()}</h2>
+              <p  className="text-green-50">Delivery Fee</p>
+              <h2 className="font-semibold  text-green-50 naira-sign">{delivery.toLocaleString()}</h2>
             </div>
 
             <div className="flex justify-between items-center">
-              <p>Total</p>
+              <p  className="text-green-50">Total</p>
               
-              <h2 className="font-bold text-green-30 naira-sign">{(cart.getTotalAmount() + delivery).toLocaleString()}</h2>
+              <h2 className="font-semibold text-green-30 naira-sign">{(cart.getTotalAmount() + delivery).toLocaleString()}</h2>
             </div>
           </section>
 
-          <section className="flex flex-col gap-6 py-6 text-xl">
+          <section className="flex flex-col gap-6 py-6 text-xl  text-green-60 font-semibold">
             <div className="h-auto flex flex-col gap-1 pt-5">
               <Radio
-                className="!font-normal"
+                className="text-green-60 font-semibold"
                 name="delivery"
                 value="paystack"
                 checked={selectedPayment === "paystack"}
@@ -235,7 +235,7 @@ console.log(cart.getTotalAmount());
                 label="Pay with Paystack"
               />
               <Radio
-                className="!font-normal"
+                className="text-green-60 font-semibold"
                 name="delivery"
                 value="flutterwave"
                 checked={selectedPayment === "flutterwave"}
