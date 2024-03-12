@@ -86,19 +86,24 @@ const prevPic = () => {
   
   };
 
-const displayCost = () => {
-  const lowerCaseName = product.name.toLowerCase();
-
-  // Check the product class to determine the cost display format
-  if (lowerCaseName === 'strawberry') {
-    return `${Number(product.cost).toLocaleString()}/kg`;
-  } else if (lowerCaseName === 'irish potato') {
-    return `${Number(product.cost).toLocaleString()}/bag`;
-  } else {
-    return `${Number(product.cost).toLocaleString()}/unit`; // Default display if no product class is specified
-  }
-};
-
+  const displayCost = () => {
+    // Check if product and product.name are defined
+    if (product && product.name) {
+      const lowerCaseName = product.name.toLowerCase();
+  
+      // Check the product class to determine the cost display format
+      if (lowerCaseName === 'strawberry') {
+        return `${Number(product.cost).toLocaleString()}/kg`;
+      } else if (lowerCaseName === 'irish potato') {
+        return `${Number(product.cost).toLocaleString()}/bag`;
+      } else {
+        return `${Number(product.cost).toLocaleString()}/unit`; // Default display if no product class is specified
+      }
+    } else {
+      // Handle the case where product or product.name is undefined
+      return 'N/A';
+    }
+  };
 
   return (
     <section className=" py-4 flex flex-col w-full h-full gap-8">
