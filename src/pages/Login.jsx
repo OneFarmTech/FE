@@ -155,7 +155,7 @@ const Login = () => {
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-4">
               <label htmlFor="otp" className="font-bold">Verification Code</label>
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="otp" name="otp" placeholder="Enter code sent to email or phone number" onChange={handleChange} />
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="otp" name="otp" placeholder="Enter code sent to email" onChange={handleChange} />
             </div>
 
             <div className="italic flex flex-col gap-3">

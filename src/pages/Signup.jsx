@@ -68,7 +68,7 @@ const Signup = () => {
     mutate(signupDetails, {
       onSuccess: (returnData) => {
         if (returnData.message === 'Account Already Exist') {
-          alert('You already have an account with OneFarm. Redirecting to login page in a few seconds...');
+          
           setTimeout(() => {
             navigate('/auth/login');
           }, 3000);
@@ -167,8 +167,9 @@ const Signup = () => {
         <label htmlFor="roles" className="font-bold">Role</label>
         <select onChange={handleChange} className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-[70%]" id="roles" name="roles" value={signupDetails.roles} required >
         <option value=""  disabled selected>Select your Role</option>
+        <option value="retailer">Buyer</option>
           <option value="farmer">Farmer</option>
-          <option value="retailer">Buyer</option>
+          
         </select>
       </div>
 
@@ -193,7 +194,7 @@ const Signup = () => {
             <div className="flex flex-col gap-4">
               <label htmlFor="code" className="font-bold">Verification Code</label>
               <div className="flex">
-                <input onChange={handleChange} className="w-full pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-[70%]" type="number" id="otp" name="otp" placeholder="Enter code sent to email or phone number" />
+                <input onChange={handleChange} className="w-full pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-[70%]" type="number" id="otp" name="otp" placeholder="Enter code sent to your email" />
               </div>
             </div>
 
