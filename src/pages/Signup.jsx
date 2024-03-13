@@ -168,7 +168,7 @@ const Signup = () => {
         <select onChange={handleChange} className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-[70%]" id="roles" name="roles" value={signupDetails.roles} required >
         <option value=""  disabled selected>Select your Role</option>
           <option value="farmer">Farmer</option>
-          <option value="retailer">Retailer</option>
+          <option value="retailer">Buyer</option>
         </select>
       </div>
 
@@ -209,9 +209,7 @@ const Signup = () => {
         </div>
 
         <div className="flex w-full justify-between lg:pr-3 lg:max-w-lg">
-          <button className="text-white py-2 px-5 lg:px-9 bg-black-100 lg:block" onClick={() => {
-            dispatch(clearUser());
-          }}>Go Back</button>
+          <button className="text-white py-2 px-5 lg:px-9 bg-black-100 lg:block" onClick={() => {  navigate('/')}}>Go Back</button>
           <button className="text-white px-5 lg:px-9 bg-green-30 py-3" type="submit" disabled={isPending} >{isPending ? 'Please wait.....' : 'Sign up'}</button>
         </div>
       </form>)}

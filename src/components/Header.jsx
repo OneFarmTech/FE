@@ -136,6 +136,10 @@ const Header = () => {
               Contact Us
             </NavLink>
           </li>
+          <div className="flex gap-2 mt-[5%]">
+          <Button linkTo="/auth/login" clas='hamburger' name="Login" />
+          <Button linkTo="/auth/signup" clas='hamburger' name="Sign Up" />
+          </div>
         </ul>
       </nav>)}
     </header>

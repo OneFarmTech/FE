@@ -4,7 +4,7 @@ import CartProduct from "../components/dashboardComp/CartProduct";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { PaystackButton } from "react-paystack"
 import ShoppingCart from "../js/Cart";
-import Swal from "sweetalert2";
+
 
 
 const Cart = () => {
@@ -98,7 +98,7 @@ console.log(cart.getTotalAmount());
       </div>
 
       <div className="flex-1">
-        <h2>Checkout</h2>
+        <h1 className="text-lg">Checkout</h1>
 
         <div className="rounded-lg shadow-md bg-white p-4 h-auto flex flex-col gap-1">
           <section

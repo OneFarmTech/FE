@@ -1,19 +1,14 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import mango from '../assets/images/dashboard/mango.png';
-import mango3 from '../assets/images/dashboard/mango3.png';
-import mango2 from '../assets/images/dashboard/mango2.png';
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import QueryClient from "../js/QueryClient";
 import ShoppingCart from "../js/Cart";
-import { data } from "autoprefixer";
+
 
 
 
 const ViewProduct = () => {
   const [switchProd, setSwitch] = useState(false);
-  const pics = [mango, mango3, mango2];
-  const [pic, setPic] = useState(0);
   const [product, setProduct] = useState({});
   const  { productId }  = useParams();
   const [startIndex, setStartIndex] = useState(0);

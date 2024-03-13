@@ -18,6 +18,10 @@ const Button = (props) => {
       return 'inline-block px-5 py-2 bg-transparent rounded-xl border-[3px] border-green-30 text-green-30 text-base ';
     }
 
+    if (check == 'hamburger') {
+      return 'inline-block px-3 py-2 bg-green-30 rounded-xl border-[3px] border-green-30 text-green-10 text-base ';
+    }
+
   };
 
   return (

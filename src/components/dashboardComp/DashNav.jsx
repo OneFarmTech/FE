@@ -18,8 +18,6 @@ import cart from '../../assets/images/dashboard/market.svg'
 
 
 const DashNav = (props) => {
-  const { userRole } = useUser();
-  const { updateUserRole } = useUser();
   const [isActive, setIsActive] = useState(false);
   const navigate = useNavigate();
   const { permissions } = props;
