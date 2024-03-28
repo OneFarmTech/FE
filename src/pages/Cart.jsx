@@ -4,7 +4,7 @@ import CartProduct from "../components/dashboardComp/CartProduct";
 import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { PaystackButton } from "react-paystack"
 import ShoppingCart from "../js/Cart";
-
+import axios from "axios";
 
 
 const Cart = () => {
@@ -21,7 +21,34 @@ const Cart = () => {
     setCartItems(parsedItems);
   },[setCartItems]);
 
-  
+  useEffect(() => {
+    
+    fetchUserData(); 
+  }, []);
+
+  const fetchUserData = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      // Replace this with your actual API endpoint to fetch user details
+      const response = await  axios.get('/api/profile',{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        const userData = await response.json();
+        // Set the state variables with user details
+        setName(userData.name);
+        setEmail(userData.email);
+        setPhone(userData.phone);
+      } else {
+        console.error('Failed to fetch user details');
+      }
+      }
+ catch (error) {
+      console.error('Error fetching user details:', error);
+    }
+  };
 
 const handleRemoveFromCart = (itemId) => {
     cart.removeFromCart(itemId);
@@ -98,35 +125,35 @@ console.log(cart.getTotalAmount());
       </div>
 
       <div className="flex-1">
-        <h1 className="text-lg">Checkout</h1>
+        <h1 className="text-3xl font-bold mb-[32px] text-green-500">Checkout</h1>
 
         <div className="rounded-lg shadow-md bg-white p-4 h-auto flex flex-col gap-1">
           <section
             action="#"
             className="flex flex-col gap-6 py-2 border-b pb-7 border-black-50"
           >
-            <details className="">
-              <summary className="font-medium text-xl flex justify-between items-center list-none">
-                <h3 className="text-green-50">Contact Information</h3>
-                <MdOutlineKeyboardArrowDown
-                  size={25}
-                  className="text-black-100"
-                />
-              </summary>
+           {/* <details className="">*/}
+           <div>
+              <div className="font-medium text-xl flex justify-between items-center list-none">
+                <h3 className="text-green-50  font-bold">Contact Information</h3>
+               
+              </div>
               <div className="h-auto flex flex-col gap-4 pt-5">
-                <Input label="Your Name" name="name" id="name"  onChange={(e) => setName(e.target.value)} className="w-full pl-4" size="lg" />
+                <Input label="Your Name"  value={name} name="name" id="name"  onChange={(e) => setName(e.target.value)} className="w-full pl-4" size="lg" />
                 <Input
                   id="email"
                   name="email"
+                  value={email}
                   label="Email Address"
                   type="email"
-                  className="w-full pl-4"
+                  className="w-full pl-4  focus:outline-green-600 border border-green-30"
                   size="lg"
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
                   id="phone"
                   name="phone"
+                  value={phone}
                   label="Phone Number"
                   type="tel"
                   className="w-full pl-4"
@@ -134,7 +161,7 @@ console.log(cart.getTotalAmount());
                   onChange={(e) => setPhone(e.target.value)}
                 />
               </div>
-            </details>
+            </div>
 
             <details className="">
               <summary className="font-medium text-green-60 text-xl flex justify-between items-center list-none">

@@ -30,14 +30,14 @@ const Dashboard = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    userDetails?.name && setHeader(`Hello ${userDetails.name}`);
+    userDetails?.name && setHeader(`Hello ${userDetails.firstname}`);
     // console.log(userDetails.roles)
     sessionStorage.setItem('role', userDetails.roles);
     setPermissions(userDetails.permissions);
   }, [userDetails])
   
   const resetHeading = () => {
-    setHeader(userDetails.name == undefined ? null : `Hello ${userDetails.name}`);
+    setHeader(userDetails.firstname == undefined ? null : `Hello ${userDetails.firstname}`);
 
   }
 
@@ -45,7 +45,7 @@ const Dashboard = () => {
     <>
     <DashNav permissions={permissions ?  permissions : ""} />
       <div className="2xl:pl-[16%] pt-[310px] lg:pt-[136px] relative bg-[#f9f9f9] h-screen w-full">
-        <DashHeader title={name} username={userDetails.name} avatar={userDetails.image} />
+        <DashHeader title={name} username={userDetails.firstname} avatar={userDetails.image} />
         <div className="overflow-y-auto bg-[#f9f9f9]">
         <Outlet context={[changeHeading, resetHeading]} />
         </div>

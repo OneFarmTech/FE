@@ -24,6 +24,11 @@ import ViewProduct from "./pages/ViewProduct";
 import Cart from "./pages/Cart";
 import { UserProvider } from "./components/contexts/UserContext.jsx";
 import ProductUpdate from "./pages/ProductUpdate.jsx"
+import VerifyEmail from "./pages/VerifyEmail.jsx";
+import PasswordReset from "./pages/PasswordReset.jsx";
+import ConfirmVerification from "./pages/ConfirmVerification.jsx";
+import ResetPasswordLink from "./pages/ResetPasswordLink.jsx";
+import NewPassword from "./pages/NewPassword.jsx";
 
 const App = () => {
   const { userToken } = useSelector((state) => (state.register));
@@ -117,7 +122,28 @@ const App = () => {
         {
           path: 'kyc',
           element: <Kyc />
-        }
+        },
+
+        {
+          path: 'verifyemail',
+          element: <VerifyEmail />
+        },
+        {
+          path: 'resetpassword',
+          element: <PasswordReset />
+        },
+        {
+          path: 'redirecttodashboard',
+          element: <ConfirmVerification />
+        },
+        {
+          path: 'resetlink',
+          element: <ResetPasswordLink />
+        },
+        {
+          path: 'newpassword',
+          element: <NewPassword />
+        },
       ]
     },
     {

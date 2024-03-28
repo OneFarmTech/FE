@@ -6,6 +6,10 @@ import { Spinner } from '@material-tailwind/react';
 const DashHeader = (props) => {
   const { title, username, avatar } = props;
 
+  const currentDate = new Date();
+const formattedDate = `${currentDate.toUTCString().slice(5, 16)}, ${currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+
+
   return (
     <header className="px-[4%] py-10 flex flex-col lg:flex-row gap-8 items-center justify-between bg-white fixed top-[110px] lg:top-0 w-full 2xl:w-[85%] z-30">
       <div className='flex justify-between items-center w-full lg:w-fit'>
@@ -25,7 +29,7 @@ const DashHeader = (props) => {
         </div>
 
         <div className='text-green-30 text-md hidden lg:block'>
-          {`${new Date().toUTCString().slice(5, 16)}, ${new Date().getHours()}:${new Date().getMinutes()}`}
+         {formattedDate}
         </div>
 
         <div className='w-6 hidden lg:block'>

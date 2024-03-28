@@ -21,7 +21,8 @@ const Profile = () => {
   const idRef = useRef(null);
   const [changeHeading, resetHeading] = useOutletContext();
   const [profileData, setProfileData] = useState({
-    name: '',
+    firstname: '',
+    lastname: '',
     photo: '',
     email: '',
     phone: '',
@@ -31,9 +32,9 @@ const Profile = () => {
     dob: '',
     gender: '',
     roles: '',
-    identity: '',
-    identity_type: '',
-    id_image: ''
+   // identity: '',
+    //identity_type: '',
+    //id_image: ''
   });
   const [isLoading, setIsLoading] = useState(false)
 
@@ -45,9 +46,11 @@ const Profile = () => {
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
+  
   useEffect(() => {
     setProfileData({
-      name: userDetails?.name,
+      firstname: userDetails?.firstname,
+      lastname: userDetails?.lastname,
       photo: userDetails?.image,
       email: userDetails?.email,
       phone: userDetails?.phone,
@@ -57,9 +60,9 @@ const Profile = () => {
       city: userDetails?.city,
       gender: userDetails?.gender,
       roles: roles[0] || '',
-      identity: userDetails?.id_number,
-      identity_type: userDetails?.id_type,
-      id_image: userDetails?.id_image
+      //identity: userDetails?.id_number,
+      //identity_type: userDetails?.id_type,
+      //id_image: userDetails?.id_image
     });
   }, [roles, userDetails])
 
@@ -221,7 +224,8 @@ const Profile = () => {
 
   try {
      mutate({
-      name: profileData.name,
+      firstname: profileData.firstname,
+      lastname: profileData.lastname,
       email: profileData.email,
       phone: profileData.phone,
       date_of_birth: profileData.dob,
@@ -230,9 +234,10 @@ const Profile = () => {
       city: profileData.city,
       gender: profileData.gender,
       roles: localStorage.getItem('userRole'),
-      id_number: profileData.identity,
-      id_image: identification ? identification : 'No Image',
-      image: profileData.photo
+      image: profileData.photo,
+     // id_number: profileData.identity,
+    // id_image: identification ? identification : 'No Image',
+      
     }, {
       headers: {
         Authorization: `Bearer ${authToken}`,
@@ -287,8 +292,12 @@ const Profile = () => {
           <h2 className="font-bold text-xl">Basic Information</h2>
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
-            <label htmlFor="name" className="font-bold">Name:</label>
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" required id="name" name="name" placeholder="Full Name" onChange={handleProfileChange} value={profileData.name} />
+            <label htmlFor="firstname" className="font-bold">First Name:</label>
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" required id="firstname" name="firstname" placeholder="First Name" onChange={handleProfileChange} value={profileData.firstname} />
+            </div>
+            <div className="flex flex-col gap-4 flex-1">
+            <label htmlFor="lastname" className="font-bold">Last Name:</label>
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" required id="lastname" name="lastname" placeholder="Last Name" onChange={handleProfileChange} value={profileData.lastname} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
@@ -313,7 +322,7 @@ const Profile = () => {
           <div className="flex flex-col md:flex-row gap-6">
             <div className="flex flex-col gap-4 flex-1">
             <label htmlFor="email" className="font-bold">Email:</label>
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" required type="email" id="email" name="email" placeholder="Email Address" onChange={handleProfileChange} value={profileData.email} />
+              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3"  disabled type="email" id="email" name="email" placeholder="Email Address" onChange={handleProfileChange} style={{ cursor: 'not-allowed' }} value={profileData.email} />
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
@@ -356,7 +365,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-5">
+       {/* <div className="flex flex-col gap-5">
           <h2 className="font-bold text-xl">Contact Information</h2>
 
           <div className="flex-1 flex flex-col gap-5">
@@ -388,7 +397,7 @@ const Profile = () => {
               <input type="text" name="identity" id="identity" onChange={handleProfileChange} value={profileData.identity} placeholder="Enter Your ID Number" className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" required />
             </div>
           </div>
-        </div>
+        </div>*/}
 
         {/* <div className="flex flex-col gap-5">
           <h2 className="font-bold text-xl">Change Password</h2>
