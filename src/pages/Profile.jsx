@@ -9,6 +9,7 @@ import { fetchUser, updateUser } from "../redux/user/userSlice";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
 import { fetchStates } from "../redux/states/statesSlice";
 import { usePOST } from "../hooks/usePOST.hook";
+import Swal from "sweetalert2";
 
 import states from "../js/states";
 import toast from "react-hot-toast";
@@ -243,9 +244,25 @@ const Profile = () => {
         Authorization: `Bearer ${authToken}`,
       },
       onSuccess: (returnData) => {
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
+        Swal.fire({
+          title: 'GREAT',
+          text: `You have successfully Updated your profile`,
+          imageUrl: '/public/sweetcheck.png',
+          imageHeight: 200,
+          imageWidth: 200,
+          imageAlt: 'success Icon',
+          showCloseButton: false,
+          allowOutsideClick: false,
+          focusConfirm: true,
+          confirmButtonText: 'Okay',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }
+        });
+        
       },
       onError: (error) => {
         console.log(error);
@@ -270,6 +287,9 @@ const Profile = () => {
     }
   }
 
+  const maxDateString = '2014-01-01';
+
+
   return (
     <main className="px-[4%] py-4 w-full h-full">
       {error && <ErrorMessage />}
@@ -279,7 +299,7 @@ const Profile = () => {
           <div className="p-4 rounded-xl shadow-lg bg-white relative w-fit">
             <div className="rounded-full w-48 h-48 overflow-hidden">
               <input type="file" name="image" hidden ref={imageRef} onChange={changeImage} accept="image/*" />
-              <img src={profileData.photo} alt="Profile photo" />
+              <img src={profileData.photo} alt="" />
             </div>
 
             <div onClick={clickRedirect} className="w-6 absolute bottom-4 right-4 cursor-pointer">
@@ -301,9 +321,19 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col gap-4 flex-1">
-            <label htmlFor="dob" className="font-bold">Date of Birth:</label>
-              <input type="date" name="dob" id="dob" placeholder="Date of Birth" required className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1" onChange={handleProfileChange} value={profileData.dob} />
-            </div>
+      <label htmlFor="dob" className="font-bold">Date of Birth:</label>
+      <input
+        type="date"
+        name="dob"
+        id="dob"
+        placeholder="Date of Birth"
+        required
+        className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-1"
+        onChange={handleProfileChange}
+        value={profileData.dob}
+        max={maxDateString} // Set min date to 10 years ago
+      />
+    </div>
 
             <div className="flex flex-col gap-4 flex-1">
             <label htmlFor="gender" className="font-bold">Gender:</label>

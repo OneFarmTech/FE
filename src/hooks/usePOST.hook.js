@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from 'react-hot-toast'
 import { authInstanceAxios, publicInstanceAxios } from "../config/axiosInstance";
 
+
 export const usePOST = (url, withAuth = true) => {
     const { mutate, isError, isPending, isSuccess, data, error } = useMutation({
         mutationFn: async (values) => {
@@ -21,8 +22,14 @@ export const usePOST = (url, withAuth = true) => {
         onError: (err) => {
             // (err?.data?.message instanceof Array) ? toast.error(err?.data?.message[0]) : toast.error(err?.data?.message)
             // console.log('Error >>>>>', err.response?.data)
-            if (err.data.message === 'Undefined property: Illuminate\\Http\\JsonResponse::$token') {
+            if (err.data.error === 'Undefined property: Illuminate\\Http\\JsonResponse::$token') {
                 toast.error('Invalid email')
+            } else if(err.data.error === 'User already exists.') {
+                toast.error('User already exists. Please login instead')
+                  
+            } else if(err.data.error === 'User registration failed') {
+                toast.error('User registration failed, Please check your internet connection and try again')
+                  
             } else {
                 toast.error('Something failed try again later')
             }

@@ -119,6 +119,7 @@ const Signup = () => {
         {/*navigate('/dashboard/home');*/}
 
         const userRole = signupDetails.roles[0];
+        
         localStorage.setItem('userRole', userRole);
     
 
@@ -127,7 +128,7 @@ const Signup = () => {
         
       },
       onError: (error) => {
-        if(error.error === "User already exists. "){
+        if(error.data.error === "User already exists."){
           setInvalid({
           error: true,
           message: "User already exists. Please login instead."
@@ -137,10 +138,10 @@ const Signup = () => {
         setTimeout(() => {
           navigate('/auth/login');
         }, 3000);
-      }else if(error.error  === "User registration failed") {
+      }else if(error.data.error  === "User registration failed") {
         setInvalid({
           error: true,
-          message: "User registration failed due to internal serval error, Please try again."
+          message: "User registration failed, Please check your internet connection and try again."
         });
         clearErrorMessage();
       }
@@ -161,11 +162,11 @@ const Signup = () => {
 
       <div  className="flex flex-col w-[70%] max-w-5xl gap-3 mx-auto mb-5">
         
-        <h1 className="text-5xl text-center lg:text-left leading-[3.2rem]">
+        <h1 className="md:text-5xl text-2xl text-center lg:text-left leading-[2.2rem]">
           Sign Up To Create An Account
         </h1>
 
-        <div className="font-bold text-lg lg:text-left text-center">
+        <div className="font-bold text-[14px] md:text-lg lg:text-left text-center">
           Already have an account?{" "}
           <Link
             className="text-green-30 pl-2"

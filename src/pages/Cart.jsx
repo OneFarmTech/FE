@@ -12,6 +12,19 @@ const Cart = () => {
   const userId = localStorage.getItem('userId');
   const cart = new ShoppingCart(userId);
   const [cartItems, setCartItems] = useState(new ShoppingCart(userId).getCartItems());
+  const [email, setEmail] = useState("");
+  const [firstname, setName] = useState("");
+  const [lastname, setlastName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [selectedDelivery, setSelectedDelivery] = useState("");
+  const [shippingAddressVisible, setShippingAddressVisible] = useState(false);
+  const [pickUpStation, setPickUpStation] = useState("");
+
+  const handleDeliveryOptionChange = (option) => {
+    setSelectedDelivery(option);
+    setShippingAddressVisible(option === "doorDelivery");
+  };
+
 
   useEffect(() => {
     // Retrieve cartItems from localStorage
@@ -29,23 +42,24 @@ const Cart = () => {
   const fetchUserData = async () => {
     try {
       const token = sessionStorage.getItem("token");
-      // Replace this with your actual API endpoint to fetch user details
-      const response = await  axios.get('/api/profile',{
+      const response = await axios.get('https://api.onefarmtech.com/api/profile', {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
-      if (response.ok) {
-        const userData = await response.json();
-        // Set the state variables with user details
-        setName(userData.name);
-        setEmail(userData.email);
-        setPhone(userData.phone);
+
+      console.log("Response data:", response.data);
+  
+      if (response.status === 200) { 
+        const userData = response.data.data;
+        setName(userData.user.firstname);
+        setlastName(userData.user.lastname);
+        setEmail(userData.user.email);
+        setPhone(userData.user.phone);
       } else {
         console.error('Failed to fetch user details');
       }
-      }
- catch (error) {
+    } catch (error) {
       console.error('Error fetching user details:', error);
     }
   };
@@ -82,11 +96,7 @@ console.log(cart.getTotalAmount());
 
   let amount = (cart.getTotalAmount()+ delivery);
 
-  const [email, setEmail] = useState("")
-
-  const [name, setName] = useState("")
-
-  const [phone, setPhone] = useState("")
+  
   const componentProps = {
 
     email,
@@ -95,7 +105,9 @@ console.log(cart.getTotalAmount());
 
     metadata: {
 
-      name,
+      firstname,
+
+      lastname,
 
       phone,
 
@@ -139,8 +151,10 @@ console.log(cart.getTotalAmount());
                
               </div>
               <div className="h-auto flex flex-col gap-4 pt-5">
-                <Input label="Your Name"  value={name} name="name" id="name"  onChange={(e) => setName(e.target.value)} className="w-full pl-4" size="lg" />
+                <Input label="First Name" required value={firstname} name="firstname" id="firstname"  onChange={(e) => setName(e.target.value)} className="w-full pl-4 focus:outline-green-600 border border-green-30" size="lg" />
+                <Input label="Last Name" required value={lastname} name="lastname" id="lastname"  onChange={(e) => setlastName(e.target.value)} className="w-full pl-4 focus:outline-green-600 border border-green-30" size="lg" />
                 <Input
+                  required
                   id="email"
                   name="email"
                   value={email}
@@ -151,12 +165,13 @@ console.log(cart.getTotalAmount());
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
+                  required
                   id="phone"
                   name="phone"
                   value={phone}
                   label="Phone Number"
                   type="tel"
-                  className="w-full pl-4"
+                  className="w-full pl-4 focus:outline-green-600  active:outline-green-600 border border-green-30"
                   size="lg"
                   onChange={(e) => setPhone(e.target.value)}
                 />
@@ -165,7 +180,7 @@ console.log(cart.getTotalAmount());
 
             <details className="">
               <summary className="font-medium text-green-60 text-xl flex justify-between items-center list-none">
-                <h3 className="text-green-60">Delivery Options</h3>
+                <h3 className="text-green-60 font-bold">Delivery Options</h3>
                 <MdOutlineKeyboardArrowDown
                   size={25}
                   className="text-black-100"
@@ -178,39 +193,54 @@ console.log(cart.getTotalAmount());
                   color="green"
                   size="lg"
                   label="Pick-up Station"
+                  checked={selectedDelivery === "pickUpStation"}
+                  onChange={() => handleDeliveryOptionChange("pickUpStation")}
                 />
+                 {selectedDelivery === "pickUpStation" && (
+                  <select
+                    className="w-full py-2 pl-4 focus:outline-green-600 border border-green-30"
+                    onChange={(e) => setPickUpStation(e.target.value)}
+                  >
+                    <option value=""  disabled selected>Select Your Prefered Pickup Station</option>
+                    <option value="abuja">Abuja</option>
+                    <option value="lagos">Lagos</option>
+                  </select>
+                )}
+
                 <Radio
                   className="!font-normal text-green-60"
                   name="delivery"
                   color="green"
                   size="lg"
                   label="Door Delivery (Abuja only)"
-                  defaultChecked
+                  defaultChecked={selectedDelivery === "doorDelivery"}
+                  onChange={() => handleDeliveryOptionChange("doorDelivery")}
                 />
               </div>
             </details>
 
-            <details className="">
-              <summary className="font-medium text-xl flex justify-between items-center list-none">
-                <h3 className="text-green-50">Shipping Address</h3>
-                <MdOutlineKeyboardArrowDown
-                  size={25}
-                  className="text-black-100"
-                />
-              </summary>
-              <div className="h-auto flex flex-col gap-4 pt-5">
-                <Input
-                  label="Your Shipping Address"
-                  className="w-full pl-4"
-                  size="lg"
-                />
-                <button className="text-white px-5 lg:px-9 bg-green-30 py-3">
-                  Confirm Address
-                </button>
+            {shippingAddressVisible && (
+              <div className="">
+                <div className="font-medium text-xl flex justify-between items-center list-none">
+                  <h3 className="text-green-50  font-bold">Shipping Address</h3>
+                  <MdOutlineKeyboardArrowDown
+                    size={25}
+                    className="text-black-100"
+                  />
+                </div>
+                <div className="h-auto flex flex-col gap-4 pt-5">
+                  <Input
+                    label="Your Shipping Address"
+                    className="w-full pl-4"
+                    size="lg"
+                  />
+                  <button className="text-white px-5 lg:px-9 bg-green-30 py-3">
+                    Confirm Address
+                  </button>
+                </div>
               </div>
-            </details>
-
-            <details className="">
+            )}
+{/*<details className="">
               <summary className="font-medium text-xl flex justify-between items-center list-none">
                 <h3 className="text-green-50">Promo Code</h3>
                 <MdOutlineKeyboardArrowDown
@@ -228,7 +258,7 @@ console.log(cart.getTotalAmount());
                   Apply
                 </button>
               </div>
-            </details>
+      </details>*/}
           </section>
 
           <section className="flex flex-col gap-6 border-b py-6 border-black-50 text-xl">

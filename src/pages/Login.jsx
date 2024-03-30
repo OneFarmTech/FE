@@ -60,16 +60,9 @@ const Login = () => {
   
       if (response.data.token) {
         sessionStorage.setItem("token", response.data.token);
-        const Role = localStorage.getItem('userRole');
-        if (Role === 'retailer') {
-          navigate('/dashboard/retailmarketplace');
-        } else if (Role === 'farmer') {
-          navigate('/dashboard/home');
-        } else {
-          console.log(Role);
-        }
-        
-      } else {
+        navigate('/dashboard/home');
+      }
+     else {
         console.error("Token not received in response");
         
         
@@ -79,7 +72,7 @@ const Login = () => {
       setvalid((state) => ({
         ...state,
         error: true,
-         message: 'Login Details Incorrect'
+         message: 'Login Credentials Incorrect. check your login credentials and try again'
        }));
 
       setTimeout(() => {
@@ -207,13 +200,13 @@ const Login = () => {
         <img src={loginAvatar} alt="product" className=" w-30%] h-[100%]"/>
       </div>
 
-    <div  className="flex flex-col w-[70%] max-w-5xl gap-3 mx-auto mb-5">
+    <div  className="flex flex-col w-[60%] max-w-5xl gap-3 mx-auto mb-5">
       
-      <h1 className="text-5xl text-center lg:text-left leading-[3.2rem]">
+      <h1 className="md:text-5xl text-2xl text-center lg:text-left leading-[3.2rem]">
       Login to your account
       </h1>
 
-      <div className="font-bold text-lg lg:text-left text-center">
+      <div className="font-bold text-sm md:text-lg lg:text-left text-center">
       Don&apos;t have an account?{" "}
         <Link
           className="text-green-30 pl-2"
@@ -281,7 +274,7 @@ const Login = () => {
 
        
         <div className="">
-          <button className={`text-white w-full xl:w-[50%]  max-w-xl py-3 rounded-[30px] border-2 justify-center items-center inline-flex transition-colors ${allFieldsFilled ? 'bg-green-500 hover:bg-green-600' : 'bg-[#B2D5B4]'}`}
+          <button className={`text-white w-full lg:w-[full] max-w-lg py-3 rounded-[30px] border-2 justify-center items-center inline-flex transition-colors ${allFieldsFilled ? 'bg-green-500 hover:bg-green-600' : 'bg-[#B2D5B4]'}`}
               disabled={isPending}
               type="submit">{isPending ? 'Please wait.....' : 'Login'}</button>
         </div>
