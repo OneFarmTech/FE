@@ -129,11 +129,7 @@ const Signup = () => {
       },
       onError: (error) => {
         if(error.data.error === "User already exists."){
-          setInvalid({
-          error: true,
-          message: "User already exists. Please login instead."
-        });
-        clearErrorMessage();
+          
         // Redirect to login page after 3 seconds
         setTimeout(() => {
           navigate('/auth/login');
