@@ -192,7 +192,7 @@ const Signup = () => {
                 </label>
                 <input
                   onChange={handleChange}
-                  className="pl-3 bg-transparent border border-[#C7CDD2] p-3"
+                  className="pl-3 bg-transparent border border-[#C7CDD2] p-2"
                   type="text"
                   id="firstname"
                   name="firstname"
@@ -207,7 +207,7 @@ const Signup = () => {
                 </label>
                 <input
                   onChange={handleChange}
-                  className="pl-3 bg-transparent border border-[#C7CDD2] p-3"
+                  className="pl-3 bg-transparent border border-[#C7CDD2] p-2"
                   type="text"
                   id="lastname"
                   name="lastname"
@@ -223,7 +223,7 @@ const Signup = () => {
                 </label>
                 <input
                   onChange={handleChange}
-                  className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-[70%]"
+                  className="pl-3 bg-transparent border border-[#C7CDD2] p-2 lg:flex-[70%]"
                   type="text"
                   id="phone"
                   name="phone"
@@ -239,7 +239,7 @@ const Signup = () => {
                 </label>
                 <input
                   onChange={handleChange}
-                  className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-[70%]"
+                  className="pl-3 bg-transparent border border-[#C7CDD2] p-2 lg:flex-[70%]"
                   type="email"
                   id="email"
                   name="email"
@@ -251,7 +251,7 @@ const Signup = () => {
 
               <div className="flex flex-col gap-4">
         <label htmlFor="roles" className="font-bold">Role</label>
-        <select onChange={handleChange} className="pl-3 bg-transparent border border-[#C7CDD2] p-3 lg:flex-[70%]" id="roles" name="roles" value={signupDetails.roles} required >
+        <select onChange={handleChange} className="pl-3 bg-transparent border border-[#C7CDD2] p-2 lg:flex-[70%]" id="roles" name="roles" value={signupDetails.roles} required >
         <option value=""  disabled selected>Select your Role</option>
         <option value="retailer">Buyer</option>
           <option value="farmer">Farmer</option>
@@ -265,7 +265,7 @@ const Signup = () => {
                 <div className="flex justify-between items-center bg-transparent focus:outline-green-300 border border-[#C7CDD2]">
                 <input
                   onChange={handleChange}
-                  className="pl-3 bg-transparent focus:outline-none p-3 lg:flex-[70%]"
+                  className="pl-3 bg-transparent focus:outline-none p-2 lg:flex-[70%]"
                   type={showPassword ? "text": "password"}
                   id="password"
                   name="password"
@@ -295,7 +295,7 @@ const Signup = () => {
                 <div className="flex justify-between items-center bg-transparent border border-[#C7CDD2]">
                 <input
                   onChange={handleChange}
-                  className="pl-3 bg-transparent focus:outline-none p-3 lg:flex-[70%]"
+                  className="pl-3 bg-transparent focus:outline-none p-2 lg:flex-[70%]"
                   type={showConfirmPassword ? "text": "password"}
                   id="confirmPassword"
                   name="confirmPassword"

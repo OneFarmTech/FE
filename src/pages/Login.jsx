@@ -200,9 +200,9 @@ const Login = () => {
         <img src={loginAvatar} alt="product" className=" w-30%] h-[100%]"/>
       </div>
 
-    <div  className="flex flex-col w-[60%] max-w-5xl gap-3 mx-auto mb-5">
+    <div  className="flex flex-col w-[70%] max-w-5xl gap-3 mx-auto mb-5">
       
-      <h1 className="md:text-5xl text-2xl text-center lg:text-left leading-[3.2rem]">
+      <h1 className="md:text-5xl text-xl text-center lg:text-left leading-[2.2rem] lg:leading-[3.2rem]">
       Login to your account
       </h1>
 
@@ -228,14 +228,14 @@ const Login = () => {
 
           <div className="flex flex-col gap-4 w-full ">
             <label htmlFor="email" className="font-bold">Email</label>
-            <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3 w-full max-w-lg" type="email" id="email" name="email" placeholder="Enter Your Email" onChange={handleChange} value={loginDetails.email} required />
+            <input className="pl-3 bg-transparent border border-[#C7CDD2] p-2 w-full max-w-lg" type="email" id="email" name="email" placeholder="Enter Your Email" onChange={handleChange} value={loginDetails.email} required />
           </div>
 
           <div className="flex flex-col gap-4 w-full ">
             <label htmlFor="password" className="font-bold">Password</label>
 
             <div className="flex justify-between items-center bg-transparent max-w-lg focus:outline-green-300 border border-[#C7CDD2]">
-            <input className="pl-3 bg-transparent focus:outline-none p-3" 
+            <input className="pl-2 bg-transparent focus:outline-none py-2" 
             type={showPassword ? "text": "password"} 
             id="password" 
             name="password" 
@@ -247,7 +247,7 @@ const Login = () => {
 
       <button
             type="button"
-            className="inline pr-3 items-center"
+            className="inline pr-3  items-center"
             onClick={() => togglePasswordVisibility("password")}
           >
             {showPassword ? (
