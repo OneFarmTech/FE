@@ -127,6 +127,7 @@ const NewProduct = () => {
         allowOutsideClick: false,
         focusConfirm: true,
         confirmButtonText: 'Okay',
+        confirmButtonColor: '#5baa60',
       }).then((result) => {
         if (result.isConfirmed) {
           window.location.href = "marketplace";

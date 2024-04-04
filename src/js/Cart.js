@@ -4,8 +4,17 @@ class ShoppingCart {
       this.cartItems = JSON.parse(localStorage.getItem(`cartItems_${this.userId}`)) || [];
       this.updateLocalStorage();
     }
+
+     generateOrderID() {
+      const userID = this.userId;
+      const randomNumber = Math.floor(Math.random() * 10000); 
+      return `${userID}_${randomNumber}`;
+    }
+    
    
     addToCart(item) {
+    
+    
       const existingItemIndex = this.cartItems.findIndex((cartItem) => cartItem.id === item.id);
     
       if (existingItemIndex !== -1) {
@@ -16,7 +25,8 @@ class ShoppingCart {
       } else {
         // Item doesn't exist, add it to the cart
         const newItem = {
-          id: item.id,
+          user_id: this.userId,
+          product_id: item.id,
           image: item.images[0].image,
           name: item.name,
           cost: item.cost,

@@ -34,6 +34,7 @@ const ProductItem = ({ data, onDelete }) => {
         allowOutsideClick: false,
         focusConfirm: true,
         confirmButtonText: 'Okay',
+        confirmButtonColor: '#5baa60',
       });
       console.log('Product deleted successfully');
     } catch (error) {
@@ -43,6 +44,7 @@ const ProductItem = ({ data, onDelete }) => {
         title: 'Oops...',
         text: `There was an error Deleting ${data.name} from your product list. Please try again.`,
         confirmButtonText: 'okay',
+        confirmButtonColor: '#5baa60',
         showCancelButton: true,
       });
     }finally {
@@ -80,9 +82,9 @@ const ProductItem = ({ data, onDelete }) => {
   
 
   return (
-    <div className="rounded-md shadow-md p-3 bg-white flex flex-col gap-4 lg:w-72">
-    <figure className="w-[90%] lg:w-[68%] h-32 bg-black-15 self-center">
-      <img src={data.images[0].image || ''} alt={data.name} loading="lazy"/>
+    <div className="rounded-md w-full shadow-md p-3 bg-white flex flex-col gap-4  xl:w-[96%]">
+      <figure className="w-[96%] lg:w-[80%] bg-black-15 self-center">
+      <img src={data.images[0].image || ''} alt={data.name} loading="lazy"  className="h-40 w-[100%]"/>
 
       </figure>
       <div className="pl-6 flex flex-col gap-3">

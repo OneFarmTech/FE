@@ -5,6 +5,7 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import { PaystackButton } from "react-paystack"
 import ShoppingCart from "../js/Cart";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 
 const Cart = () => {
@@ -20,10 +21,52 @@ const Cart = () => {
   const [shippingAddressVisible, setShippingAddressVisible] = useState(false);
   const [pickUpStation, setPickUpStation] = useState("");
 
+  const [shippingAddress, setShippingAddress] = useState("");
+
+
   const handleDeliveryOptionChange = (option) => {
     setSelectedDelivery(option);
     setShippingAddressVisible(option === "doorDelivery");
   };
+
+
+
+
+ const orderID = cart.generateOrderID();
+ const selectedCartItems = cartItems ? cartItems.map(item => ({
+  product_id: item.product_id,
+  cost: item.cost,
+  quantity: item.quantity,
+  user_id: item.user_id
+})) : [];
+
+ const orderData = {
+  orderID,
+  cartItems: selectedCartItems,
+  shipping_address:'',
+  
+};
+
+const handlePlaceOrder = () => {
+  // Validate all form fields including shipping address
+  if (
+    email == '' ||
+    firstname == '' ||
+    lastname == '' ||
+    phone == '' ||
+    selectedDelivery == '' ||
+    (selectedDelivery === "doorDelivery" && !shippingAddress)
+  ) {
+    Swal.fire({
+      title: "Error",
+      text: "Please fill in all fields including shipping address",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+    return;
+  }
+
+};
 
 
   useEffect(() => {
@@ -63,6 +106,7 @@ const Cart = () => {
       console.error('Error fetching user details:', error);
     }
   };
+  
 
 const handleRemoveFromCart = (itemId) => {
     cart.removeFromCart(itemId);
@@ -74,7 +118,7 @@ const handleRemoveFromCart = (itemId) => {
     setCartItems(cart.getCartItems());
   };
 
-console.log(userId);
+
   console.log(cart.getCartItems());
 console.log(cart.getTotalAmount());
   const [selectedPayment, setSelectedPayment] = useState("flutterwave");
@@ -92,7 +136,7 @@ console.log(cart.getTotalAmount());
   //   // After payment processing, you can redirect or perform other actions
   // };
   const publicKey = "pk_test_d59dabde8abe1d35102b70be0c2e19760ece0c65"
-  const delivery = 2000;
+  const delivery = 0;
 
   let amount = (cart.getTotalAmount()+ delivery);
 
@@ -103,13 +147,19 @@ console.log(cart.getTotalAmount());
 
     amount,
 
+    firstname,
+
+    lastname,
+
+    phone,
+
+    shippingAddress,
+
     metadata: {
 
-      firstname,
+    
 
-      lastname,
-
-      phone,
+      
 
     },
 
@@ -118,9 +168,68 @@ console.log(cart.getTotalAmount());
     text: "Place Order",
     className: "text-white px-5 lg:px-9 bg-green-30 py-3 mt-8 self-stretch",
 
-    onSuccess: () =>
+    onSuccess: function() {
+      
+      orderData.cartItems.forEach(async (item) => {
+        try {
+          // Prepare order item data with orderID
+          const orderItemData = {
+            ...item,
+            order_id: orderData.orderID,
+            shipping_address:''
 
-      alert("Thanks for doing business with us! Come back soon!!"),
+            
+          };
+          if (selectedDelivery === "pickUpStation") {
+            // Handle pick-up station delivery
+            orderItemData.shipping_address = pickUpStation;
+          } else if (selectedDelivery === "doorDelivery") {
+            // Handle door delivery
+            orderItemData.shipping_address = shippingAddress;
+          }
+      const token = sessionStorage.getItem('token')
+          // Send order item data to the order create endpoint
+          const itemResponse = await axios.post('https://api.onefarmtech.com/api/orders/create', orderItemData, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+      
+          if (itemResponse.status === 201) {
+            console.log("Order item created successfully:", orderItemData);
+            setCartItems(cart.emptyCart());
+            // Update the cart items state
+            
+          }
+        } catch (error) {
+          console.error("Error creating order item:", error);
+        }
+      });
+
+
+      Swal.fire({
+        title: 'Congratulations',
+        text: `You have successfully placed your order, your order ID is ${orderData.orderID}. Your order will be confirmed soon. 
+        You can track your order confirmation status on the Order History tab`,
+        imageUrl: '/public/sweetcheck.png',
+        imageHeight: 200,
+        imageWidth: 200,
+        imageAlt: 'success Icon',
+        showCloseButton: false,
+        allowOutsideClick: false,
+        focusConfirm: true,
+        confirmButtonText: 'Okay',
+        confirmButtonColor: '#5baa60',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          setTimeout(() => {
+          
+          }, 1000);
+        }
+      });
+      
+      
+    },
 
     onClose: () => alert("Wait! Don't leave :("),
 
@@ -131,9 +240,16 @@ console.log(cart.getTotalAmount());
   return (
     <section className="px-[4%] py-4 flex flex-col md:flex-row gap-8 w-full h-full">
       <div className="flex flex-col gap-5 flex-1">
-      {cartItems.map((item) => (
-          <CartProduct key={item.id} item={item} onRemove={handleRemoveFromCart} onAddMore={handleAddToCart} />
-        ))}
+      {cartItems ? cartItems.map((item) => (
+    <CartProduct
+      key={item.id}
+      item={item}
+      onRemove={handleRemoveFromCart}
+      onAddMore={handleAddToCart}
+    />
+  )) : (
+  <p>Your cart is empty</p>
+)}
       </div>
 
       <div className="flex-1">
@@ -178,16 +294,17 @@ console.log(cart.getTotalAmount());
               </div>
             </div>
 
-            <details className="">
-              <summary className="font-medium text-green-60 text-xl flex justify-between items-center list-none">
+            <div className="">
+              <div className="font-medium text-green-60 text-xl flex justify-between items-center list-none">
                 <h3 className="text-green-60 font-bold">Delivery Options</h3>
                 <MdOutlineKeyboardArrowDown
                   size={25}
                   className="text-black-100"
                 />
-              </summary>
+              </div>
               <div className="h-auto flex flex-col gap-1 pt-5 ">
                 <Radio
+                required
                   className="!font-normal text-green-60"
                   name="delivery"
                   color="green"
@@ -198,12 +315,17 @@ console.log(cart.getTotalAmount());
                 />
                  {selectedDelivery === "pickUpStation" && (
                   <select
+                  
                     className="w-full py-2 pl-4 focus:outline-green-600 border border-green-30"
                     onChange={(e) => setPickUpStation(e.target.value)}
                   >
                     <option value=""  disabled selected>Select Your Prefered Pickup Station</option>
-                    <option value="abuja">Abuja</option>
-                    <option value="lagos">Lagos</option>
+                    <option value="OneFarm Head Office">OneFarm Head Office - Suite No. 7, cherry hill plaza, Eke Yusuf close, behind Eterna Filling station Utako, Abuja</option>
+                    <option value="God is Good Motors">God is Good Motors (GIGM) Head office, Utako, Abuja</option>
+                    <option value="GUO Motors">GUO Motors, Jabi, Abuja</option>
+                    <option value="Lagos">Lagos</option>
+                    <option value="Calabar">Calabar</option>
+                    <option value="PortHarcourt">PortHarcort</option>
                   </select>
                 )}
 
@@ -211,13 +333,14 @@ console.log(cart.getTotalAmount());
                   className="!font-normal text-green-60"
                   name="delivery"
                   color="green"
+
                   size="lg"
                   label="Door Delivery (Abuja only)"
                   defaultChecked={selectedDelivery === "doorDelivery"}
                   onChange={() => handleDeliveryOptionChange("doorDelivery")}
                 />
               </div>
-            </details>
+            </div>
 
             {shippingAddressVisible && (
               <div className="">
@@ -230,13 +353,16 @@ console.log(cart.getTotalAmount());
                 </div>
                 <div className="h-auto flex flex-col gap-4 pt-5">
                   <Input
+                  required
                     label="Your Shipping Address"
+                    value={shippingAddress}
+                    onChange={(e) => setShippingAddress(e.target.value)}
                     className="w-full pl-4"
                     size="lg"
                   />
-                  <button className="text-white px-5 lg:px-9 bg-green-30 py-3">
+                  {/*<button className="text-white px-5 lg:px-9 bg-green-30 py-3">
                     Confirm Address
-                  </button>
+            </button>*/}
                 </div>
               </div>
             )}
@@ -311,7 +437,9 @@ console.log(cart.getTotalAmount());
           >
             Place Order
           </button> */}
-           <PaystackButton {...componentProps} />
+           <PaystackButton {...componentProps} 
+           onClick={handlePlaceOrder}
+           />
         </div>
       </div>
     </section>

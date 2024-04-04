@@ -5,6 +5,7 @@ import { useOutletContext } from "react-router-dom";
 import QueryClient from "../js/QueryClient";
 
 import { useDispatch, useSelector } from "react-redux";
+import OrderHistory from "../components/OrderHistory";
 
 
 const MarketPlace = () => {
@@ -53,9 +54,10 @@ const MarketPlace = () => {
   }, []);
   return (
     <section className="">
-   <div className="h-auto mb-0 flex flex-col content-between items-stretch m-auto">
+   <div className="h-auto mb-0 flex flex-col content-between items-stretch">
         <TopSection />
         </div>
+        
         <div className="overflow-x-hidden flex flex-col w-full h-auto px-[2%] py-2 gap-5 lg:gap-0">
 
       <div className="mt-5 flex flex-col gap-8 lg:flex-row lg:gap-10">

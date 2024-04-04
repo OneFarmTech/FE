@@ -126,6 +126,19 @@ const Profile = () => {
 
   const handleProfileChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'dob') {
+      const selectedDate = new Date(value);
+      const currentDate = new Date();
+
+      if (selectedDate > currentDate) {
+        // Date of birth is in the future
+        setProfileData({ ...profileData, [name]: value });
+        // Show error message
+        console.log("Date of birth cannot be in the future");
+        return;
+      }
+    }
+
     setProfileData({ ...profileData, [name]: value });
   };
 
@@ -255,6 +268,7 @@ const Profile = () => {
           allowOutsideClick: false,
           focusConfirm: true,
           confirmButtonText: 'Okay',
+          confirmButtonColor: '#5baa60',
         }).then((result) => {
           if (result.isConfirmed) {
             setTimeout(() => {

@@ -29,6 +29,10 @@ import PasswordReset from "./pages/PasswordReset.jsx";
 import ConfirmVerification from "./pages/ConfirmVerification.jsx";
 import ResetPasswordLink from "./pages/ResetPasswordLink.jsx";
 import NewPassword from "./pages/NewPassword.jsx";
+import OrderHistory from "./components/OrderHistory.jsx";
+import OrderDetails from "./components/OrderDetails.jsx";
+import RetailerOrderHistory from "./components/RetailerOrderHistory.jsx";
+import RetailerOrderDetails from "./components/RetailerOrderDetails.jsx";
 
 const App = () => {
   const { userToken } = useSelector((state) => (state.register));
@@ -187,6 +191,22 @@ const App = () => {
         {
           path: 'cart',
           element: <Cart />
+        },
+        {
+          path: '/dashboard/orderhistory',
+          element: <OrderHistory />
+        },
+        {
+          path: "/dashboard/orders/:orderId",
+          element: <OrderDetails />
+        },
+        {
+          path: '/dashboard/buyerorders',
+          element: <RetailerOrderHistory />
+        },
+        {
+          path: '/dashboard/buyerorders/:orderId',
+          element: <RetailerOrderDetails />
         }
       ]
     }

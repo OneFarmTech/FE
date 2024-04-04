@@ -9,12 +9,14 @@ import profile from '../../assets/images/dashboard/profile.svg';
 import support from '../../assets/images/dashboard/support.svg';
 import home from '../../assets/images/dashboard/home.svg';
 import { VscMenu } from 'react-icons/vsc';
-import { useState } from 'react';
+import { useState,  useEffect } from 'react';
 import { GrClose } from 'react-icons/gr';
 import { useDispatch } from 'react-redux';
 import { clearUser } from '../../redux/register/registerSlice';
 import { UserProvider, useUser} from '../contexts/UserContext.jsx';
 import cart from '../../assets/images/dashboard/market.svg'
+import axios from 'axios';
+
 
 
 const DashNav = (props) => {
@@ -43,6 +45,19 @@ const DashNav = (props) => {
     }
     setIsActive(true);
   };
+
+
+  const redirectToOrderHistory = () => {
+    const Role = localStorage.getItem('userRole');
+    if (Role === 'retailer') {
+      navigate('/dashboard/buyerorders');
+    } else if (Role === 'farmer') {
+      navigate('/dashboard/orderhistory');
+    } else {
+      console.log(Role);
+    }
+    setIsActive(true);
+  };
   
    
   
@@ -58,12 +73,29 @@ const DashNav = (props) => {
     setIsActive(false);
   };
 
-  const handleLogout = () => {
-
-    closeNav();
-    dispatch(clearUser());
-    window.location.href = '/'
-  }
+  const handleLogout = async () => {
+    try {
+      const token = sessionStorage.getItem('token');
+      const response = await axios.post(
+        'https://api.onefarmtech.com/api/logout',
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+      if (response.status === 201) {
+        console.log('user logged out');
+        closeNav();
+        dispatch(clearUser());
+        window.location.href = '/';
+      }
+      console.log(response.data);
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+  };
 
   return (
     <UserProvider>
@@ -126,16 +158,26 @@ const DashNav = (props) => {
                 </NavLink>
               </li>
             )}
-          <li>
-            <NavLink to='messages' className={({ isActive }) => (isActive
-        ? 'flex gap-4 items-center text-green-30'
-        : 'flex gap-4 items-center text-black-50 pointer-events-none')} onClick={closeNav}>
-              <div className='w-6'>
-                <img src={message} alt="Messages" />
+
+            <li className='active:text-green-600'>
+
+            <button
+              className={`flex gap-4 items-center text-black-50 hover:text-green-600 ${
+                isActive ? 'text-green-600' : ''
+              }`}
+              onClick={() => {
+                redirectToOrderHistory();
+                closeNav();
+              
+              }}
+            >
+              <div className="w-6">
+                <img src={market} alt="Market place icon" />
               </div>
-              <h4 className='text-xl hover:text-green-600'>Messages</h4>
-            </NavLink>
-          </li>
+              <h4 className="text-xl hover:text-green-600">Order History</h4>
+            </button>
+
+            </li>
           <li>
             <NavLink to='payment' className={({ isActive }) => ( isActive
         ? 'flex gap-4 items-center text-green-30'

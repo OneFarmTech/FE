@@ -165,6 +165,7 @@ console.log(productDetails);
         allowOutsideClick: false,
         focusConfirm: true,
         confirmButtonText: 'Okay',
+        confirmButtonColor: '#5baa60',
       }).then((result) => {
         if (result.isConfirmed) {
           navigate('/dashboard/marketplace');
