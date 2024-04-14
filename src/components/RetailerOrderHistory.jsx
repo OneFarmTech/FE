@@ -68,7 +68,7 @@ const RetailerOrderHistory = () => {
             <td className=' font-bold '>Quantity</td>
             <td className=' font-bold '>Price</td>
             <td className=' font-bold '>Date of Order</td>
-            <td className=' font-bold '>Order Status</td>
+           {/* <td className=' font-bold '>Order Status</td>*/}
           </tr>
         </thead>
         <tbody>
@@ -86,7 +86,7 @@ const RetailerOrderHistory = () => {
               <td>{order.quantity}</td>
               <td className='naira-sign'>{order.cost.toLocaleString()}</td>
               <td>{getFormattedDate(order.created_at)}</td>
-              <td className={order.status === 'Approved' ? 'text-green-500' : 'text-red-300'}>{order.status}</td>
+             {/* <td className={order.status === 'Approved' ? 'text-green-500' : 'text-red-300'}>{order.status}</td>*/}
              
             </tr>
           ))}
@@ -130,10 +130,10 @@ const RetailerOrderHistory = () => {
             <p  className='text-[14px]'>{getFormattedDate(order.created_at)}</p>
             </div>
 
-          <div  className='flex gap-5 justify-between'>
+          {/*<div  className='flex gap-5 justify-between'>
             <p className='font-lato text-[14px] font-bold tracking-[0.255px] underline text-[#0D1821]'>Status:</p>
             <p  className={order.status === 'Approved' ? 'text-green-500 font-semibold  text-[14px]' : 'text-red-300 text-[14px] font-semibold'}>{order.status}</p>
-            </div>
+      </div>*/}
 
             </Link>
         

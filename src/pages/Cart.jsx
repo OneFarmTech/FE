@@ -12,7 +12,7 @@ const Cart = () => {
   
   const userId = localStorage.getItem('userId');
   const cart = new ShoppingCart(userId);
-  const [cartItems, setCartItems] = useState(new ShoppingCart(userId).getCartItems());
+   const [cartItems, setCartItems] = useState(cart.getCartItems());
   const [email, setEmail] = useState("");
   const [firstname, setName] = useState("");
   const [lastname, setlastName] = useState("");
@@ -108,14 +108,14 @@ const handlePlaceOrder = () => {
   };
   
 
-const handleRemoveFromCart = (itemId) => {
+  const handleRemoveFromCart = (itemId) => {
     cart.removeFromCart(itemId);
-    setCartItems(cart.getCartItems());
+    setCartItems(cart.getCartItems()); // Update cartItems state with a new array to trigger re-render
   };
 
   const handleAddToCart = (item) => {
     cart.addToCart(item);
-    setCartItems(cart.getCartItems());
+    setCartItems(cart.getCartItems()); // Update cartItems state with a new array to trigger re-render
   };
 
 
@@ -137,8 +137,9 @@ console.log(cart.getTotalAmount());
   // };
   const publicKey = "pk_test_d59dabde8abe1d35102b70be0c2e19760ece0c65"
   const delivery = 0;
+  const padding = 0o0;
 
-  let amount = (cart.getTotalAmount()+ delivery);
+  let amount = (cart.getTotalAmount()+ delivery + padding + padding);
 
   
   const componentProps = {
@@ -157,11 +158,7 @@ console.log(cart.getTotalAmount());
 
     metadata: {
 
-    
-
-      
-
-    },
+   },
 
     publicKey,
 
@@ -321,11 +318,11 @@ console.log(cart.getTotalAmount());
                   >
                     <option value=""  disabled selected>Select Your Prefered Pickup Station</option>
                     <option value="OneFarm Head Office">OneFarm Head Office - Suite No. 7, cherry hill plaza, Eke Yusuf close, behind Eterna Filling station Utako, Abuja</option>
-                    <option value="God is Good Motors">God is Good Motors (GIGM) Head office, Utako, Abuja</option>
-                    <option value="GUO Motors">GUO Motors, Jabi, Abuja</option>
-                    <option value="Lagos">Lagos</option>
+                    <option value="God is Good Motors"  disabled  >God is Good Motors (GIGM) Head office, Utako, Abuja  <span className="font-bold italic">Comming Soon</span></option>
+                    <option value="GUO Motors"  disabled>GUO Motors, Jabi, Abuja<span className="font-bold italic">Comming Soon</span></option>
+                   {/* <option value="Lagos" disabled>Lagos</option>
                     <option value="Calabar">Calabar</option>
-                    <option value="PortHarcourt">PortHarcort</option>
+                 <option value="PortHarcourt">PortHarcort</option>*/}
                   </select>
                 )}
 
@@ -333,9 +330,9 @@ console.log(cart.getTotalAmount());
                   className="!font-normal text-green-60"
                   name="delivery"
                   color="green"
-
+                disabled
                   size="lg"
-                  label="Door Delivery (Abuja only)"
+                  label="Door Delivery (Abuja only)-COMMING SOON"
                   defaultChecked={selectedDelivery === "doorDelivery"}
                   onChange={() => handleDeliveryOptionChange("doorDelivery")}
                 />

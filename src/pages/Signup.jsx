@@ -119,8 +119,12 @@ const Signup = () => {
         {/*navigate('/dashboard/home');*/}
 
         const userRole = signupDetails.roles[0];
+        const userName = signupDetails.firstname;
         
         localStorage.setItem('userRole', userRole);
+        localStorage.setItem('userName', userName);
+
+        
     
 
         updateUserRole(signupDetails.roles[0]);

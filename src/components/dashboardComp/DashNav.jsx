@@ -3,7 +3,6 @@ import {useNavigate } from "react-router-dom";
 import logo from '../../assets/images/onefarm.svg';
 import logout from '../../assets/images/dashboard/logout.svg';
 import market from '../../assets/images/dashboard/market.svg';
-import message from '../../assets/images/dashboard/message.svg';
 import pay from '../../assets/images/dashboard/pay.svg';
 import profile from '../../assets/images/dashboard/profile.svg';
 import support from '../../assets/images/dashboard/support.svg';
@@ -16,6 +15,8 @@ import { clearUser } from '../../redux/register/registerSlice';
 import { UserProvider, useUser} from '../contexts/UserContext.jsx';
 import cart from '../../assets/images/dashboard/market.svg'
 import axios from 'axios';
+
+import { TiShoppingCart } from "react-icons/ti";
 
 
 
@@ -59,6 +60,17 @@ const DashNav = (props) => {
     setIsActive(true);
   };
   
+ /* const redirectToHome = () => {
+    const Role = localStorage.getItem('userRole');
+    if (Role === 'retailer') {
+      navigate('/dashboard/retailerhome');
+    } else if (Role === 'farmer') {
+      navigate('/dashboard/home');
+    } else {
+      console.log(Role);
+    }
+    setIsActive(true);
+  };*/
    
   
 
@@ -116,14 +128,18 @@ const DashNav = (props) => {
       </div>
       <nav className={`${isActive ? 'flex' : 'hidden'} flex-col justify-between h-[87%] 2xl:flex`}>
         <ul className='flex flex-col gap-5 pt-7'>
-          <li>
-            <NavLink to='home' className={({ isActive }) => (isActive ? 'flex gap-4 items-center text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
-              <div className='w-6'>
-                <img src={home} alt="Home Icon" />
-              </div>
-              <h4 className='text-xl hover:text-green-600'>Home</h4>
-            </NavLink>
-          </li>
+        
+        {role !== 'retailer' && (
+              <li>
+                <NavLink to='home' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
+                  <div className='w-6'>
+                    <img src={home} alt="Home" />
+                  </div>
+                  <h4 className='text-xl hover:text-green-600'>Home</h4>
+                </NavLink>
+              </li>
+            )}
+
           {
             // can('read-market') ?
             <li className='active:text-green-600'>
@@ -152,7 +168,8 @@ const DashNav = (props) => {
               <li>
                 <NavLink to='cart' className={({ isActive }) => (isActive ? 'flex gap-4 items-center  text-green-30' : 'flex gap-4 items-center text-black-50')} onClick={closeNav}>
                   <div className='w-6'>
-                    <img src={cart} alt="Messages" />
+                  <TiShoppingCart className='w-6  h-6'/>
+                   {/* <img src={TiShoppingCart} alt="cart" />*/}
                   </div>
                   <h4 className='text-xl hover:text-green-600'>Cart</h4>
                 </NavLink>

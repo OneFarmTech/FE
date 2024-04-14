@@ -10,7 +10,7 @@ const RetailerMarketPlace = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    changeHeading("Retailer's MarketPlace");
+    changeHeading("MarketPlace");
     return () => {
       resetHeading();
     };
@@ -32,9 +32,9 @@ const RetailerMarketPlace = () => {
 
   return (
     <section className="">
-    {/*  <div className=" h-auto mb-0 flex flex-col content-between items-stretch m-auto">
+    <div className=" h-auto mb-0 flex flex-col content-between items-stretch m-auto">
         <RetailTop />
-  </div>*/}
+  </div>
       <div className="overflow-x-hidden flex flex-col w-full h-auto px-[2%] py-2 gap-5 lg:gap-0">
         {/* Display Retailer Products */}
         <div className="mt-5 flex flex-col gap-8 lg:flex-row lg:gap-10">

@@ -33,6 +33,9 @@ import OrderHistory from "./components/OrderHistory.jsx";
 import OrderDetails from "./components/OrderDetails.jsx";
 import RetailerOrderHistory from "./components/RetailerOrderHistory.jsx";
 import RetailerOrderDetails from "./components/RetailerOrderDetails.jsx";
+import RetailerDashHome from "./pages/RetailerDashHome.jsx";
+import PendingOrders from "./pages/PendingOrders.jsx";
+import ApprovedOrders from "./pages/ApprovedOrder.jsx";
 
 const App = () => {
   const { userToken } = useSelector((state) => (state.register));
@@ -207,7 +210,19 @@ const App = () => {
         {
           path: '/dashboard/buyerorders/:orderId',
           element: <RetailerOrderDetails />
-        }
+        },
+        {
+          path: '/dashboard/retailerhome',
+          element: <RetailerDashHome />
+        },
+        {
+          path: '/dashboard/pendingorders',
+          element: <PendingOrders />
+        },
+        {
+          path: '/dashboard/approveorders',
+          element: <ApprovedOrders />
+        },
       ]
     }
   ])

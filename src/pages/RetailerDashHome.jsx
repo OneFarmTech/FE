@@ -1,22 +1,49 @@
-import Footer from "../components/Footer";
-import AvatarMessage from "../components/dashboardComp/AvatarMessage";
-import DashCardOne from "../components/dashboardComp/DashCardOne";
-import { Link, useNavigate } from "react-router-dom";
 
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const DashboardHome = () => {
+const RetailerDashHome = () => {
   const navigate = useNavigate();
+  const [orderCount, setOrderCount] = useState(0);
+  const [spending, setSpending] = useState(0);
+  
+
 
   const redirectToMarketplace = () => {
     const Role = localStorage.getItem('userRole');
     if (Role === 'retailer') {
       navigate('/dashboard/retailmarketplace');
-    } else if (Role === 'farmer') {
-      navigate('/dashboard/marketplace');
-    } else {
-      console.log(Role);
-    }
+    } 
   };
+
+  useEffect(() => {
+    const fetchOrderData = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        const token = sessionStorage.getItem('token');
+        const response = await axios.get(`https://api.onefarmtech.com/api/orders`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const orders = response.data.filter(order => order.user_id === parseInt(userId));
+        setOrderCount(orders.length);
+
+        // Calculate spending
+        let totalSpending = 0;
+        orders.forEach(order => {
+          totalSpending += order.total_cost;
+        });
+        setSpending(totalSpending);
+      } catch (error) {
+        console.error('Error fetching order data:', error);
+      }
+    };
+
+    fetchOrderData();
+  }, []);
 
   return (
     <>
@@ -24,25 +51,23 @@ const DashboardHome = () => {
         <div className="flex overflow-x-auto md:overflow-x-hidden  gap-5 lg:gap-10 h-52  w-auto py-4 items-stretch px-2">
          
          
-            
-            <Link to='/dashboard/pendingorders' className="flex flex-col justify-between shadow-md rounded-lg p-5 w-[33%] bg-white text-black-100">
-              <h4 className="text-sm md:text-lg">Pending Orders</h4>
-              <h2 className="text-lg md:text-2xl"></h2>
-              <p className="text-sm md:text-lg"></p>
-            </Link>
-            
 
-            
-            <Link to='/dashboard/approveorders' className="flex flex-col justify-between shadow-md rounded-lg p-5 w-[33%] bg-white text-black-100">
-              <h4 className="text-sm md:text-lg">Approved Orders</h4>
-              <h2 className="text-lg md:text-2xl"></h2>
-              <p className="text-sm md:text-lgd"></p>
+           <Link    to='/dashboard/buyerorders'> <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-[33%] bg-white text-black-100">
+              <h4 className="text-sm md:text-lg">Order History</h4>
+              <h2 className="text-lg md:text-2xl">{orderCount} Orders</h2>
+              <p className="text-sm md:text-lg"></p>
+            </div>
             </Link>
-            
+
+           {/*} <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-[33%] bg-white text-black-100">
+              <h4 className="text-sm md:text-lg">Settled Orders</h4>
+              <h2 className="text-lg md:text-2xl">0</h2>
+              <p className="text-sm md:text-lgd"></p>
+  </div>*/}
           
           <div className="flex flex-col justify-between rounded-md p-5 w-[33%] bg-green-30 text-white shadow-lg">
-            <h4 className="text-sm md:text-lg">Earnings This Month</h4>
-            <h2 className="text-lg md:text-2xl naira-sign">0</h2>
+            <h4 className="text-sm md:text-lg">Spendings</h4>
+            <h2 className="text-lg md:text-2xl naira-sign">{spending}</h2>
             <p className="text-sm md:text-lg"></p>
           </div>
         </div>
@@ -60,7 +85,7 @@ const DashboardHome = () => {
         onClick={redirectToMarketplace}
       >
         <span className="text-x text-green-600">MarketPlace</span>
-      </button> to add/view products</span>
+      </button> to view products</span>
              {/*
             <div className="flex flex-col h-[600px] items-start gap-6 gap-y-8 flex-wrap">
               <DashCardOne />
@@ -112,4 +137,4 @@ const DashboardHome = () => {
   )
 };
 
-export default DashboardHome;
+export default RetailerDashHome;

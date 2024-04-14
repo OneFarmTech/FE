@@ -66,7 +66,7 @@ const RetailerOrderDetails = () => {
 
       <div  className='flex justify-between'>
       <h2 className='font-bold md:text-xl text-[18px] text-[#0D1821] tracking-wide font-lato'>Order Details</h2>
-      <h2 className={status === 'Approved' ? 'text-green-500 font-semibold  md:text-xl text-[14px]' : 'text-red-300 md:text-xl text-[18px] font-semibold'}>{status}</h2>
+    {/*<h2 className={status === 'Approved' ? 'text-green-500 font-semibold  md:text-xl text-[14px]' : 'text-red-300 md:text-xl text-[18px] font-semibold'}>{status}</h2>*/}
       </div>
       
       <div className='flex flex-col md:flex-row gap-6 flex-shrink-0'>
@@ -143,7 +143,7 @@ const RetailerOrderDetails = () => {
   <div className='flex flex-col gap-4 w-full md:w-[50%]'>
     <h2 className='font-bold md:text-xl text-[14px] text-[#0D1821] md:tracking-wide  tracking-normal font-lato'>Our Email </h2>
     <div className='text-green-300  flex w-full h-[64px] items-center bg-[#fff] pt-[20px] pr-[45px] pb-[22px] pl-[28px] rounded-[10px] shadow-md'>
-         sales@onefarm.com   
+         sales@onefarmtech.com   
        </div>
   </div>
 

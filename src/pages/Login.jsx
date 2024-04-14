@@ -13,6 +13,7 @@ import axios from 'axios';
 import loginAvatar from '../assets/images/dashboard/loginAvatar3.png'
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { IoEyeOffOutline } from "react-icons/io5";
+import QueryClient from "../js/QueryClient";
 
 
 
@@ -52,17 +53,66 @@ const Login = () => {
     }))
   }
 
+
+
   const login = async (e) => {
     e.preventDefault();
   
     try {
-      const response = await axios.post('https://api.onefarmtech.com/api/login', loginDetails);
+      let authToken = sessionStorage.getItem("token");
+      const client = new QueryClient(authToken);
+      const loginData = {
+        email: loginDetails.email,
+        password: loginDetails.password,
+      }
+      let response = await client.post("https://api.onefarmtech.com/api/login", loginData);
+    console.log(response);
+    const Role = localStorage.getItem('userRole')
+    if (response.data.token && Role === 'retailer') {
+      navigate('/dashboard/retailmarketplace');
+      sessionStorage.setItem("token", response.data.token);
+    }
+    else  if (response.data.token && Role === 'farmer') {
+      navigate('/dashboard/home');
+      sessionStorage.setItem("token", response.data.token);
+      
+    
+    }
+   else {
+    console.log(Role)
+      console.error("Token not received in response");
+   }
   
-      if (response.data.token) {
+    } catch (error) {
+        // Handle login error
+      }
+    };
+    
+  
+
+  {/*const login = async (e) => {
+    e.preventDefault();
+  
+    try {
+      const response = await axios.post('https://api.onefarmtech.com/api/login', loginDetails,{
+        mode:'cors',
+        headers: {Authorization:'bearer',
+          'Content-Type': 'application/json',
+        },
+      });
+      const Role = localStorage.getItem('userRole');
+      if (response.data.token && Role === 'retailer') {
+        navigate('/dashboard/retailmarketplace');
         sessionStorage.setItem("token", response.data.token);
+      }
+      else  if (response.data.token && Role === 'farmer') {
         navigate('/dashboard/home');
+        sessionStorage.setItem("token", response.data.token);
+        
+      
       }
      else {
+      console.log(Role)
         console.error("Token not received in response");
         
         
@@ -86,7 +136,7 @@ const Login = () => {
       
      
     }
-  };
+  };*/}
   
     
 

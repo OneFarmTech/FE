@@ -25,19 +25,21 @@ const Dashboard = () => {
     setHeader(title);
   };
 
+const userName = localStorage.getItem("userName");
+
   useEffect(() => {
     dispatch(fetchUser());
   }, [dispatch]);
 
   useEffect(() => {
-    userDetails?.name && setHeader(`Hello ${userDetails.firstname}`);
+    setHeader(`Hello ${userName}`);
     // console.log(userDetails.roles)
     sessionStorage.setItem('role', userDetails.roles);
     setPermissions(userDetails.permissions);
-  }, [userDetails])
+  }, [])
   
   const resetHeading = () => {
-    setHeader(userDetails.firstname == undefined ? null : `Hello ${userDetails.firstname}`);
+    setHeader(`Hello ${userName}`);
 
   }
 
@@ -45,7 +47,7 @@ const Dashboard = () => {
     <>
     <DashNav permissions={permissions ?  permissions : ""} />
       <div className="2xl:pl-[16%] pt-[310px] lg:pt-[136px] relative bg-[#f9f9f9] h-screen w-full">
-        <DashHeader title={name} username={userDetails.firstname} avatar={userDetails.image} />
+        <DashHeader title={name} username={userName} avatar={userDetails.image} />
         <div className="overflow-y-auto bg-[#f9f9f9]">
         <Outlet context={[changeHeading, resetHeading]} />
         </div>
