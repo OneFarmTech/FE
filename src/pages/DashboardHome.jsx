@@ -2,10 +2,44 @@ import Footer from "../components/Footer";
 import AvatarMessage from "../components/dashboardComp/AvatarMessage";
 import DashCardOne from "../components/dashboardComp/DashCardOne";
 import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 
 const DashboardHome = () => {
   const navigate = useNavigate();
+  const [spending, setSpending] = useState(0);
+
+  useEffect(() => {
+    const fetchOrderData = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        const token = sessionStorage.getItem('token');
+        const response = await axios.get(`https://api.onefarmtech.com/api/orders`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const orders = response.data.filter(order => order.product.user_id === parseInt(userId));
+
+     
+
+       // setOrderCount(orders.length);
+
+        // Calculate spending
+        let totalSpending = 0;
+        orders.forEach(order => {
+          totalSpending += (order.cost * order.quantity);
+        });
+        setSpending(totalSpending);
+      } catch (error) {
+        console.error('Error fetching order data:', error);
+      }
+    };
+
+    fetchOrderData();
+  }, []);
+
 
   const redirectToMarketplace = () => {
     const Role = localStorage.getItem('userRole');
@@ -42,8 +76,10 @@ const DashboardHome = () => {
           
           <div className="flex flex-col justify-between rounded-md p-5 w-[33%] bg-green-30 text-white shadow-lg">
             <h4 className="text-sm md:text-lg">Earnings This Month</h4>
-            <h2 className="text-lg md:text-2xl naira-sign">0</h2>
-            <p className="text-sm md:text-lg"></p>
+            <div  className='flex justify-between flex-col md:flex-row'> 
+          <h2 className="text-[12px] md:text-xl ">Total:</h2>
+          <p className="text-[12px] md:text-lg naira-sign">{spending.toLocaleString()}</p>
+          </div>
           </div>
         </div>
 

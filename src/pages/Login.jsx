@@ -96,7 +96,7 @@ const Login = () => {
     try {
       const response = await axios.post('https://api.onefarmtech.com/api/login', loginDetails,{
         mode:'cors',
-        headers: {Authorization:'bearer',
+        headers: {
           'Content-Type': 'application/json',
         },
       });

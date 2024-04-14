@@ -14,18 +14,19 @@ const TopSection = () => {
             </Link>
           }
 
-          <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-[33%] bg-white text-black-100">
-            <h4 className="text-sm md:text-lg">Pending Orders:</h4>
-            <h2 className="text-lg md:text-2xl">0</h2>
-            <p className="text-sm md:text-lg"></p>
-          </div>
+<Link to='/dashboard/approveorders' title='View approved orders' className="flex flex-col justify-between shadow-md rounded-lg p-5 w-[33%] bg-white text-black-100">
+              <h4 className="text-sm md:text-lg">Approved Orders</h4>
+              <h2 className="text-lg md:text-2xl"></h2>
+              <p className="text-sm md:text-lgd"></p>
+            </Link>
+            
         
 
-        <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-[33%] bg-white text-black-100">
-          <h4 className="text-sm md:text-lg">Settled Orders</h4>
-          <h2 className="text-lg md:text-2xl">0</h2>
-          <p className="text-sm md:text-lg"></p>
-        </div>
+            <Link to='/dashboard/pendingorders' title='View approved orders' className="flex flex-col justify-between shadow-md rounded-lg p-5 w-[33%] bg-white text-black-100">
+              <h4 className="text-sm md:text-lg">Pending Orders</h4>
+              <h2 className="text-lg md:text-2xl"></h2>
+              <p className="text-sm md:text-lg"></p>
+            </Link>
       </div>
     </section>
   );
