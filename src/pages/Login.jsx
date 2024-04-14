@@ -55,7 +55,7 @@ const Login = () => {
 
 
 
-  const login = async (e) => {
+  {/*const login = async (e) => {
     e.preventDefault();
   
     try {
@@ -86,11 +86,11 @@ const Login = () => {
     } catch (error) {
         // Handle login error
       }
-    };
+    };*/}
     
   
 
-  {/*const login = async (e) => {
+  const login = async (e) => {
     e.preventDefault();
   
     try {
@@ -136,7 +136,7 @@ const Login = () => {
       
      
     }
-  };*/}
+  };
   
     
 
