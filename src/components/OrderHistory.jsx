@@ -11,7 +11,7 @@ const OrderHistory = () => {
       const userId = localStorage.getItem('userId');
       const token = sessionStorage.getItem('token');
       try {
-        const response = await axios.get('https://api.onefarmtech.com/api/orders', {
+        const response = await axios.get(import.meta.env.VITE_API_URL + 'orders', {
           headers: {
             Authorization: `Bearer ${token}`
           },

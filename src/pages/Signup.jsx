@@ -111,6 +111,12 @@ const Signup = () => {
           confirmButtonText: 'Okay',
         }).then((result) => {
           if (result.isConfirmed) {
+            const userRole = signupDetails.roles;
+            const userName = signupDetails.firstname;
+            
+            localStorage.setItem('userRole', userRole);
+            localStorage.setItem('userName', userName);
+            console.log(userRole);
             navigate('/auth/login');
           }
         });
@@ -118,7 +124,7 @@ const Signup = () => {
 
         {/*navigate('/dashboard/home');*/}
 
-        const userRole = signupDetails.roles[0];
+        const userRole = signupDetails.roles;
         const userName = signupDetails.firstname;
         
         localStorage.setItem('userRole', userRole);

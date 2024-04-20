@@ -138,7 +138,7 @@ const prevPic = () => {
           {/*  <h4 className="font-semibold text-2xl line-through italic text-black-50">#8,500</h4>
             <h5 className="text-white bg-green-200 rounded p-1">-12%</h5>*/}
           </div>
-          <p className="text-2xl">Shipping from Pankshin, Jos</p>
+          <p className="text-2xl">Shipping from OneFarm Head Office-UTAKO, Abuja</p>
           <button onClick={() => handleAddToCart(product)} className="text-white w-4/5 bg-green-30 py-3 text-xl rounded-full">Add To Cart</button>
 
         </div>

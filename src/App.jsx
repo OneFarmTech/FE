@@ -36,6 +36,7 @@ import RetailerOrderDetails from "./components/RetailerOrderDetails.jsx";
 import RetailerDashHome from "./pages/RetailerDashHome.jsx";
 import PendingOrders from "./pages/PendingOrders.jsx";
 import ApprovedOrders from "./pages/ApprovedOrder.jsx";
+import Support from "./pages/Support.jsx";
 
 const App = () => {
   const { userToken } = useSelector((state) => (state.register));
@@ -222,6 +223,10 @@ const App = () => {
         {
           path: '/dashboard/approveorders',
           element: <ApprovedOrders />
+        },
+        {
+          path: '/dashboard/support',
+          element: <Support />
         },
       ]
     }

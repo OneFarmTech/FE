@@ -8,22 +8,13 @@ const RetailTop = () => {
   const navigate = useNavigate();
   const [orderCount, setOrderCount] = useState(0);
   const [spending, setSpending] = useState(0);
-  
-
-
-  {/*const redirectToMarketplace = () => {
-    const Role = localStorage.getItem('userRole');
-    if (Role === 'retailer') {
-      navigate('/dashboard/retailmarketplace');
-    } 
-  };*/}
 
   useEffect(() => {
     const fetchOrderData = async () => {
       try {
         const userId = localStorage.getItem('userId');
         const token = sessionStorage.getItem('token');
-        const response = await axios.get(`https://api.onefarmtech.com/api/orders`, {
+        const response = await axios.get(import.meta.env.VITE_API_URL + `orders`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -32,11 +23,11 @@ const RetailTop = () => {
 
          // Extract unique order IDs
       const uniqueOrderIds = new Set(orders.map(order => order.order_id));
+
       // Count the number of unique order IDs
       const totalOrders = uniqueOrderIds.size;
 
       setOrderCount(totalOrders);
-       // setOrderCount(orders.length);
 
         // Calculate spending
         let totalSpending = 0;
@@ -52,15 +43,12 @@ const RetailTop = () => {
     fetchOrderData();
   }, []);
 
-
-  return (
+return (
     <section className="ml-6">
 
 <div className="flex overflow-x-auto md:overflow-x-hidden gap-5 lg:gap-10 h-52  w-auto py-4 items-stretch px-2">
          
-         
-
-          <Link to='/dashboard/buyerorders' title='click to view all your Orders' className="flex flex-col justify-between shadow-md rounded-lg py-5 px-2 md:px-5 md:w-[33%]  w-[50%] bg-white text-black-100">
+         <Link to='/dashboard/buyerorders' title='click to view all your Orders' className="flex flex-col justify-between shadow-md rounded-lg py-5 px-2 md:px-5 md:w-[33%]  w-[50%] bg-white text-black-100">
             <h2 className="text-sm md:text-xl text-green-600  font-bold">Order History</h2>
             <div  className='flex flex-col md:flex-row justify-between'>            
               <p className="text-sm md:text-xl">Total Orders:</p>
@@ -68,13 +56,6 @@ const RetailTop = () => {
             </div>
 
           </Link>
-          
-
-         {/*} <div className="flex flex-col justify-between shadow-md rounded-lg p-5 w-[33%] bg-white text-black-100">
-            <h4 className="text-sm md:text-lg">Settled Orders</h4>
-            <h2 className="text-lg md:text-2xl">0</h2>
-            <p className="text-sm md:text-lgd"></p>
-</div>*/}
         
         <div className="flex flex-col justify-between rounded-md py-5 px-2  md:px-5 md:w-[33%]  w-[50%] bg-green-30 text-white shadow-lg">
           <h4 className="text-[12px] md:text-xl font-bold">Spendings</h4>

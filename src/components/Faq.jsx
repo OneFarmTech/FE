@@ -3,9 +3,9 @@ import { useState } from "react";
 import FaqComp from "./FAQComp";
 
 const Faq = () => {
-  const [activeTab, setActiveTab] = useState("farm");
+  const [activeTab, setActiveTab] = useState("retail");
   const data = [
-    {
+   /* {
       label: "Farmer Questions",
       value: "farm",
       desc: [
@@ -40,8 +40,8 @@ const Faq = () => {
           answer: "OneFarm Tech offers expert guidance on crop management, pest control, sustainable farming practices, and more through our comprehensive library of educational resources and local workshops.",
         }
       ]
-    },
-    {
+    },*/
+   /* {
       label: "Wholesalers Questions",
       value: "middle",
       desc: [
@@ -76,9 +76,9 @@ const Faq = () => {
           answer: "Yes, we offer seamless integration with trusted logistics partners, streamlining your distribution operations and ensuring timely deliveries.",
         }
       ]
-    },
+    },*/
     {
-      label: "Retailers Questions",
+      label: "FAQ",
       value: "retail",
       desc: [
         {

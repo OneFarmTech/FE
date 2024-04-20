@@ -62,6 +62,7 @@ const userSlice = createSlice({
         const userId = state.userDetails.id;
         localStorage.setItem('userId', userId);
         localStorage.setItem('userName', userName);
+        console.log('userSlice-role---', userRole)
       
       })
       .addCase(fetchUser.pending, (state) => {

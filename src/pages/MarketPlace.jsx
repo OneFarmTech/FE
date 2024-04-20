@@ -54,9 +54,9 @@ const MarketPlace = () => {
   }, []);
   return (
     <section className="">
-  {/* <div className="h-auto mb-0 flex flex-col content-between items-stretch">
+  <div className="h-auto mb-0 flex flex-col content-between items-stretch">
         <TopSection />
-  </div>*/}
+  </div>
         
         <div className="overflow-x-hidden flex flex-col w-full h-auto px-[2%] py-2 gap-5 lg:gap-0">
 

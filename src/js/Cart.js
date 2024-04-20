@@ -13,31 +13,30 @@ class ShoppingCart {
     
    
     addToCart(item) {
-    
-    
-      const existingItemIndex = this.cartItems.findIndex((cartItem) => cartItem.id === item.id);
-    
-      if (existingItemIndex !== -1) {
-        // Item already exists in the cart, update quantity and total amount
-        this.cartItems[existingItemIndex].quantity += 1;
-        this.cartItems[existingItemIndex].total = this.cartItems[existingItemIndex].quantity * this.cartItems[existingItemIndex].cost;
-
-      } else {
-        // Item doesn't exist, add it to the cart
-        const newItem = {
-          user_id: this.userId,
-          product_id: item.id,
-          image: item.images[0].image,
-          name: item.name,
-          cost: item.cost,
-          quantity: 1,
-          total: item.cost,
-        };
-        this.cartItems.push(newItem);
-      }
-  
-      this.updateLocalStorage();
-    }
+            const existingItemIndex = this.cartItems.findIndex((cartitem) => cartitem.id === item.id);
+            
+            if (existingItemIndex !== -1) {
+              // Item already exists in the cart, update quantity and total amount
+              this.cartItems[existingItemIndex].quantity += 1;
+              this.cartItems[existingItemIndex].total = this.cartItems[existingItemIndex].quantity * this.cartItems[existingItemIndex].cost;
+              
+                } else {
+                  // Item doesn't exist, add it to the cart
+                  const newItem = {
+                    user_id: this.userId,
+                    id: item.id,
+                    image: item.images[0].image,
+                    name: item.name,
+                    cost: item.cost,
+                    quantity: 1,
+                    total: item.cost,
+                  };
+                  console.log('ItemID: '+  item.id)
+                  this.cartItems.push(newItem);
+                }
+            
+                this.updateLocalStorage();
+              }
   
     removeFromCart(itemId) {
       const itemIndex = this.cartItems.findIndex((item) => item.id === itemId);

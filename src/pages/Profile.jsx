@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
-import profilePic from '../assets/images/dashboard/profile.svg';
 import edit from '../assets/images/dashboard/edit.svg';
-import image from '../assets/images/dashboard/img.svg'
-import confirmPass, { checkPass } from "../js/confirmPass";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser, updateUser } from "../redux/user/userSlice";
 import ErrorMessage from "../components/pageChange/ErrorMessage";

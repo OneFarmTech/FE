@@ -6,6 +6,7 @@ import { PaystackButton } from "react-paystack"
 import ShoppingCart from "../js/Cart";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 
 const Cart = () => {
@@ -20,27 +21,22 @@ const Cart = () => {
   const [selectedDelivery, setSelectedDelivery] = useState("");
   const [shippingAddressVisible, setShippingAddressVisible] = useState(false);
   const [pickUpStation, setPickUpStation] = useState("");
-
   const [shippingAddress, setShippingAddress] = useState("");
 
-
-  const handleDeliveryOptionChange = (option) => {
+const handleDeliveryOptionChange = (option) => {
     setSelectedDelivery(option);
     setShippingAddressVisible(option === "doorDelivery");
   };
 
-
-
-
- const orderID = cart.generateOrderID();
+const orderID = cart.generateOrderID();
  const selectedCartItems = cartItems ? cartItems.map(item => ({
-  product_id: item.product_id,
+  product_id: item.id,
   cost: item.cost,
   quantity: item.quantity,
   user_id: item.user_id
 })) : [];
 
- const orderData = {
+const orderData = {
   orderID,
   cartItems: selectedCartItems,
   shipping_address:'',
@@ -69,29 +65,29 @@ const handlePlaceOrder = () => {
 };
 
 
-  useEffect(() => {
+useEffect(() => {
     // Retrieve cartItems from localStorage
     const userId = localStorage.getItem('userId');
     const items = localStorage.getItem(`cartItems_${userId}`);
     const parsedItems = JSON.parse(items) || [];
     setCartItems(parsedItems);
-  },[setCartItems]);
+},[setCartItems]);
 
-  useEffect(() => {
+useEffect(() => {
     
-    fetchUserData(); 
+ fetchUserData(); 
   }, []);
 
-  const fetchUserData = async () => {
+const fetchUserData = async () => {
     try {
       const token = sessionStorage.getItem("token");
-      const response = await axios.get('https://api.onefarmtech.com/api/profile', {
+      const response = await axios.get(import.meta.env.VITE_API_URL + 'profile', {
         headers: {
           Authorization: `Bearer ${token}`
         }
       });
 
-      console.log("Response data:", response.data);
+console.log("Response data:", response.data);
   
       if (response.status === 200) { 
         const userData = response.data.data;
@@ -137,25 +133,17 @@ console.log(cart.getTotalAmount());
   // };
   const publicKey = "pk_test_d59dabde8abe1d35102b70be0c2e19760ece0c65"
   const delivery = 0;
-  const padding = 0o0;
 
-  let amount = (cart.getTotalAmount()+ delivery + padding + padding);
+  let amount = ((cart.getTotalAmount() + delivery) *100);
 
   
   const componentProps = {
-
-    email,
-
-    amount,
-
-    firstname,
-
-    lastname,
-
-    phone,
-
-    shippingAddress,
-
+  email,
+  amount,
+  firstname,
+  lastname,
+  phone,
+  shippingAddress,
     metadata: {
 
    },
@@ -186,7 +174,7 @@ console.log(cart.getTotalAmount());
           }
       const token = sessionStorage.getItem('token')
           // Send order item data to the order create endpoint
-          const itemResponse = await axios.post('https://api.onefarmtech.com/api/orders/create', orderItemData, {
+          const itemResponse = await axios.post(import.meta.env.VITE_API_URL + 'orders/create', orderItemData, {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -250,8 +238,10 @@ console.log(cart.getTotalAmount());
       </div>
 
       <div className="flex-1">
+        <div  className="flex justify-between">
         <h1 className="text-3xl font-bold mb-[32px] text-green-500">Checkout</h1>
-
+        <Link to='/dashboard/retailmarketplace' className="text-[14px] hover:bg-green-30 rounded-[5px] text-green-50 hover:text-white px-4 py-2 mb-[32px] bg-green-500">Back to Marketplace</Link>
+        </div>
         <div className="rounded-lg shadow-md bg-white p-4 h-auto flex flex-col gap-1">
           <section
             action="#"
@@ -317,9 +307,9 @@ console.log(cart.getTotalAmount());
                     onChange={(e) => setPickUpStation(e.target.value)}
                   >
                     <option value=""  disabled selected>Select Your Prefered Pickup Station</option>
-                    <option value="OneFarm Head Office">OneFarm Head Office - Suite No. 7, cherry hill plaza, Eke Yusuf close, behind Eterna Filling station Utako, Abuja</option>
-                    <option value="God is Good Motors"  disabled  >God is Good Motors (GIGM) Head office, Utako, Abuja  <span className="font-bold italic">Comming Soon</span></option>
-                    <option value="GUO Motors"  disabled>GUO Motors, Jabi, Abuja<span className="font-bold italic">Comming Soon</span></option>
+                    <option value="OneFarm Head Office-UTAKO" className="bg-green-900">OneFarm Head Office - Suite No. 7, cherry hill plaza, Eke Yusuf close, behind Eterna Filling station Utako, Abuja</option>
+                    <option value="God is Good Motors" disabled  >God is Good Motors (GIGM) Head office, Utako, Abuja  <span className="font-bold italic">---COMMING SOON</span></option>
+                    <option value="GUO Motors" disabled>GUO Motors, Jabi, Abuja  <span className="font-bold italic text-red-300">---COMMING SOON</span></option>
                    {/* <option value="Lagos" disabled>Lagos</option>
                     <option value="Calabar">Calabar</option>
                  <option value="PortHarcourt">PortHarcort</option>*/}
@@ -332,7 +322,7 @@ console.log(cart.getTotalAmount());
                   color="green"
                 disabled
                   size="lg"
-                  label="Door Delivery (Abuja only)-COMMING SOON"
+                  label="Door Delivery (Abuja only)---COMMING SOON"
                   defaultChecked={selectedDelivery === "doorDelivery"}
                   onChange={() => handleDeliveryOptionChange("doorDelivery")}
                 />

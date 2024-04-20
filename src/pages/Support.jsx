@@ -1,7 +1,7 @@
 import Faq from "../components/Faq";
 import bg from '../assets/images/contactbg.png';
 
-const Contact = () => (
+const Support = () => (
   <main className="max-w-[1700px] m-auto">
     <section className="w-full max-w-[2000px] m-auto flex flex-col items-center gap-7 py-10 px-[4%]">
       <h1 className="font-bold text-center text-3xl md:text-5xl"><span className="text-orange-10">Connect</span> with Us We would love to hear from you!</h1>
@@ -44,12 +44,12 @@ const Contact = () => (
       </div>
       
     </section>
-    <section className="py-7 px-[5%] w-full">
+    {/*<section className="py-7 px-[5%] w-full">
       <h2 className="text-green-30 text-3xl mb-9">You Have Questions? We Have Answers.</h2>
       
       <Faq />
-    </section>
+</section>*/}
   </main>
 );
 
-export default Contact;
+export default Support;

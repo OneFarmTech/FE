@@ -12,7 +12,7 @@ const ProductItem = ({ data, onDelete }) => {
       setIsDeleting(true);
       let token = sessionStorage.getItem("token");
       const axiosInstance = axios.create({
-        baseURL: 'https://api.onefarmtech.com/api',
+        baseURL: import.meta.env.VITE_API_URL,
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -51,6 +51,7 @@ const ProductItem = ({ data, onDelete }) => {
       setIsDeleting(false);
     }
   };
+
   const confirmDelete = async () => {
     const result = await Swal.fire({
       title: 'Are you sure?',
@@ -67,7 +68,7 @@ const ProductItem = ({ data, onDelete }) => {
     }
   };
 
-  const displayCost = () => {
+const displayCost = () => {
     const lowerCaseName = data.name.toLowerCase();
   
     // Check the product class to determine the cost display format

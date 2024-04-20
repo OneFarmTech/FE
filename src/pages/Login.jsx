@@ -1,28 +1,26 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
-import ChangePage from "../components/pageChange/SwitchPage";
-import { clearUser, loginThunk, verifyLogin } from "../redux/register/registerSlice";
+import { clearUser} from "../redux/register/registerSlice";
 import ErrorMessage from "../components/pageChange/ErrorMessage";
 import InputValidation from "../components/pageChange/InputValidation";
-import Counter from "../components/pageChange/Counter";
 import { usePOST } from "../hooks/usePOST.hook";
-import { useUser } from "../components/contexts/UserContext.jsx";
 import { UserProvider } from "../components/contexts/UserContext.jsx";
 import axios from 'axios';
 import loginAvatar from '../assets/images/dashboard/loginAvatar3.png'
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { IoEyeOffOutline } from "react-icons/io5";
-import QueryClient from "../js/QueryClient";
+
+
 
 
 
 
 const Login = () => {
-  const { updateUserRole } = useUser();
   const navigate = useNavigate();
   const { mutate, isPending, isError, isSuccess } = usePOST('login', false);
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const togglePasswordVisibility = (field) => {
     if (field === "password") {
@@ -39,7 +37,6 @@ const Login = () => {
     message: '',
   });
 
-  const [showVerifyOTP, setShowVerifyOTP] = useState(false)
   const store = useSelector((state) => (state.register));
   const dispatch = useDispatch();
 
@@ -54,191 +51,73 @@ const Login = () => {
   }
 
 
-
-  {/*const login = async (e) => {
-    e.preventDefault();
-  
-    try {
-      let authToken = sessionStorage.getItem("token");
-      const client = new QueryClient(authToken);
-      const loginData = {
-        email: loginDetails.email,
-        password: loginDetails.password,
-      }
-      let response = await client.post("https://api.onefarmtech.com/api/login", loginData);
-    console.log(response);
-    const Role = localStorage.getItem('userRole')
-    if (response.data.token && Role === 'retailer') {
-      navigate('/dashboard/retailmarketplace');
-      sessionStorage.setItem("token", response.data.token);
-    }
-    else  if (response.data.token && Role === 'farmer') {
-      navigate('/dashboard/home');
-      sessionStorage.setItem("token", response.data.token);
+const login = async (e) => {
+      e.preventDefault();
+      setLoading(true);
       
+      try {
+        // Send login request to obtain token
+        const response = await axios.post(import.meta.env.VITE_API_URL + 'login', loginDetails, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        
+        // Extract token from response
+        const token = response.data.token;
+        
+        // Store token in session storage
+        sessionStorage.setItem("token", token);
+        
+         // Redirect user based on role
+      navigateToDashboard(token);
+
+      } catch (error) {
+        console.error("Error logging in:", error);
+        setvalid((state) => ({
+          ...state,
+          error: true,
+          message: 'Something failed, try again'
+        }));
     
-    }
-   else {
-    console.log(Role)
-      console.error("Token not received in response");
-   }
-  
-    } catch (error) {
-        // Handle login error
+        setTimeout(() => {
+          setvalid((state) => ({
+            ...state,
+            error: false,
+            message: ''
+          }))
+        }, 3000);
+      }finally {
+        setLoading(false); // Set loading to false after login process finishes
       }
-    };*/}
+    };
+
+    const navigateToDashboard = async (token) => {
+      try {
+        // Fetch user profile using the obtained token
+        const profileResponse = await axios.get(import.meta.env.VITE_API_URL + 'profile', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        // Extract user role from profile response
+        const userRole = profileResponse.data.data.roles[0];
+        console.log(userRole);
+  
+        // Redirect user based on role
+        if (userRole === 'retailer') {
+          navigate('/dashboard/retailmarketplace');
+        } else if (userRole === 'farmer') {
+          navigate('/dashboard/home');
+        } else {
+          console.error("Unknown user role:", userRole);
+        }
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
     
-  
-
-  const login = async (e) => {
-    e.preventDefault();
-  
-    try {
-      const response = await axios.post('https://api.onefarmtech.com/api/login', loginDetails,{
-        mode:'cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const Role = localStorage.getItem('userRole');
-      if (response.data.token && Role === 'retailer') {
-        navigate('/dashboard/retailmarketplace');
-        sessionStorage.setItem("token", response.data.token);
-      }
-      else  if (response.data.token && Role === 'farmer') {
-        navigate('/dashboard/home');
-        sessionStorage.setItem("token", response.data.token);
-        
-      
-      }
-     else {
-      console.log(Role)
-        console.error("Token not received in response");
-        
-        
-      }
-    } catch (error) {
-      console.error("Error logging in:", error);
-      setvalid((state) => ({
-        ...state,
-        error: true,
-         message: 'Login Credentials Incorrect. check your login credentials and try again'
-       }));
-
-      setTimeout(() => {
-        setvalid((state) => ({
-          ...state,
-          error: false,
-          message: ''
-        }))
-       }, 3000)
-      return;
-      
-     
-    }
-  };
-  
-    
-
-
-  {/*const login = (e) => {
-    e.preventDefault();
-     if (loginDetails.email == '') {
-      setvalid((state) => ({
-        ...state,
-        error: true,
-         message: 'email field cannot be blank'
-       }));
-
-      setTimeout(() => {
-        setvalid((state) => ({
-          ...state,
-          error: false,
-          message: ''
-        }))
-       }, 3000)
-      return;
-    } else if (loginDetails.password === ''){
-      setvalid((state) => ({
-        ...state,
-        error: true,
-         message: 'password field cannot be Blank'
-       }));
-
-      setTimeout(() => {
-        setvalid((state) => ({
-          ...state,
-          error: false,
-          message: ''
-        }))
-       }, 3000)
-      return;
-    }
-
-    //   dispatch(loginThunk(loginDetails.email));
-
-    console.log(loginDetails.email);
-
-    {/*const email = loginDetails.email
-
-    mutate({ loginDetails }, {
-      onSuccess: (data) => {
-  
-          sessionStorage.setItem("token", data.token);
-
-          updateUserRole(localStorage.getItem('userRole'));
-
-
-          navigate('/dashboard/home')
-        
-       
-      },
-      onError: (error) => {
-        console.log('>>>>', error);
-      }
-    })
-    mutate
-  }*/}
-
-  
- {/*const codeVerification = (e) => {
-    e.preventDefault();
-    if (loginDetails.password == '') {
-      setvalid((state) => ({
-        ...state,
-        error: true,
-        message: 'Password Field cannot blank'
-      }));
-
-      setTimeout(() => {
-        setvalid((state) => ({
-          ...state,
-          error: false,
-          message: ''
-        }))
-      }, 3000)
-      return;
-    }
-   
-  
-    mutate(loginDetails, {
-      onSuccess: (returnData) => {
-        sessionStorage.setItem("token", returnData.token);
-      
-        updateUserRole(localStorage.getItem('userRole'));
-       
-        navigate('/dashboard/home');
-        
-      },
-      onError: (error) => {
-        console.log(error);
-      }
-    })
-
-    // dispatch(verifyLogin(loginDetails));
-    mutate
-
-  }*/}
 
   const allFieldsFilled = Object.values(loginDetails).every(value => value !== "");
 
@@ -326,32 +205,9 @@ const Login = () => {
         <div className="">
           <button className={`text-white w-full lg:w-[full] max-w-lg py-3 rounded-[30px] border-2 justify-center items-center inline-flex transition-colors ${allFieldsFilled ? 'bg-green-500 hover:bg-green-600' : 'bg-[#B2D5B4]'}`}
               disabled={isPending}
-              type="submit">{isPending ? 'Please wait.....' : 'Login'}</button>
+              type="submit">{loading ? 'Login in.....' : 'Login'}</button>
         </div>
       </form>
-
-    {/*  {showVerifyOTP && (<form className="flex flex-col gap-5" onSubmit={codeVerification}>
-        <div className="flex flex-col gap-6 lg:flex-row lg:gap-0 lg:justify-between items-center">
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-4">
-              <label htmlFor="otp" className="font-bold">Verification Code</label>
-              <input className="pl-3 bg-transparent border border-[#C7CDD2] p-3" type="text" id="otp" name="otp" placeholder="Enter code sent to email" onChange={handleChange} />
-            </div>
-
-            <div className="italic flex flex-col gap-3">
-              <p>We just sent a code to you. It may take a minute to receive your code</p>
-              <p>Haven’t recieved it? <Counter login={login} /></p>
-            </div>
-          </div>
-
-
-        </div>*
-
-        <div className="flex justify-between pr-3 max-w-md self-center w-full lg:self-start">
-          <button type="button" className="text-white py-2 px-9 bg-black-100" onClick={() => {  navigate('/')}}>Go Back</button>
-          <button className="text-white py-2 px-9 bg-green-30" type="submit" disabled={isPending} >{isPending ? 'Please wait.....' : 'Login'}</button>
-        </div>
-</form>)}*/}
 
       
       </div>

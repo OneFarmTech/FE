@@ -1,6 +1,3 @@
-import Footer from "../components/Footer";
-import AvatarMessage from "../components/dashboardComp/AvatarMessage";
-import DashCardOne from "../components/dashboardComp/DashCardOne";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -9,24 +6,40 @@ import axios from 'axios';
 const DashboardHome = () => {
   const navigate = useNavigate();
   const [spending, setSpending] = useState(0);
+  const [pendingCount, setPendingCount] = useState(0);
+  const [approvedCount, setApprovedCount] = useState(0);
 
   useEffect(() => {
     const fetchOrderData = async () => {
       try {
         const userId = localStorage.getItem('userId');
         const token = sessionStorage.getItem('token');
-        const response = await axios.get(`https://api.onefarmtech.com/api/orders`, {
+        const response = await axios.get(import.meta.env.VITE_API_URL + `orders`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         const orders = response.data.filter(order => order.product.user_id === parseInt(userId));
+        // Calculate pending and approved counts
+        const pendingOrders = {};
+        const approvedOrders = {};
 
-     
+        orders.forEach(order => {
+          if (order.status === 'Pending') {
+            pendingOrders[order.order_id] = true;
+          } else if (order.status === 'Approved') {
+            approvedOrders[order.order_id] = true;
+          }
+        });
 
-       // setOrderCount(orders.length);
+        // Count unique order IDs for pending and approved orders
+        const pendingCount = Object.keys(pendingOrders).length;
+        const approvedCount = Object.keys(approvedOrders).length;
 
-        // Calculate spending
+        setPendingCount(pendingCount);
+        setApprovedCount(approvedCount);
+
+        // Calculate erning
         let totalSpending = 0;
         orders.forEach(order => {
           totalSpending += (order.cost * order.quantity);
@@ -60,22 +73,26 @@ const DashboardHome = () => {
          
             
             <Link to='/dashboard/pendingorders' className="flex flex-col justify-between shadow-md rounded-lg p-5 w-[33%] bg-white text-black-100">
+            <div className='flex flex-col md:flex-row justify-between'>
               <h4 className="text-sm md:text-lg">Pending Orders</h4>
-              <h2 className="text-lg md:text-2xl"></h2>
+              <h2 className="text-lg md:text-xl">{pendingCount}</h2>
+              </div>
               <p className="text-sm md:text-lg"></p>
             </Link>
             
 
             
             <Link to='/dashboard/approveorders' className="flex flex-col justify-between shadow-md rounded-lg p-5 w-[33%] bg-white text-black-100">
+              <div className='flex flex-col md:flex-row justify-between'>              
               <h4 className="text-sm md:text-lg">Approved Orders</h4>
-              <h2 className="text-lg md:text-2xl"></h2>
-              <p className="text-sm md:text-lgd"></p>
+              <h2 className="text-lg md:text-xl">{approvedCount}</h2>
+              </div>
+            <p className="text-sm md:text-lg"></p>
             </Link>
             
           
           <div className="flex flex-col justify-between rounded-md p-5 w-[33%] bg-green-30 text-white shadow-lg">
-            <h4 className="text-sm md:text-lg">Earnings This Month</h4>
+            <h4 className="text-sm md:text-lg">Earning</h4>
             <div  className='flex justify-between flex-col md:flex-row'> 
           <h2 className="text-[12px] md:text-xl ">Total:</h2>
           <p className="text-[12px] md:text-lg naira-sign">{spending.toLocaleString()}</p>
@@ -96,7 +113,7 @@ const DashboardHome = () => {
         onClick={redirectToMarketplace}
       >
         <span className="text-x text-green-600">MarketPlace</span>
-      </button> to add/view products</span>
+      </button> to add products</span>
              {/*
             <div className="flex flex-col h-[600px] items-start gap-6 gap-y-8 flex-wrap">
               <DashCardOne />
@@ -110,24 +127,23 @@ const DashboardHome = () => {
         </div> 
             
         <div className="flex flex-col gap-10">
-          <div className="flex flex-col gap-5 w-full max-w-[42rem]">
+         {/* <div className="flex flex-col gap-5 w-full max-w-[42rem]">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">Messages</h2>
-              {/*<button className="underline text-base">View more</button>*/}
+              {/*<button className="underline text-base">View more</button>
   </div> 
             
            {/* <div>
               <AvatarMessage name="ALiko Dangote" text="Great products I will refer you when I get the package" />
               <AvatarMessage name="ALiko Dangote" text="Great products I will refer you when I get the package" />
               <AvatarMessage name="ALiko Dangote" text="Great products I will refer you when I get the package" />
-          </div> */}
+          </div> 
           <p>Your messages will appear here. You dont have any messages yet</p>
-          </div>
+          </div>*/}
 
           <div className="flex flex-col gap-5 w-full max-w-[42rem]">
             <div className="flex justify-between items-center">
               <h2 className="text-2xl font-bold">Market Insights</h2>
-              <button className="underline text-base">View more</button>
             </div>
             
             <div className="p-5 bg-white shadow-md rounded-md">

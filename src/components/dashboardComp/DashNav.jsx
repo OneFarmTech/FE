@@ -89,7 +89,7 @@ const DashNav = (props) => {
     try {
       const token = sessionStorage.getItem('token');
       const response = await axios.post(
-        'https://api.onefarmtech.com/api/logout',
+        import.meta.env.VITE_API_URL + 'logout',
         {},
         {
           headers: {
@@ -195,6 +195,7 @@ const DashNav = (props) => {
             </button>
 
             </li>
+         {/*   
           <li>
             <NavLink to='payment' className={({ isActive }) => ( isActive
         ? 'flex gap-4 items-center text-green-30'
@@ -205,10 +206,12 @@ const DashNav = (props) => {
               <h4 className='text-xl hover:text-green-600'>Payment</h4>
             </NavLink>
           </li>
+            */}
+
           <li>
-            <NavLink to='support' className={({ isActive }) => ( isActive
+            <NavLink to='/dashboard/support' className={({ isActive }) => ( isActive
         ? 'flex gap-4 items-center text-green-30'
-        : 'flex gap-4 items-center text-black-50 pointer-events-none')} onClick={closeNav}>
+        : 'flex gap-4 items-center text-black-50 ')} onClick={closeNav}>
               <div className='w-6'>
                 <img src={support} alt="" />
               </div>
